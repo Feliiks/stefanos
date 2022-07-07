@@ -1,10 +1,13 @@
 import React from 'react'
+import { Container } from 'react-bootstrap'
+
+import Welcome from './Welcome'
 
 const Home = () => {
     return (
-        <div className="home">
-            home
-        </div>
+        <Container fluid className="home">
+            <Welcome />
+        </Container>
     )
 }
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Col, Row } from 'react-bootstrap'
 
 const Welcome = () => {
     return (
-        <div className="row welcome_section d-flex align-items-center justify-content-center position-relative">
+        <Row className="welcome_section d-flex align-items-center justify-content-center position-relative">
             <div className="filter" />
-            <div className=" col-lg-8 title position-relative d-flex flex-column">
+            <Col lg={8} className="title position-relative d-flex flex-column">
                 <h1>
                     STEFANOS
                 </h1>
@@ -15,8 +15,8 @@ const Welcome = () => {
                 <Button className="mx-auto login-btn">
                     CONNEXION
                 </Button>
-            </div>
-        </div>
+            </Col>
+        </Row>
     )
 }
 

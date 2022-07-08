@@ -5,6 +5,7 @@ import Header from './components/header'
 import Footer from './components/footer'
 
 import Home from './components/home'
+import Abonnements from './components/abonnements'
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
             <Header />
             <Routes>
                 <Route path="/" exact element={<Home />} />
+                <Route path="/abonnements" exact element={<Abonnements />} />
             </Routes>
             <Footer />
         </BrowserRouter>

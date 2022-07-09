@@ -2,12 +2,14 @@ import React from 'react'
 import { Button, NavDropdown } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
+import { RiUser3Line } from 'react-icons/ri'
+
 const UserBtn = ({ user }) => {
     if (!user) {
         return (
-            <Link to="/login">
-                <Button className="login-btn" style={{ height: "35px", width: "150px", padding: 0, fontSize: "16px" }}>
-                    Connexion
+            <Link to="/auth">
+                <Button className="login-navbar-btn">
+                    <RiUser3Line className="me-2" /> ME CONNECTER
                 </Button>
             </Link>
         )

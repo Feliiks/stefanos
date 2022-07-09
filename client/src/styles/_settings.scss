@@ -17,7 +17,7 @@ body, html {
 a, .nav-link {
     color: #000 !important;
 
-    &:hover, &:focus {
+    &:hover {
         color: #C85A19 !important;
     }
 }
@@ -49,4 +49,35 @@ a, .nav-link {
         box-shadow: none;
         background: #003326;
     }
+}
+
+.login-navbar-btn {
+    height: 50px;
+
+    padding: 15px;
+
+    border-left: 1px solid #DFDFDF;
+    border-right: 1px solid #DFDFDF;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
+    font-size: 14px;
+    color: #222222;
+    text-transform: uppercase;
+    font-weight: 600;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+
+    &:hover, &:focus, &:active {
+        background: #f05a02;
+        border-left: 1px solid #DFDFDF;
+        border-right: 1px solid #DFDFDF;
+        box-shadow: none;
+        outline: none;
+    }
+}
+
+.google-btn {
+    cursor: pointer;
 }

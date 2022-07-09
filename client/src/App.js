@@ -11,7 +11,7 @@ import Abonnements from './components/abonnements'
 import PronosticsAll from './components/pronostics/All'
 import PronosticsGrandChelem from './components/pronostics/GrandChelem'
 
-import Login from './components/login'
+import Auth from './components/auth'
 
 import Compte from "./components/compte"
 import Admin from './components/admin'
@@ -20,7 +20,7 @@ import NotFound from './components/others/NotFound'
 
 
 const App = () => {
-    const [user, setUser] = useState()
+    const [user, setUser] = useState(null)
 
     return (
         <BrowserRouter>
@@ -49,10 +49,10 @@ const App = () => {
                     }
                 />
 
-                <Route path="/login"
+                <Route path="/auth"
                        element={
                            <PrivateRoutes.LoggedOut user={user}>
-                               <Login />
+                               <Auth />
                            </PrivateRoutes.LoggedOut>
                        }
                 />

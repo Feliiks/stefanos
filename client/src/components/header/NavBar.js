@@ -1,5 +1,6 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
+import { Link } from "react-router-dom"
 
 const NavBar = ({ user }) => {
     return (
@@ -8,12 +9,22 @@ const NavBar = ({ user }) => {
             style={{ maxHeight: '100px', fontFamily: "Francois One" }}
             navbarScroll
         >
-            <Nav.Link href="/abonnements">ABONNEMENTS</Nav.Link>
-            <Nav.Link href="/pronostics/all">PRONOSTICS</Nav.Link>
+            <Nav.Link>
+                <Link to="/abonnements" style={{ textDecoration: "none" }}>
+                    ABONNEMENTS
+                </Link>
+            </Nav.Link>
+            <Nav.Link>
+                <Link to="/pronostics/all" style={{ textDecoration: "none" }}>
+                    PRONOSTICS
+                </Link>
+            </Nav.Link>
             <Nav.Link
                 className="nav-link-grand-chelem"
-                href="/pronostics/grand-chelem">
-                GRAND CHELEM
+            >
+                <Link to="/pronostics/grand-chelem" style={{ textDecoration: "none" }}>
+                    GRAND CHELEM
+                </Link>
             </Nav.Link>
         </Nav>
     )

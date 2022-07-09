@@ -2,7 +2,7 @@ import { Navigate } from 'react-router'
 
 
 const LoggedIn = ({ children, user }) => {
-    return user ? children : <Navigate to="/login" />
+    return user ? children : <Navigate to="/auth" />
 }
 
 const LoggedOut = ({ children, user }) => {

@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap'
 const NavBar = () => {
     return (
         <Nav
-            className="mx-auto my-2 my-lg-0 text-dark"
+            className="mx-auto my-2 my-lg-0 text-dark text-uppercase"
             style={{ maxHeight: '100px', fontFamily: "Francois One" }}
             navbarScroll
         >

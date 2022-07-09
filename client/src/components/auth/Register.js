@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
+import validator from "validator"
+
 import BtnGoogle from '../../assets/btn_google_signin.png'
 
 const Register = () => {
@@ -7,9 +9,30 @@ const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
+    const [submitted, setSubmitted] = useState(false)
+    const [errors, setErrors] = useState({
+        username: false,
+        email: false,
+        password: false,
+        repeatPassword: false
+    })
+
+    useEffect(() => {
+        if (submitted) {
+            setErrors({
+                username: !validator.isAlphanumeric(username),
+                email: !validator.isEmail(email),
+                password: !validator.isStrongPassword(password),
+                repeatPassword: password !== repeatPassword
+            })
+        }
+    }, [setErrors, submitted, username, email, password, repeatPassword])
 
     const signUp = (e) => {
         e.preventDefault()
+        setSubmitted(true)
+
+
         console.log(username, email, password, repeatPassword)
     }
 
@@ -23,40 +46,46 @@ const Register = () => {
                     <Form.Group className="mb-3" controlId="formBasicUsername">
                         <Form.Control
                             type="text"
-                            className="error"
+                            className={ errors.username ? "error" : "" }
                             placeholder="Nom d'utilisateur"
                             onChange={(e) => setUsername(e.target.value)}
                         />
+                        <Form.Text className="text-danger">
+                            { errors.username ? "Caractères alphanumériques uniquement." : "" }
+                        </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                             type="email"
-                            className="error"
+                            className={ errors.email ? "error" : "" }
                             placeholder="Adresse email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <Form.Text className="text-danger">
-                            Adresse email incorrecte.
+                            { errors.email ? "Adresse email incorrecte." : "" }
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Control
                             type="password"
-                            className="error"
+                            className={ errors.password || errors.repeatPassword ? "error" : "" }
                             placeholder="Mot de passe"
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <Form.Text className="text-danger">
-                            Les mots de passe ne correspondent pas.
+                        <Form.Text className="text-danger d-block">
+                            { errors.password ? "Le mot de passe n'est pas assez sécurisé." : "" }
+                        </Form.Text>
+                        <Form.Text className="text-danger d-block">
+                            { errors.repeatPassword ? "Les mots de passe ne correspondent pas." : "" }
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicRepeatPassword">
                         <Form.Control
                             type="password"
-                            className="error"
+                            className={ errors.repeatPassword ? "error" : "" }
                             placeholder="Répétez mot de passe"
                             onChange={(e) => setRepeatPassword(e.target.value)}
                         />

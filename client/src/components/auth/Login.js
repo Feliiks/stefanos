@@ -1,14 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 
 import BtnGoogle from "../../assets/btn_google_signin.png"
+import validator from 'validator'
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [submitted, setSubmitted] = useState(false)
+    const [errors, setErrors] = useState({
+        email: false,
+        password: false,
+        credentials: false
+    })
+
+    useEffect(() => {
+        if (submitted) {
+            setErrors({
+                email: !validator.isEmail(email),
+                password: !validator.isStrongPassword(password),
+                credentials: false
+            })
+        }
+    }, [setErrors, submitted, email, password])
 
     const signIn = (e) => {
         e.preventDefault()
+        setSubmitted(true)
+
         console.log(email, password)
     }
 
@@ -22,22 +41,28 @@ const Login = () => {
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                             type="email"
-                            className="error"
+                            className={ errors.email || errors.credentials ? "error" : "" }
                             placeholder="Adresse email"
                             onChange={(e) => setEmail(e.target.value)}
                         />
                         <Form.Text className="text-danger">
-                            Identifiants incorrects. Réessayez.
+                            { errors.email ? "Adresse email incorrecte." : "" }
+                        </Form.Text>
+                        <Form.Text className="text-danger">
+                            { errors.credentials ? "Identifiants incorrects. Réessayez." : "" }
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Control
                             type="password"
-                            className="error"
+                            className={ errors.password || errors.credentials ? "error" : "" }
                             placeholder="Mot de passe"
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        <Form.Text className="text-danger">
+                            { errors.password ? "Mot de passe incorrect." : "" }
+                        </Form.Text>
                     </Form.Group>
 
                     <Button variant="primary" type="submit" onClick={(e) => signIn(e)}>

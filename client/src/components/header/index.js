@@ -8,15 +8,15 @@ import Logo from './Logo'
 import NavBar from './NavBar'
 import UserBtn from './UserBtn'
 
-const Header = () => {
+const Header = ({ user }) => {
     return (
-        <Navbar expand="lg" fixed="top" style={{ background: '#FAFAFA' }}>
+        <Navbar expand="lg" fixed="top" style={{ background: '#FAFAFA' }} className="p-0">
             <Container style={{ borderBottom: '1px solid #DFDFDF' }}>
                 <Logo />
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <NavBar />
-                    <UserBtn />
+                    <NavBar user={user} />
+                    <UserBtn user={user} />
                 </Navbar.Collapse>
             </Container>
         </Navbar>

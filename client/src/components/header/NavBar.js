@@ -1,7 +1,7 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
     return (
         <Nav
             className="mx-auto my-2 my-lg-0 text-dark text-uppercase"

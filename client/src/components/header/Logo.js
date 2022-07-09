@@ -1,11 +1,14 @@
 import React from 'react'
 import { Navbar } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Logo = () => {
     return (
-        <Navbar.Brand href="/">
-            LOGO
-        </Navbar.Brand>
+        <Link to="/">
+            <Navbar.Brand style={{ fontSize: "48px" }}>
+                LOGO
+            </Navbar.Brand>
+        </Link>
     )
 }
 

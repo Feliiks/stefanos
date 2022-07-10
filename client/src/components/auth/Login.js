@@ -44,6 +44,7 @@ const Login = () => {
                             className={ errors.email || errors.credentials ? "error" : "" }
                             placeholder="Adresse email"
                             onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                         />
                         <Form.Text className="text-danger">
                             { errors.email ? "Adresse email incorrecte." : "" }
@@ -59,6 +60,7 @@ const Login = () => {
                             className={ errors.password || errors.credentials ? "error" : "" }
                             placeholder="Mot de passe"
                             onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                         />
                         <Form.Text className="text-danger">
                             { errors.password ? "Mot de passe incorrect." : "" }

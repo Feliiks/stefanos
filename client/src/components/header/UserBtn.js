@@ -19,8 +19,20 @@ const UserBtn = ({ user }) => {
                 style={{ fontFamily: "Francois One", color: "#000000" }}
                 title="Feliiks" id="navbarScrollingDropdown"
             >
-                <NavDropdown.Item style={{ fontFamily: "Open Sans" }} href="/account">Mon compte</NavDropdown.Item>
-                <NavDropdown.Item style={{ fontFamily: "Open Sans" }} href="/admin">Administration</NavDropdown.Item>
+                <NavDropdown.Item style={{ fontFamily: "Open Sans" }}>
+                    <Link to="/mon-compte" style={{ textDecoration: "none" }}>
+                        Mon compte
+                    </Link>
+                </NavDropdown.Item>
+                { user && user.adminLvl > 0 ?
+                    <NavDropdown.Item style={{ fontFamily: "Open Sans" }}>
+                        <Link to="/admin" style={{ textDecoration: "none" }}>
+                            Administration
+                        </Link>
+                    </NavDropdown.Item>
+                    :
+                    null
+                }
                 <NavDropdown.Divider />
                 <NavDropdown.Item style={{ fontFamily: "Open Sans" }}>
                     Déconnexion

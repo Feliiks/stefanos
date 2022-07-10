@@ -81,3 +81,36 @@ a, .nav-link {
 .google-btn {
     cursor: pointer;
 }
+
+
+// FORM ____________________________________________________________
+.form {
+    width: 100%;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    input {
+        height: 35px;
+        width: 370px;
+
+        border-radius: 2px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+        font-weight: 600;
+
+        &:focus {
+            box-shadow: none;
+            border: 1px solid #555;
+        }
+    }
+
+    .error {
+        border: 1px solid red;
+    }
+}

@@ -20,7 +20,7 @@ import NotFound from './components/others/NotFound'
 
 
 const App = () => {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState({ subscriber: 1 })
 
     return (
         <BrowserRouter>
@@ -57,7 +57,7 @@ const App = () => {
                        }
                 />
 
-                <Route path="/compte"
+                <Route path="/mon-compte"
                        element={
                            <PrivateRoutes.LoggedIn user={user}>
                                <Compte />

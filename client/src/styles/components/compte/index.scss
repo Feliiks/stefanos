@@ -1,0 +1,16 @@
+@import "panel";
+
+.account {
+    padding: 100px 0 100px 0;
+
+    .title {
+        h2 {
+            width: 300px;
+
+            font-size: 35px;
+            font-family: "Francois One";
+            border-bottom: 2px solid #C85A19;
+            padding: 0;
+        }
+    }
+}

@@ -49,6 +49,7 @@ const Register = () => {
                             className={ errors.username ? "error" : "" }
                             placeholder="Nom d'utilisateur"
                             onChange={(e) => setUsername(e.target.value)}
+                            value={username}
                         />
                         <Form.Text className="text-danger">
                             { errors.username ? "Caractères alphanumériques uniquement." : "" }
@@ -61,6 +62,7 @@ const Register = () => {
                             className={ errors.email ? "error" : "" }
                             placeholder="Adresse email"
                             onChange={(e) => setEmail(e.target.value)}
+                            value={email}
                         />
                         <Form.Text className="text-danger">
                             { errors.email ? "Adresse email incorrecte." : "" }
@@ -73,6 +75,7 @@ const Register = () => {
                             className={ errors.password || errors.repeatPassword ? "error" : "" }
                             placeholder="Mot de passe"
                             onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                         />
                         <Form.Text className="text-danger d-block">
                             { errors.password ? "Le mot de passe n'est pas assez sécurisé." : "" }
@@ -88,6 +91,7 @@ const Register = () => {
                             className={ errors.repeatPassword ? "error" : "" }
                             placeholder="Répétez mot de passe"
                             onChange={(e) => setRepeatPassword(e.target.value)}
+                            value={repeatPassword}
                         />
                     </Form.Group>
 

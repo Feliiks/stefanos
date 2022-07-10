@@ -1,0 +1,60 @@
+.panel {
+    background: #fff;
+
+    .title {
+        height: 70px;
+
+        padding: 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        background-color: #F2F2FA;
+        border-bottom: 1px solid #BFBFBF;
+
+        h3 {
+            width: auto;
+
+            margin: 0 0 0 20px; padding: 0;
+            font-family: "Francois One";
+            font-size: 25px;
+            text-transform: uppercase;
+        }
+    }
+
+    button {
+        width: 140px; height: 35px;
+
+        margin: 5px;
+
+        border-radius: 2px;
+        border: none;
+        box-shadow: none;
+        outline: none;
+        font-weight: 700;
+        font-size: 14px;
+    }
+
+    .abonnement-detail {
+        border-bottom: 1px solid #BFBFBF;
+
+        h4 {
+            margin: 0; padding: 0;
+
+            font-size: 18px;
+            font-family: "Francois One";
+        }
+
+        p {
+            margin: 0; padding: 0;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100px; height: 25px;
+
+            padding: 0;
+
+            font-size: 12px;
+        }
+    }
+}

@@ -11,7 +11,7 @@ const AbonnementsPanel = () => {
                         ABONNEMENTS
                     </h3>
                 </Row>
-                <Row className="abonnements-list">
+                <Row>
                     <Col lg={10} className="mx-auto mt-4 mb-4">
                         <AbonnementDetail />
                         <AbonnementDetail />

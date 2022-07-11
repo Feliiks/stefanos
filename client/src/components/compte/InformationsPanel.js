@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
 
@@ -14,6 +14,7 @@ const InformationsPanel = () => {
         newPassword: false,
         repeatNewPassword: false
     })
+    const form = useRef()
 
     useEffect(() => {
         if (submitted) {
@@ -34,6 +35,20 @@ const InformationsPanel = () => {
         console.log(username, email, newPassword, repeatNewPassword)
     }
 
+    const resetForm = () => {
+        setUsername("")
+        setEmail("")
+        setNewPassword("")
+        setRepeatNewPassword("")
+        setSubmitted(false)
+        setErrors({
+            username: false,
+            email: false,
+            newPassword: false,
+            repeatNewPassword: false
+        })
+    }
+
     return (
         <Row>
             <Col lg={8} className="panel mx-auto">
@@ -43,7 +58,7 @@ const InformationsPanel = () => {
                     </h3>
                 </Row>
                 <Row>
-                    <Form className="form mt-4 mb-4">
+                    <Form className="form mt-4 mb-4" ref={form}>
                         <Form.Group className="mb-3" controlId="formBasicUsername">
                             <Form.Control
                                 type="text"
@@ -96,7 +111,7 @@ const InformationsPanel = () => {
                             />
                         </Form.Group>
                         <div>
-                            <Button variant="secondary"> ANNULER </Button>
+                            <Button variant="secondary" onClick={() => resetForm()}> ANNULER </Button>
                             <Button variant="success" onClick={(e) => update(e)}> CHANGER </Button>
                         </div>
                     </Form>

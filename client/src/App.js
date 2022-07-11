@@ -20,7 +20,7 @@ import NotFound from './components/others/NotFound'
 
 
 const App = () => {
-    const [user, setUser] = useState({ subscriber: 1 })
+    const [user, setUser] = useState({ adminLvl: 1 })
 
     return (
         <BrowserRouter>

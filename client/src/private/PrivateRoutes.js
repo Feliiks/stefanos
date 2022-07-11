@@ -11,11 +11,11 @@ const LoggedOut = ({ children, user }) => {
 
 
 const Subscriber = ({ children, user }) => {
-    return user && user.subscriber ? children : <Navigate to="/" />
+    return user && (user.subscriber || user.adminLvl > 0) ? children : <Navigate to="/" />
 }
 
 const SubscriberGC = ({ children, user }) => {
-    return user && user.subscriber ? children : <Navigate to="/" />
+    return user && (user.subscriber || user.adminLvl > 0) ? children : <Navigate to="/" />
 }
 
 const IsAdmin = ({ children, user }) => {

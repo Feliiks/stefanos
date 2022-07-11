@@ -1,9 +1,9 @@
 const express = require('express');
 
-// import des routes
+const userRouter = require("./routes/user.route")
 
 const mainRouter = express.Router();
 
-// def des routes
+mainRouter.use("/user", userRouter);
 
 module.exports = mainRouter;

@@ -5,11 +5,15 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+const passport = require('passport')
+const session = require("express-session")
+
+require("./utils/database")
+
 const mainRouter = require('./router');
 
 
 // SERVER CONFIG _____________________________________________________
-
 const app = express();
 
 app.listen(process.env.PORT, () => {
@@ -28,6 +32,16 @@ app.use(express.static("../client/build"));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(bodyParser.json())
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+require("./strategies/localStrategy");
 
 // ROUTES ___________________________________________________________
 

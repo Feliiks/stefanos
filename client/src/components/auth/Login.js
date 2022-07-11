@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
+import api from "../../utils/api"
+
+import { useDispatch } from 'react-redux'
+import { login } from '../../reducers/user.reducer'
 
 import BtnGoogle from "../../assets/btn_google_signin.png"
 import validator from 'validator'
+
+import { Navigate } from 'react-router'
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -14,6 +20,8 @@ const Login = () => {
         credentials: false
     })
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
         if (submitted) {
             setErrors({
@@ -24,11 +32,29 @@ const Login = () => {
         }
     }, [setErrors, submitted, email, password])
 
-    const signIn = (e) => {
+    const signIn = async (e) => {
         e.preventDefault()
         setSubmitted(true)
 
-        console.log(email, password)
+        try {
+            if (!validator.isEmail(email) || !validator.isStrongPassword(password)) throw new Error()
+
+            let res = await api.post("http://localhost:5000/user/login", {
+                username: email,
+                password: password
+            })
+
+            dispatch(login({
+                user: res.data.user,
+                token: res.data.token
+            }))
+
+        } catch (err) {
+            setErrors({
+                ...errors,
+                credentials: true
+            })
+        }
     }
 
     return (

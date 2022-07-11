@@ -1,25 +1,36 @@
 import { Navigate } from 'react-router'
+import { useSelector } from 'react-redux'
 
 
-const LoggedIn = ({ children, user }) => {
+const LoggedIn = ({ children }) => {
+    let user = useSelector((state) => state.user.value)
+
     return user ? children : <Navigate to="/auth" />
 }
 
-const LoggedOut = ({ children, user }) => {
-    return !user ? children : <Navigate to="/compte" />
+const LoggedOut = ({ children }) => {
+    let user = useSelector((state) => state.user.value)
+
+    return !user ? children : <Navigate to="/mon-compte" />
 }
 
 
-const Subscriber = ({ children, user }) => {
-    return user && (user.subscriber || user.adminLvl > 0) ? children : <Navigate to="/" />
+const Subscriber = ({ children }) => {
+    let user = useSelector((state) => state.user.value)
+
+    return user && user.subscriber ? children : <Navigate to="/" />
 }
 
-const SubscriberGC = ({ children, user }) => {
-    return user && (user.subscriber || user.adminLvl > 0) ? children : <Navigate to="/" />
+const SubscriberGC = ({ children }) => {
+    let user = useSelector((state) => state.user.value)
+
+    return user && user.subscriber ? children : <Navigate to="/" />
 }
 
-const IsAdmin = ({ children, user }) => {
-    return user && user.adminLvl > 0 ? children : <Navigate to="/" />
+const IsAdmin = ({ children }) => {
+    let user = useSelector((state) => state.user.value)
+
+    return user && user.admin ? children : <Navigate to="/" />
 }
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import * as PrivateRoutes from "./private/PrivateRoutes"
@@ -20,12 +20,10 @@ import NotFound from './components/others/NotFound'
 
 
 const App = () => {
-    const [user, setUser] = useState({ adminLvl: 1 })
-
     return (
         <BrowserRouter>
 
-            <Header user={user} />
+            <Header />
 
             <Routes>
                 <Route path="/" exact element={<Home />} />
@@ -35,7 +33,7 @@ const App = () => {
                 <Route
                     path="/pronostics/all"
                     element={
-                        <PrivateRoutes.Subscriber user={user}>
+                        <PrivateRoutes.Subscriber>
                             <PronosticsAll />
                         </PrivateRoutes.Subscriber>
                     }
@@ -43,7 +41,7 @@ const App = () => {
                 <Route
                     path="/pronostics/grand-chelem"
                     element={
-                        <PrivateRoutes.SubscriberGC user={user}>
+                        <PrivateRoutes.SubscriberGC>
                             <PronosticsGrandChelem />
                         </PrivateRoutes.SubscriberGC>
                     }
@@ -51,7 +49,7 @@ const App = () => {
 
                 <Route path="/auth"
                        element={
-                           <PrivateRoutes.LoggedOut user={user}>
+                           <PrivateRoutes.LoggedOut>
                                <Auth />
                            </PrivateRoutes.LoggedOut>
                        }
@@ -59,7 +57,7 @@ const App = () => {
 
                 <Route path="/mon-compte"
                        element={
-                           <PrivateRoutes.LoggedIn user={user}>
+                           <PrivateRoutes.LoggedIn>
                                <Compte />
                            </PrivateRoutes.LoggedIn>
                        }
@@ -67,7 +65,7 @@ const App = () => {
 
                 <Route path="/admin"
                        element={
-                           <PrivateRoutes.IsAdmin user={user}>
+                           <PrivateRoutes.IsAdmin>
                                <Admin />
                            </PrivateRoutes.IsAdmin>
                        }

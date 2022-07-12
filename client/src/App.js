@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import api from './utils/api'
 
 import * as PrivateRoutes from "./private/PrivateRoutes"
 
@@ -17,9 +18,26 @@ import Compte from "./components/compte"
 import Admin from './components/admin'
 
 import NotFound from './components/others/NotFound'
+import { useDispatch } from 'react-redux'
+import { login } from './reducers/user.reducer'
 
 
 const App = () => {
+    const [sessionToken] = useState(localStorage.getItem("sessionToken"))
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        api.post("/users/getsession", {
+            token: sessionToken
+        }).then(res => {
+            dispatch(login({
+                user: res.data.result,
+                token: sessionToken
+            }))
+        })
+    })
+
     return (
         <BrowserRouter>
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 
-const AbonnementDetail = () => {
+const AbonnementDetail = ({ title }) => {
     return (
         <Row className="abonnement-detail mb-3 pb-2 d-flex align-items-center">
             <Col lg={7} className="d-flex flex-column align-items-center align-items-lg-start">
                 <h4>
-                    ABONNEMENT V.I.P
+                    {title}
                 </h4>
                 <p>
                     Le meilleur abonnement de tous les temps.

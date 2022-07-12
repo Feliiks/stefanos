@@ -1,11 +1,13 @@
 const User = require('../models/User')
-const { getToken, getRefreshToken, COOKIE_OPTIONS } = require('../authenticate')
+const UserSubscription = require('../models/UserSubscription')
+const { getToken } = require('../authenticate')
 const passport = require('passport')
+const jwt = require('jsonwebtoken')
 
 const userController = () => {};
 
 userController.register = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
 
     try {
         if (!username || !password) throw new Error("Informations manquantes.")
@@ -17,15 +19,13 @@ userController.register = async (req, res) => {
         await User.register(user, password)
 
         let token = getToken({_id: user._id})
-        let refreshToken = getRefreshToken({_id: user._id})
-
-        user.refreshToken.push({ refreshToken })
 
         await user.save()
 
-        res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
+        res.status(201)
         res.send({ success: true, user, token })
     } catch (err) {
+        res.status(400)
         res.send({ success: false, message: err.message })
     }
 };
@@ -33,40 +33,58 @@ userController.register = async (req, res) => {
 
 userController.login = async (req, res) => {
     let token = getToken({_id: req.user._id})
-    let refreshToken = getRefreshToken({_id: req.user._id})
 
     try {
         let user = await User.findById(req.user._id)
-
-        user.refreshToken.push({ refreshToken })
+        let user_subscriptions = await UserSubscription.findOne({
+            "user._id": req.user._id
+        })
 
         await user.save()
 
-        res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
-        res.send({ success: true, user, token })
+        let result = {
+            user,
+            user_subscriptions
+        }
+
+        res.status(200)
+        res.send({ success: true, result, token })
     } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
+userController.getNewSession = async (req, res) => {
+    try {
+        // on vérifie l'authenticité de la session
+        let payload = await jwt.verify(req.body.token, process.env.JWT_SECRET)
+
+        // on récupère l'user
+        let user = await User.findById(payload._id)
+        let user_subscriptions = await UserSubscription.findOne({
+            "user._id": user._id
+        })
+
+        let result = {
+            user,
+            user_subscriptions
+        }
+
+        res.status(200)
+        res.send({ success: true, result })
+    } catch (err) {
+        res.status(401)
         res.send({ success: false, message: err.message })
     }
 }
 
 userController.logout = async (req, res) => {
-    const { signedCookies = {} } = req
-    const { refreshToken } = signedCookies
+    // logout
+}
 
-    try {
-        let user = await User.findById(req.user._id)
-
-        let tokenIndex = user.refreshToken.findIndex(
-            item => item.refreshToken === refreshToken
-        )
-
-        await user.save()
-
-        res.clearCookie("refreshToken", COOKIE_OPTIONS)
-        res.send({ success: true })
-    } catch (err) {
-        res.sendStatus(500)
-    }
+userController.delete = async (req, res) => {
+    // delete
 }
 
 module.exports = userController;

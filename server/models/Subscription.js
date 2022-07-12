@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const Subscription = new Schema({
+const SubscriptionSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -21,4 +21,4 @@ const Subscription = new Schema({
     }
 })
 
-module.exports = mongoose.model("Subscription", Subscription)
+module.exports = mongoose.model("Subscription", SubscriptionSchema, "subscriptions")

@@ -13,8 +13,6 @@ const AbonnementsPanel = () => {
                 </Row>
                 <Row>
                     <Col lg={10} className="mx-auto mt-4 mb-4">
-                        <AbonnementDetail />
-                        <AbonnementDetail />
                     </Col>
                 </Row>
             </Col>

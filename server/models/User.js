@@ -10,10 +10,9 @@ const Session = new Schema({
     },
 })
 
-const User = new Schema({
+const UserSchema = new Schema({
     username: {
         type: String,
-        unique: true,
         required: true
     },
     admin: {
@@ -25,6 +24,6 @@ const User = new Schema({
     },
 })
 
-User.plugin(passportLocalMongoose)
+UserSchema.plugin(passportLocalMongoose)
 
-module.exports = mongoose.model("User", User)
+module.exports = mongoose.model("User", UserSchema, "users")

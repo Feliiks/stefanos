@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 
 const LoggedIn = ({ children }) => {
@@ -28,9 +29,9 @@ const SubscriberGC = ({ children }) => {
 }
 
 const IsAdmin = ({ children }) => {
-    let user = useSelector((state) => state.user.value)
+    let user = useSelector((state) => state)
 
-    return user && user.admin ? children : <Navigate to="/" />
+    return user && user.user.admin ? children : <Navigate to="/" />
 }
 
 

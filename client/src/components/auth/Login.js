@@ -39,13 +39,13 @@ const Login = () => {
         try {
             if (!validator.isEmail(email) || !validator.isStrongPassword(password)) throw new Error()
 
-            let res = await api.post("http://localhost:5000/user/login", {
+            let res = await api.post("http://localhost:5000/users/login", {
                 username: email,
                 password: password
             })
 
             dispatch(login({
-                user: res.data.user,
+                user: res.data.result,
                 token: res.data.token
             }))
 

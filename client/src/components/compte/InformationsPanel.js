@@ -3,13 +3,11 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
 
 const InformationsPanel = () => {
-    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [repeatNewPassword, setRepeatNewPassword] = useState("")
     const [submitted, setSubmitted] = useState(false)
     const [errors, setErrors] = useState({
-        username: false,
         email: false,
         newPassword: false,
         repeatNewPassword: false
@@ -19,30 +17,27 @@ const InformationsPanel = () => {
     useEffect(() => {
         if (submitted) {
             setErrors({
-                username: !validator.isAlphanumeric(username),
                 email: !validator.isEmail(email),
                 newPassword: !validator.isEmpty(newPassword) && !validator.isStrongPassword(newPassword),
                 repeatNewPassword: !validator.isEmpty(newPassword) && newPassword !== repeatNewPassword
             })
         }
-    }, [setErrors, submitted, username, email, newPassword, repeatNewPassword])
+    }, [setErrors, submitted, email, newPassword, repeatNewPassword])
 
     const update = (e) => {
         e.preventDefault()
         setSubmitted(true)
 
 
-        console.log(username, email, newPassword, repeatNewPassword)
+        console.log(email, newPassword, repeatNewPassword)
     }
 
     const resetForm = () => {
-        setUsername("")
         setEmail("")
         setNewPassword("")
         setRepeatNewPassword("")
         setSubmitted(false)
         setErrors({
-            username: false,
             email: false,
             newPassword: false,
             repeatNewPassword: false
@@ -59,19 +54,6 @@ const InformationsPanel = () => {
                 </Row>
                 <Row>
                     <Form className="form mt-4 mb-4" ref={form}>
-                        <Form.Group className="mb-3" controlId="formBasicUsername">
-                            <Form.Control
-                                type="text"
-                                className={ errors.username ? "error" : "" }
-                                placeholder="Nouveau nom d'utilisateur"
-                                onChange={(e) => setUsername(e.target.value)}
-                                value={username}
-                            />
-                            <Form.Text className="text-danger">
-                                { errors.username ? "Caractères alphanumériques uniquement." : "" }
-                            </Form.Text>
-                        </Form.Group>
-
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Control
                                 type="email"

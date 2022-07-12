@@ -3,39 +3,60 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import validator from "validator"
 
 import BtnGoogle from '../../assets/btn_google_signin.png'
+import api from '../../utils/api'
+import { login } from '../../reducers/user.reducer'
+import { useDispatch } from 'react-redux'
 
 const Register = () => {
-    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [repeatPassword, setRepeatPassword] = useState("")
+
     const [submitted, setSubmitted] = useState(false)
     const [errors, setErrors] = useState({
-        username: false,
         email: false,
         password: false,
         repeatPassword: false
     })
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
         if (submitted) {
             setErrors({
-                username: !validator.isAlphanumeric(username),
                 email: !validator.isEmail(email),
                 password: !validator.isStrongPassword(password),
                 repeatPassword: password !== repeatPassword
             })
         }
-    }, [setErrors, submitted, username, email, password, repeatPassword])
+    }, [setErrors, submitted, email, password, repeatPassword])
 
-    const signUp = (e) => {
+    const signUp = async (e) => {
         e.preventDefault()
         setSubmitted(true)
 
+        try {
+            if (!validator.isEmail(email) || !validator.isStrongPassword(password) || password !== repeatPassword) throw new Error()
 
-        console.log(username, email, password, repeatPassword)
+            let res = await api.post("http://localhost:5000/users/register", {
+                username: email,
+                password: password
+            })
+
+            if (res.status !== 201) throw new Error()
+
+            dispatch(login({
+                user: res.data.user,
+                token: res.data.token
+            }))
+
+        } catch (err) {
+            setErrors({
+                ...errors,
+                credentials: true
+            })
+        }
     }
-
     return (
         <Row className="mt-4">
             <Col lg={4} className="auth-panel mx-auto p-3">
@@ -43,29 +64,17 @@ const Register = () => {
                 <img className="mb-2 google-btn" src={BtnGoogle} alt="btn_google" />
                 <span className="mb-2"> OU </span>
                 <Form className="form">
-                    <Form.Group className="mb-3" controlId="formBasicUsername">
-                        <Form.Control
-                            type="text"
-                            className={ errors.username ? "error" : "" }
-                            placeholder="Nom d'utilisateur"
-                            onChange={(e) => setUsername(e.target.value)}
-                            value={username}
-                        />
-                        <Form.Text className="text-danger">
-                            { errors.username ? "Caractères alphanumériques uniquement." : "" }
-                        </Form.Text>
-                    </Form.Group>
-
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                             type="email"
-                            className={ errors.email ? "error" : "" }
+                            className={ errors.email || errors.credentials ? "error" : "" }
                             placeholder="Adresse email"
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                         />
                         <Form.Text className="text-danger">
                             { errors.email ? "Adresse email incorrecte." : "" }
+                            { errors.credentials ? "Ce compte existe déjà." : "" }
                         </Form.Text>
                     </Form.Group>
 

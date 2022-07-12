@@ -13,6 +13,7 @@ const Session = new Schema({
 const User = new Schema({
     username: {
         type: String,
+        unique: true,
         required: true
     },
     admin: {

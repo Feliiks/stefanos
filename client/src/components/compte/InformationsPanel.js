@@ -95,14 +95,14 @@ const InformationsPanel = ({ user }) => {
                 </Row>
 
                 <Row>
-                    <Form.Select className="form mt-4" aria-label="Default select example" onChange={e => setSelectedOption(e.target.value)}>
+                    <Form.Select className="form mt-4 mx-auto" aria-label="Default select example" onChange={e => setSelectedOption(e.target.value)}>
                         <option value="1"> Que voulez-vous modifier ? </option>
                         <option value="1"> Adresse mail </option>
                         <option value="2"> Mot de passe </option>
                     </Form.Select>
                     {
                         selectedOption === "1" ?
-                            <Form className="form mt-2 mb-4" ref={form}>
+                            <Form className="form mt-2 mb-4 mx-auto" ref={form}>
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Control
                                         type="email"
@@ -111,18 +111,20 @@ const InformationsPanel = ({ user }) => {
                                         onChange={(e) => setEmail(e.target.value)}
                                         value={email}
                                     />
-                                    <Form.Text className="text-danger">
+                                    <Form.Text className="text-danger d-block">
                                         { errors.email ? "Adresse email incorrecte." : "" }
+                                    </Form.Text>
+                                    <Form.Text className="text-danger d-block">
                                         { errors.existing ? "Adresse email indisponible." : "" }
                                     </Form.Text>
                                 </Form.Group>
-                                <div>
+                                <div className="d-flex justify-content-center">
                                     <Button variant="secondary" onClick={resetForm}> ANNULER </Button>
                                     <Button variant="success" onClick={update}> CHANGER </Button>
                                 </div>
                             </Form>
                             :
-                            <Form className="form mt-3 mb-4" ref={form}>
+                            <Form className="form mt-3 mb-4 mx-auto" ref={form}>
                                 <Form.Group className="mb-3" controlId="formBasicCurrentPassword">
                                     <Form.Control
                                         type="password"
@@ -164,7 +166,7 @@ const InformationsPanel = ({ user }) => {
                                         value={repeatNewPassword}
                                     />
                                 </Form.Group>
-                                <div>
+                                <div className="d-flex justify-content-center">
                                     <Button variant="secondary" onClick={resetForm}> ANNULER </Button>
                                     <Button variant="success" onClick={update}> CHANGER </Button>
                                 </div>

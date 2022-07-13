@@ -85,19 +85,15 @@ a, .nav-link {
 
 // FORM ____________________________________________________________
 .form {
-    width: 100%;
+    width: 90%;
 
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     font-size: 14px;
     font-weight: 600;
 
     input {
         height: 35px;
-        width: 370px;
 
         border-radius: 2px;
         border: 1px solid #CCCCCC;

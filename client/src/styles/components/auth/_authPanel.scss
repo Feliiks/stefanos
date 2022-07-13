@@ -17,9 +17,22 @@
         font-weight: 700;
     }
 
+    .password {
+        display: block;
+
+        text-align: end;
+        color: #c85a19;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
     button {
         height: 35px; width: 180px;
 
+        display: block;
         background-color: #C85A19;
         border-radius: 0;
         outline: none;

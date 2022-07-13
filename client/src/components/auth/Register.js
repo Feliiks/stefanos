@@ -59,7 +59,7 @@ const Register = () => {
     }
     return (
         <Row className="mt-4">
-            <Col lg={4} className="auth-panel mx-auto p-3">
+            <Col lg={4} className="auth-panel mx-auto p-4">
                 <h3 className="mb-3" style={{ color: "#555555" }}> JE N'AI PAS DE COMPTE </h3>
                 <img className="mb-2 google-btn" src={BtnGoogle} alt="btn_google" />
                 <span className="mb-2"> OU </span>
@@ -104,7 +104,7 @@ const Register = () => {
                         />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={(e) => signUp(e)}>
+                    <Button className="mx-auto" variant="primary" type="submit" onClick={(e) => signUp(e)}>
                         INSCRIPTION
                     </Button>
                 </Form>

@@ -59,11 +59,11 @@ const Login = () => {
 
     return (
         <Row>
-            <Col lg={4} className="auth-panel mx-auto p-3">
+            <Col lg={4} className="auth-panel mx-auto p-4">
                 <h3 className="mb-3"> J'AI DEJA UN COMPTE </h3>
                 <img className="mb-2 google-btn" src={BtnGoogle} alt="btn_google" />
                 <span className="mb-2"> OU </span>
-                <Form className="form">
+                <Form className="form mx-auto">
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Control
                             type="email"
@@ -80,7 +80,7 @@ const Login = () => {
                         </Form.Text>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className="mb-1" controlId="formBasicPassword">
                         <Form.Control
                             type="password"
                             className={ errors.password || errors.credentials ? "error" : "" }
@@ -93,7 +93,9 @@ const Login = () => {
                         </Form.Text>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={(e) => signIn(e)}>
+                    <span className="password mb-3"> Mot de passe oublié ? </span>
+
+                    <Button className="mx-auto" variant="primary" type="submit" onClick={(e) => signIn(e)}>
                         CONNEXION
                     </Button>
                 </Form>

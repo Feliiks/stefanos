@@ -1,46 +1,87 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
+import api from '../../utils/api'
 
-const InformationsPanel = () => {
+const InformationsPanel = ({ user }) => {
     const [email, setEmail] = useState("")
+    const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [repeatNewPassword, setRepeatNewPassword] = useState("")
     const [submitted, setSubmitted] = useState(false)
     const [errors, setErrors] = useState({
         email: false,
+        currentPassword: false,
         newPassword: false,
-        repeatNewPassword: false
+        repeatNewPassword: false,
+        existing: false,
+        badPassword: false
     })
+    const [selectedOption, setSelectedOption] = useState("1")
     const form = useRef()
 
     useEffect(() => {
         if (submitted) {
             setErrors({
                 email: !validator.isEmail(email),
-                newPassword: !validator.isEmpty(newPassword) && !validator.isStrongPassword(newPassword),
-                repeatNewPassword: !validator.isEmpty(newPassword) && newPassword !== repeatNewPassword
+                currentPassword: !validator.isStrongPassword(currentPassword),
+                newPassword: !validator.isStrongPassword(newPassword),
+                repeatNewPassword: newPassword !== repeatNewPassword,
+                existing: false,
+                badPassword: false
             })
         }
-    }, [setErrors, submitted, email, newPassword, repeatNewPassword])
+    }, [setErrors, submitted, email, currentPassword, newPassword, repeatNewPassword])
 
-    const update = (e) => {
+    const update = async (e) => {
         e.preventDefault()
         setSubmitted(true)
 
+        try {
+            if (selectedOption === "1") {
+                if (!validator.isEmail(email)) throw new Error()
 
-        console.log(email, newPassword, repeatNewPassword)
+                await api.post("/users/update/username", {
+                    user_id: user.user._id,
+                    new_username: email
+                })
+            } else {
+                if (!validator.isStrongPassword(currentPassword) || !validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
+
+                await api.post("/users/update/password", {
+                    user_id: user.user._id,
+                    current_password: currentPassword,
+                    new_password: newPassword
+                })
+            }
+        } catch (err) {
+            if (selectedOption === "1") {
+                setErrors({
+                    ...errors,
+                    existing: true
+                })
+            } else {
+                setErrors({
+                    ...errors,
+                    badPassword: true
+                })
+            }
+        }
     }
 
     const resetForm = () => {
         setEmail("")
+        setCurrentPassword("")
         setNewPassword("")
         setRepeatNewPassword("")
         setSubmitted(false)
         setErrors({
             email: false,
+            currentPassword: false,
             newPassword: false,
-            repeatNewPassword: false
+            repeatNewPassword: false,
+            existing: false,
+            badPassword: false,
         })
     }
 
@@ -52,51 +93,83 @@ const InformationsPanel = () => {
                         INFORMATIONS
                     </h3>
                 </Row>
+
                 <Row>
-                    <Form className="form mt-4 mb-4" ref={form}>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control
-                                type="email"
-                                className={ errors.email ? "error" : "" }
-                                placeholder="Nouvelle adresse email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                            />
-                            <Form.Text className="text-danger">
-                                { errors.email ? "Adresse email incorrecte." : "" }
-                            </Form.Text>
-                        </Form.Group>
+                    <Form.Select className="form mt-4" aria-label="Default select example" onChange={e => setSelectedOption(e.target.value)}>
+                        <option value="1"> Que voulez-vous modifier ? </option>
+                        <option value="1"> Adresse mail </option>
+                        <option value="2"> Mot de passe </option>
+                    </Form.Select>
+                    {
+                        selectedOption === "1" ?
+                            <Form className="form mt-2 mb-4" ref={form}>
+                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                    <Form.Control
+                                        type="email"
+                                        className={ errors.email || errors.existing ? "error" : "" }
+                                        placeholder="Nouvelle adresse email"
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={email}
+                                    />
+                                    <Form.Text className="text-danger">
+                                        { errors.email ? "Adresse email incorrecte." : "" }
+                                        { errors.existing ? "Adresse email indisponible." : "" }
+                                    </Form.Text>
+                                </Form.Group>
+                                <div>
+                                    <Button variant="secondary" onClick={resetForm}> ANNULER </Button>
+                                    <Button variant="success" onClick={update}> CHANGER </Button>
+                                </div>
+                            </Form>
+                            :
+                            <Form className="form mt-3 mb-4" ref={form}>
+                                <Form.Group className="mb-3" controlId="formBasicCurrentPassword">
+                                    <Form.Control
+                                        type="password"
+                                        className={ errors.badPassword || errors.currentPassword ? "error" : "" }
+                                        placeholder="Mot de passe actuel"
+                                        autoComplete="new-password"
+                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                        value={currentPassword}
+                                    />
+                                    <Form.Text className="text-danger d-block">
+                                        { errors.badPassword || errors.currentPassword ? "Mot de passe incorrect." : "" }
+                                    </Form.Text>
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Control
-                                type="password"
-                                className={ errors.newPassword || errors.repeatNewPassword ? "error" : "" }
-                                placeholder="Nouveau mot de passe"
-                                onChange={(e) => setNewPassword(e.target.value)}
-                                value={newPassword}
-                            />
-                            <Form.Text className="text-danger d-block">
-                                { errors.newPassword ? "Le mot de passe n'est pas assez sécurisé." : "" }
-                            </Form.Text>
-                            <Form.Text className="text-danger d-block">
-                                { errors.repeatNewPassword ? "Les mots de passe ne correspondent pas." : "" }
-                            </Form.Text>
-                        </Form.Group>
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Control
+                                        type="password"
+                                        className={ errors.newPassword || errors.repeatNewPassword ? "error" : "" }
+                                        placeholder="Nouveau mot de passe"
+                                        autoComplete="new-password"
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        value={newPassword}
+                                    />
+                                    <Form.Text className="text-danger d-block">
+                                        { errors.newPassword ? "Le mot de passe n'est pas assez sécurisé." : "" }
+                                    </Form.Text>
+                                    <Form.Text className="text-danger d-block">
+                                        { errors.repeatNewPassword ? "Les mots de passe ne correspondent pas." : "" }
+                                    </Form.Text>
+                                </Form.Group>
 
-                        <Form.Group className="mb-3" controlId="formBasicRepeatPassword">
-                            <Form.Control
-                                type="password"
-                                className={ errors.repeatNewPassword ? "error" : "" }
-                                placeholder="Répétez nouveau mot de passe"
-                                onChange={(e) => setRepeatNewPassword(e.target.value)}
-                                value={repeatNewPassword}
-                            />
-                        </Form.Group>
-                        <div>
-                            <Button variant="secondary" onClick={() => resetForm()}> ANNULER </Button>
-                            <Button variant="success" onClick={(e) => update(e)}> CHANGER </Button>
-                        </div>
-                    </Form>
+                                <Form.Group className="mb-3" controlId="formBasicRepeatPassword">
+                                    <Form.Control
+                                        type="password"
+                                        className={ errors.repeatNewPassword ? "error" : "" }
+                                        placeholder="Répétez nouveau mot de passe"
+                                        autoComplete="new-password"
+                                        onChange={(e) => setRepeatNewPassword(e.target.value)}
+                                        value={repeatNewPassword}
+                                    />
+                                </Form.Group>
+                                <div>
+                                    <Button variant="secondary" onClick={resetForm}> ANNULER </Button>
+                                    <Button variant="success" onClick={update}> CHANGER </Button>
+                                </div>
+                            </Form>
+                    }
                 </Row>
             </Col>
         </Row>

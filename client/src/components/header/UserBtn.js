@@ -19,16 +19,12 @@ const UserBtn = ({ user, logoutUser }) => {
                 style={{ fontFamily: "Francois One", color: "#000000" }}
                 title={user.user.username} id="navbarScrollingDropdown"
             >
-                <NavDropdown.Item style={{ fontFamily: "Open Sans" }}>
-                    <Link to="/mon-compte" style={{ textDecoration: "none" }}>
-                        Mon compte
-                    </Link>
+                <NavDropdown.Item as={Link} to="/mon-compte" style={{ fontFamily: "Open Sans" }}>
+                    Mon compte
                 </NavDropdown.Item>
                 { user && user.user.admin ?
-                    <NavDropdown.Item style={{ fontFamily: "Open Sans" }}>
-                        <Link to="/admin" style={{ textDecoration: "none" }}>
-                            Administration
-                        </Link>
+                    <NavDropdown.Item as={Link} to="/admin" style={{ fontFamily: "Open Sans" }}>
+                        Administration
                     </NavDropdown.Item>
                     :
                     null

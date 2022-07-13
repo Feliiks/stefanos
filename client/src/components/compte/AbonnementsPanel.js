@@ -5,6 +5,7 @@ import AbonnementDetail from './AbonnementDetail'
 const AbonnementsPanel = ({ subscriptions }) => {
     let subscriptionsList = subscriptions.map(el => (
         <AbonnementDetail
+            key={el._id}
             name={el.subscription.name}
             description={el.subscription.description}
             expires={el.expirationDate}

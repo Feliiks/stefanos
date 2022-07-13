@@ -64,8 +64,15 @@ userController.register = async (req, res) => {
 
 userController.updateUsername = async (req, res) => {
     let new_username = req.body.new_username
+
     try {
-        let user = await User.findByIdAndUpdate(req.user._id, {
+        let existingUser = await User.findOne({
+            username: new_username
+        })
+
+        if (existingUser) throw new Error("Username unavailable.")
+
+        let user = await User.findByIdAndUpdate(req.body.user_id, {
             username: new_username
         })
 
@@ -80,7 +87,21 @@ userController.updateUsername = async (req, res) => {
 }
 
 userController.updatePassword = async (req, res) => {
+    try {
+        let user = await User.findById(req.body.user_id)
 
+        if (!user) throw new Error
+
+        await user.changePassword(req.body.current_password, req.body.new_password)
+
+        user.save()
+
+        res.status(200)
+        res.send({ success: true, message: "User password updated." })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
 }
 
 userController.login = async (req, res) => {

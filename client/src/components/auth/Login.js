@@ -39,7 +39,7 @@ const Login = () => {
         try {
             if (!validator.isEmail(email) || !validator.isStrongPassword(password)) throw new Error()
 
-            let res = await api.post("http://localhost:5000/users/login", {
+            let res = await api.post("/users/login", {
                 username: email,
                 password: password
             })

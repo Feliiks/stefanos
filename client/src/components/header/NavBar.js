@@ -9,28 +9,24 @@ const NavBar = ({ user }) => {
             style={{ maxHeight: '100px', fontFamily: "Francois One" }}
             navbarScroll
         >
-            <Nav.Link>
-                <Link to="/abonnements" style={{ textDecoration: "none" }}>
-                    ABONNEMENTS
-                </Link>
+            <Nav.Link as={Link} to="/abonnements">
+                ABONNEMENTS
             </Nav.Link>
             {
                 user && (user.user_subscriptions.some(el => el.subscription.name === "V.I.P") > 0 || user.user.admin) ?
-                    <Nav.Link>
-                        <Link to="/pronostics/all" style={{ textDecoration: "none" }}>
-                            PRONOSTICS
-                        </Link>
+                    <Nav.Link as={Link} to="/pronostics/all">
+                        PRONOSTICS
                     </Nav.Link>
                 : null
             }
             {
                 user && (user.user_subscriptions.some(el => el.subscription.name === "Grand Chelem") > 0 || user.user.admin) ?
                     <Nav.Link
+                        as={Link}
+                        to="/pronostics/grand-chelem"
                         className="nav-link-grand-chelem"
                     >
-                        <Link to="/pronostics/grand-chelem" style={{ textDecoration: "none" }}>
-                            GRAND CHELEM
-                        </Link>
+                        GRAND CHELEM
                     </Nav.Link>
                 : null
             }

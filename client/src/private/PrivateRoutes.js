@@ -1,6 +1,8 @@
 import { Navigate } from 'react-router'
 import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 
 const LoggedIn = ({ children }) => {
@@ -19,17 +21,17 @@ const LoggedOut = ({ children }) => {
 const Subscriber = ({ children }) => {
     let user = useSelector((state) => state.user.value)
 
-    return user && user.subscriber ? children : <Navigate to="/" />
+    return user && (user.user_subscriptions.some(el => el.subscription.typeId === "1") > 0 || user.user.admin) ? children : <Navigate to="/" />
 }
 
 const SubscriberGC = ({ children }) => {
     let user = useSelector((state) => state.user.value)
 
-    return user && user.subscriber ? children : <Navigate to="/" />
+    return user && (user.user_subscriptions.some(el => el.subscription.typeId === "2") > 0 || user.user.admin) ? children : <Navigate to="/" />
 }
 
 const IsAdmin = ({ children }) => {
-    let user = useSelector((state) => state)
+    let user = useSelector((state) => state.user.value)
 
     return user && user.user.admin ? children : <Navigate to="/" />
 }

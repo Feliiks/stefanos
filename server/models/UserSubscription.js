@@ -5,8 +5,14 @@ const Subscription = require("./Subscription").schema
 const User = require("./User").schema
 
 const UserSubscriptionSchema = new Schema({
-    user: User,
-    subscription: Subscription,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    subscription: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Subscription"
+    },
     expirationDate: {
         type: Date,
         default: new Date().setDate(new Date().getDate() + 31)

@@ -6,6 +6,29 @@ const jwt = require('jsonwebtoken')
 
 const userController = () => {};
 
+userController.getAllUsers = async (req, res) => {
+    try {
+        if (req.query.user) {
+            let user = await User.findOne({
+                username: req.query.user
+            })
+
+            if (!user) throw new Error
+
+            res.status(200)
+            res.send({ success: true, user })
+        } else {
+            let users = await User.find()
+
+            res.status(200)
+            res.send({ success: true, users })
+        }
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: "Aucun utilisateur trouvé." })
+    }
+}
+
 userController.register = async (req, res) => {
     const { username, password } = req.body;
 
@@ -20,25 +43,56 @@ userController.register = async (req, res) => {
 
         let token = getToken({_id: user._id})
 
+        user.token = token
+
         await user.save()
 
+        let user_subscriptions = []
+
+        let result = {
+            user,
+            user_subscriptions
+        }
+
         res.status(201)
-        res.send({ success: true, user, token })
+        res.send({ success: true, result, token })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })
     }
 };
 
+userController.updateUsername = async (req, res) => {
+    let new_username = req.body.new_username
+    try {
+        let user = await User.findByIdAndUpdate(req.user._id, {
+            username: new_username
+        })
+
+        if (!user) throw new Error
+
+        res.status(200)
+        res.send({ success: true, message: "User username updated." })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
+userController.updatePassword = async (req, res) => {
+
+}
 
 userController.login = async (req, res) => {
     let token = getToken({_id: req.user._id})
 
     try {
         let user = await User.findById(req.user._id)
-        let user_subscriptions = await UserSubscription.findOne({
-            "user._id": req.user._id
-        })
+        let user_subscriptions = await UserSubscription.find({
+            user: user
+        }).populate("subscription")
+
+        user.token = token
 
         await user.save()
 
@@ -50,6 +104,7 @@ userController.login = async (req, res) => {
         res.status(200)
         res.send({ success: true, result, token })
     } catch (err) {
+        console.log(err.message)
         res.status(400)
         res.send({ success: false, message: err.message })
     }
@@ -62,9 +117,12 @@ userController.getNewSession = async (req, res) => {
 
         // on récupère l'user
         let user = await User.findById(payload._id)
-        let user_subscriptions = await UserSubscription.findOne({
-            "user._id": user._id
-        })
+
+        if (user.token !== req.body.token) throw new Error
+
+        let user_subscriptions = await UserSubscription.find({
+            user: user
+        }).populate("subscription")
 
         let result = {
             user,
@@ -74,17 +132,40 @@ userController.getNewSession = async (req, res) => {
         res.status(200)
         res.send({ success: true, result })
     } catch (err) {
+        console.log(err.message)
         res.status(401)
         res.send({ success: false, message: err.message })
     }
 }
 
 userController.logout = async (req, res) => {
-    // logout
+    try {
+        let user = await User.findById(req.body.user_id)
+
+        user.token = ""
+
+        user.save()
+
+        res.status(200)
+        res.send({ success: true })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
 }
 
 userController.delete = async (req, res) => {
-    // delete
+    try {
+        let deletedUser = await User.findOneAndDelete({
+            username: req.body.username
+        })
+
+        if (!deletedUser) throw new Error
+
+        res.sendStatus(200)
+    } catch (err) {
+        res.sendStatus(400)
+    }
 }
 
 module.exports = userController;

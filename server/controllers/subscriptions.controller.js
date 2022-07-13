@@ -14,8 +14,8 @@ subscriptionsController.new = async (req, res) => {
         if (!subscription) throw new Error
 
         let existingSubscription = await UserSubscription.findOne({
-            "user._id": req.user._id,
-            "subscription._id": req.body.subscription_id
+            user: user,
+            subscription: subscription
         })
 
         if (!existingSubscription) {
@@ -27,8 +27,8 @@ subscriptionsController.new = async (req, res) => {
             res.sendStatus(201)
         } else {
             await UserSubscription.findOneAndUpdate({
-                "user._id": req.user._id,
-                "subscription._id": req.body.subscription_id
+                user: user,
+                subscription: subscription
             }, {
                 expirationDate: existingSubscription.expirationDate.setDate(existingSubscription.expirationDate.getDate() + 31)
             })
@@ -41,21 +41,24 @@ subscriptionsController.new = async (req, res) => {
 }
 
 subscriptionsController.get = async (req, res) => {
-    const user_name = req.query.user
-
     try {
-        let user = await User.findOne({
-            username: user_name
-        })
+        if (req.query.user) {
+            let user = await User.findOne({
+                username: req.query.user
+            })
 
-        if (!user) throw new Error
+            let user_subscriptions = await UserSubscription.find({
+                user: user
+            }).populate("subscription")
 
-        let user_subscriptions = await UserSubscription.find({
-            "user.username": user_name,
-        })
+            res.status(200)
+            res.send({ success: true, user_subscriptions})
+        } else {
+            let all_user_subscriptions = await UserSubscription.find().populate("user").populate("subscription")
 
-        res.status(200)
-        res.send({ success: true, user_subscriptions})
+            res.status(200)
+            res.send({ success: true, all_user_subscriptions})
+        }
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: "Aucun abonnement trouvé." })

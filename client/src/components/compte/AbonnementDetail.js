@@ -1,15 +1,15 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
 
-const AbonnementDetail = ({ title }) => {
+const AbonnementDetail = ({ name, description, expires }) => {
     return (
         <Row className="abonnement-detail mb-3 pb-2 d-flex align-items-center">
             <Col lg={7} className="d-flex flex-column align-items-center align-items-lg-start">
                 <h4>
-                    {title}
+                    { name }
                 </h4>
                 <p>
-                    Le meilleur abonnement de tous les temps.
+                    { description }
                 </p>
             </Col>
             <Col lg={5} className="d-flex flex-column align-items-center">
@@ -18,7 +18,7 @@ const AbonnementDetail = ({ title }) => {
                     <Button variant="danger"> RESILIER </Button>
                 </div>
                 <p className="p-0 m-0" style={{ fontSize: "12px" }}>
-                    Expire : 14/07/2022
+                    Expire : { new Date(expires).toLocaleDateString("fr-Fr") }
                 </p>
             </Col>
         </Row>

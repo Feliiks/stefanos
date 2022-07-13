@@ -14,18 +14,26 @@ const NavBar = ({ user }) => {
                     ABONNEMENTS
                 </Link>
             </Nav.Link>
-            <Nav.Link>
-                <Link to="/pronostics/all" style={{ textDecoration: "none" }}>
-                    PRONOSTICS
-                </Link>
-            </Nav.Link>
-            <Nav.Link
-                className="nav-link-grand-chelem"
-            >
-                <Link to="/pronostics/grand-chelem" style={{ textDecoration: "none" }}>
-                    GRAND CHELEM
-                </Link>
-            </Nav.Link>
+            {
+                user && (user.user_subscriptions.some(el => el.subscription.name === "V.I.P") > 0 || user.user.admin) ?
+                    <Nav.Link>
+                        <Link to="/pronostics/all" style={{ textDecoration: "none" }}>
+                            PRONOSTICS
+                        </Link>
+                    </Nav.Link>
+                : null
+            }
+            {
+                user && (user.user_subscriptions.some(el => el.subscription.name === "Grand Chelem") > 0 || user.user.admin) ?
+                    <Nav.Link
+                        className="nav-link-grand-chelem"
+                    >
+                        <Link to="/pronostics/grand-chelem" style={{ textDecoration: "none" }}>
+                            GRAND CHELEM
+                        </Link>
+                    </Nav.Link>
+                : null
+            }
         </Nav>
     )
 }

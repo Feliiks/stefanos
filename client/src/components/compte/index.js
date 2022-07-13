@@ -13,7 +13,7 @@ const Compte = () => {
                 <h2 className="text-center text-lg-start"> MON COMPTE </h2>
             </Row>
             <InformationsPanel />
-            <AbonnementsPanel />
+            <AbonnementsPanel subscriptions={user.user_subscriptions} />
         </Container>
     )
 }

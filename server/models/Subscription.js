@@ -18,6 +18,10 @@ const SubscriptionSchema = new Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    typeId: {
+        type: String,
+        default: "0"
     }
 })
 

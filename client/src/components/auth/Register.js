@@ -46,7 +46,7 @@ const Register = () => {
             if (res.status !== 201) throw new Error()
 
             dispatch(login({
-                user: res.data.user,
+                user: res.data.result,
                 token: res.data.token
             }))
 

@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap'
 
 import AboIlu from "../../../assets/ilu-abo.jpg"
 
-const Vip = () => {
+const Vip = ({ createCheckoutSession }) => {
     return (
         <Row className="abonnement_detail pt-5 pb-5">
             <Col className="d-flex align-items-center">
@@ -23,7 +23,7 @@ const Vip = () => {
                                 quicquam procederet adsueti locum et Isauriae
                                 omne adflictabantur.
                             </p>
-                            <Button className="login-btn">
+                            <Button className="login-btn" onClick={() => createCheckoutSession('price_1LLNSeCPsIWMaO3UkC2rokBV', "1")}>
                                 J'EN PROFITE
                             </Button>
                         </Col>

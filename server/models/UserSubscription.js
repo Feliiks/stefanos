@@ -13,9 +13,13 @@ const UserSubscriptionSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subscription"
     },
-    expirationDate: {
+    created_at: {
         type: Date,
-        default: new Date().setDate(new Date().getDate() + 31)
+        default: Date.now()
+    },
+    stripeSubId: {
+        type: String,
+        default: ""
     }
 })
 

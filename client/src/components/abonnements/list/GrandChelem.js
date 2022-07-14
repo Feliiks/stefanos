@@ -3,7 +3,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap'
 
 import AboIlu from '../../../assets/ilu-abo.jpg'
 
-const GrandChelem = () => {
+const GrandChelem = ({ createCheckoutSession }) => {
     return (
         <Row className="abonnement_detail pt-5 pb-5" style={{ background: '#F3F3F3'}}>
             <Col className="d-flex align-items-center">
@@ -24,7 +24,7 @@ const GrandChelem = () => {
                                 quicquam procederet adsueti locum et Isauriae
                                 omne adflictabantur.
                             </p>
-                            <Button className="login-btn">
+                            <Button className="login-btn" onClick={() => createCheckoutSession('price_1LLSaOCPsIWMaO3UZ6i1zBew', "2")}>
                                 J'EN PROFITE
                             </Button>
                         </Col>

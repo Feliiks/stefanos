@@ -22,6 +22,18 @@ const SubscriptionSchema = new Schema({
     typeId: {
         type: String,
         default: "0"
+    },
+    facturationType: {
+        type: String,
+        default: ""
+    },
+    stripePriceId: {
+        type: String,
+        default: ""
+    },
+    mode: {
+        type: String,
+        default: ""
     }
 })
 

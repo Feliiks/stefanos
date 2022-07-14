@@ -1,41 +1,33 @@
 const User = require('../models/User')
 const Subscription = require('../models/Subscription')
 const UserSubscription = require('../models/UserSubscription')
+const stripe = require('stripe')('sk_test_51KQwI8CPsIWMaO3U5aAZEycljZaYMDHlGMncpOVjgX0YswyrIuGoqR1q0p8SLpKGNsOyTmY8DpH9FoRr8lIL8Ott00M9bswsgn');
 
 const subscriptionsController = () => {};
 
 subscriptionsController.new = async (req, res) => {
     try {
-        let user = await User.findById(req.user._id)
-        let subscription = await Subscription.findById({
-            _id: req.body.subscription_id
+        let user = await User.findOne({
+            username: req.body.username
         })
-
-        if (!subscription) throw new Error
+        let subscription = await Subscription.findById(req.body.subscription_id)
 
         let existingSubscription = await UserSubscription.findOne({
             user: user,
-            subscription: subscription
+            subscription: subscription,
         })
 
-        if (!existingSubscription) {
-            await UserSubscription.create({
-                user: user,
-                subscription: subscription
-            })
+        if (!user || !subscription || existingSubscription) throw new Error
 
-            res.sendStatus(201)
-        } else {
-            await UserSubscription.findOneAndUpdate({
-                user: user,
-                subscription: subscription
-            }, {
-                expirationDate: existingSubscription.expirationDate.setDate(existingSubscription.expirationDate.getDate() + 31)
-            })
+        await UserSubscription.create({
+            user: user,
+            subscription: subscription,
+            stripeSubId: req.body.stripe_subscription_id
+        })
 
-            res.sendStatus(200)
-        }
+        res.sendStatus(201)
     } catch (err) {
+        res.status(400)
         res.send(err.message)
     }
 }
@@ -65,6 +57,18 @@ subscriptionsController.get = async (req, res) => {
     }
 }
 
+subscriptionsController.getTypes = async (req, res) => {
+    try {
+        let subscriptionTypes = await Subscription.find()
+
+        res.status(200)
+        res.send({ success: true, subscriptionTypes })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: "Aucun type d'abonnement trouvé." })
+    }
+}
+
 subscriptionsController.delete = async (req, res) => {
     try {
         let deletedSubscription = await UserSubscription.findOneAndDelete({
@@ -72,6 +76,10 @@ subscriptionsController.delete = async (req, res) => {
         })
 
         if (!deletedSubscription) throw new Error
+
+        if (deletedSubscription.stripeSubId !== null) {
+            await stripe.subscriptions.del(deletedSubscription.stripeSubId);
+        }
 
         res.sendStatus(200)
     } catch (err) {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import api from './utils/api'
 
@@ -17,7 +17,9 @@ import Auth from './components/auth'
 import Compte from "./components/compte"
 import Admin from './components/admin'
 
+import Payment from './components/payment'
 import NotFound from './components/others/NotFound'
+
 import { useDispatch } from 'react-redux'
 import { login } from './reducers/user.reducer'
 
@@ -38,7 +40,7 @@ const App = () => {
         }).catch(err => {
             console.log(err.message)
         })
-    })
+    }, [dispatch, sessionToken])
 
     return (
         <BrowserRouter>
@@ -90,6 +92,8 @@ const App = () => {
                            </PrivateRoutes.IsAdmin>
                        }
                 />
+
+                <Route path="/payment/:status/:session_id" exact element={<Payment />} />
 
                 <Route path="*" element={<NotFound />} />
             </Routes>

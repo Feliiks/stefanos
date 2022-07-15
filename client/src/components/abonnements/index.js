@@ -28,7 +28,7 @@ const Abonnements = () => {
             if (!user) {
                 navigate("/auth")
             } else if (user && !user.user_subscriptions.some(el => el.subscription._id === subscriptionId) > 0) {
-                let session = await api.post("/payments/create-checkout-session", {
+                let session = await api.post("/payments/checkout-session", {
                     price_id: priceId,
                     subscription_id: subscriptionId,
                     mode: mode,
@@ -44,7 +44,7 @@ const Abonnements = () => {
         }
     }
 
-    const subscriptionsList = subscriptionTypes.map(el => (
+    const subscriptionsList = subscriptionTypes ? subscriptionTypes.map(el => (
         <Row className="abonnement_detail pt-5 pb-5" key={el._id}>
             <Col className="d-flex align-items-center">
                 <Container>
@@ -65,7 +65,7 @@ const Abonnements = () => {
                 </Container>
             </Col>
         </Row>
-    ))
+    )) : null
 
     return (
         <Container fluid className="abonnements">

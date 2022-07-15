@@ -3,32 +3,42 @@ const UserSubscription = require('../models/UserSubscription')
 const { getToken } = require('../authenticate')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const userController = () => {};
 
-userController.getAllUsers = async (req, res) => {
+
+// GET _______________________________________________________________________
+userController.getAll = async (req, res) => {
     try {
-        if (req.query.user) {
-            let user = await User.findOne({
-                username: req.query.user
-            })
+        let users = await User.find()
 
-            if (!user) throw new Error
-
-            res.status(200)
-            res.send({ success: true, user })
-        } else {
-            let users = await User.find()
-
-            res.status(200)
-            res.send({ success: true, users })
-        }
+        res.status(200)
+        res.send({ success: true, users })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: "Aucun utilisateur trouvé." })
     }
 }
 
+userController.get = async (req, res) => {
+    try {
+        let user = await User.findOne({
+            username: req.params.userName
+        })
+
+        if (!user) throw new Error
+
+        res.status(200)
+        res.send({ success: true, user })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: "Aucun utilisateur trouvé." })
+    }
+}
+
+
+// POST ______________________________________________________________________
 userController.register = async (req, res) => {
     const { username, password } = req.body;
 
@@ -61,48 +71,6 @@ userController.register = async (req, res) => {
         res.send({ success: false, message: err.message })
     }
 };
-
-userController.updateUsername = async (req, res) => {
-    let new_username = req.body.new_username
-
-    try {
-        let existingUser = await User.findOne({
-            username: new_username
-        })
-
-        if (existingUser) throw new Error("Username unavailable.")
-
-        let user = await User.findByIdAndUpdate(req.body.user_id, {
-            username: new_username
-        })
-
-        if (!user) throw new Error
-
-        res.status(200)
-        res.send({ success: true, message: "User username updated." })
-    } catch (err) {
-        res.status(400)
-        res.send({ success: false, message: err.message })
-    }
-}
-
-userController.updatePassword = async (req, res) => {
-    try {
-        let user = await User.findById(req.body.user_id)
-
-        if (!user) throw new Error
-
-        await user.changePassword(req.body.current_password, req.body.new_password)
-
-        user.save()
-
-        res.status(200)
-        res.send({ success: true, message: "User password updated." })
-    } catch (err) {
-        res.status(400)
-        res.send({ success: false, message: err.message })
-    }
-}
 
 userController.login = async (req, res) => {
     let token = getToken({_id: req.user._id})
@@ -175,13 +143,74 @@ userController.logout = async (req, res) => {
     }
 }
 
+
+// PUT ______________________________________________________________________
+userController.updateUsername = async (req, res) => {
+    let new_username = req.body.new_username
+
+    try {
+        let existingUser = await User.findOne({
+            username: new_username
+        })
+
+        if (existingUser) throw new Error("Username unavailable.")
+
+        let user = await User.findByIdAndUpdate(req.params.userID, {
+            username: new_username
+        })
+
+        if (!user) throw new Error
+
+        res.status(200)
+        res.send({ success: true, message: "User username updated." })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
+userController.updatePassword = async (req, res) => {
+    try {
+        let user = await User.findById(req.params.userID)
+
+        if (!user) throw new Error
+
+        await user.changePassword(req.body.current_password, req.body.new_password)
+
+        user.save()
+
+        res.status(200)
+        res.send({ success: true, message: "User password updated." })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
+
+// DELETE _____________________________________________________________________
+userController.deleteAll = async (req, res) => {
+    try {
+        await User.deleteMany()
+        await UserSubscription.deleteMany()
+
+        res.sendStatus(200)
+    } catch (err) {
+        res.sendStatus(400)
+    }
+}
+
 userController.delete = async (req, res) => {
     try {
         let deletedUser = await User.findOneAndDelete({
-            username: req.body.username
+            username: req.params.userName
         })
 
-        if (!deletedUser) throw new Error
+        let deletedSubscription = await UserSubscription.findOneAndDelete({
+            user: deletedUser
+        })
+
+        await stripe.subscriptions.del(deletedSubscription.stripeSubId)
 
         res.sendStatus(200)
     } catch (err) {

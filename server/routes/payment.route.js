@@ -3,7 +3,7 @@ const paymentRouter = express.Router()
 
 const paymentController = require("../controllers/payment.controller")
 
-paymentRouter.post("/create-checkout-session", paymentController.createCheckoutSession)
-paymentRouter.post("/get-checkout-session", paymentController.getCheckoutSession)
+paymentRouter.post("/checkout-session", paymentController.createCheckoutSession)
+paymentRouter.get("/checkout-session/:sessionID", paymentController.getCheckoutSession)
 
 module.exports = paymentRouter

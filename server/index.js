@@ -45,4 +45,4 @@ require("./strategies/localStrategy");
 
 // ROUTES ___________________________________________________________
 
-app.use(mainRouter);
+app.use("/v1", mainRouter);

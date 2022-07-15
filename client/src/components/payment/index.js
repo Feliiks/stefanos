@@ -9,14 +9,13 @@ const Payment = () => {
     let [ session, setSession ] = useState({})
 
     useEffect(() => {
-        api.post("/payments/get-checkout-session", {
-            session_id: session_id
-        }).then(res => {
-            setSession(res.data.session)
-            window.location.reload(false);
-        }).catch(err => {
-            console.log(err)
-        })
+        api.get(`/payments/checkout-session/${session_id}`)
+            .then(res => {
+                setSession(res.data.session)
+                window.location.reload(false);
+            }).catch(err => {
+                console.log(err)
+            })
     }, [session_id])
 
     if (status === "success") {

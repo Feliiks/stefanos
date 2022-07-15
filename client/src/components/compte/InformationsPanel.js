@@ -41,15 +41,13 @@ const InformationsPanel = ({ user }) => {
             if (selectedOption === "1") {
                 if (!validator.isEmail(email)) throw new Error()
 
-                await api.post("/users/update/username", {
-                    user_id: user.user._id,
+                await api.put(`/users/username/${user.user._id}`, {
                     new_username: email
                 })
             } else {
                 if (!validator.isStrongPassword(currentPassword) || !validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
 
-                await api.post("/users/update/password", {
-                    user_id: user.user._id,
+                await api.put(`/users/password/${user.user._id}`, {
                     current_password: currentPassword,
                     new_password: newPassword
                 })

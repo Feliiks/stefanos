@@ -38,7 +38,7 @@ const Register = () => {
         try {
             if (!validator.isEmail(email) || !validator.isStrongPassword(password) || password !== repeatPassword) throw new Error()
 
-            let res = await api.post("http://localhost:5000/users/register", {
+            let res = await api.post("/users/register", {
                 username: email,
                 password: password
             })

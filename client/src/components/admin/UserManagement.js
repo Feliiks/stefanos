@@ -1,22 +1,15 @@
 import React from 'react'
 import { Button, Col, Row } from 'react-bootstrap'
-import AbonnementDetail from '../compte/AbonnementDetail'
 
-const UserManagement = () => {
+const UserManagement = ({ targetUser, subscriptionsList, deleteUser, makeUserAdmin }) => {
     return (
         <Row>
             <Col lg={10} className="mx-auto mb-2">
-                {/*
-                    On boucle sur tous les abonnements puis sur tous les abonnements
-                    de l'user. Si un abonnement match, on renseigne les infos sinon on
-                    le marque "non abonné".
-                */}
-                <AbonnementDetail />
-                <AbonnementDetail />
+                {subscriptionsList}
             </Col>
             <Col lg={10} className="mx-auto mb-4 d-flex justify-content-center">
-                <Button variant="danger"> SUPPRIMER </Button>
-                <Button variant="secondary"> METTRE ADMIN </Button>
+                <Button variant="danger" onClick={deleteUser}> SUPPRIMER </Button>
+                <Button variant="secondary" onClick={makeUserAdmin}> {targetUser.admin ? "RETIRER ADMIN" : "METTRE ADMIN"} </Button>
             </Col>
         </Row>
     )

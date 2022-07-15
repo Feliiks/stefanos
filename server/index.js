@@ -16,15 +16,15 @@ const mainRouter = require('./router');
 // SERVER CONFIG _____________________________________________________
 const app = express();
 
+app.use(
+    cors({
+        origin: "http://localhost:3000"
+    })
+);
+
 app.listen(process.env.PORT, () => {
     console.log(`Le serveur est lancé sur le port ${process.env.PORT} en ${process.env.NODE_ENV} mode.`);
 });
-
-app.use(
-    cors({
-        origin: "http://localhost:3000",
-    })
-);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

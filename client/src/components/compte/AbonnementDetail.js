@@ -29,7 +29,7 @@ const AbonnementDetail = ({ id, name, description, created_at, facturationType, 
                     <Modal.Title>Résiliation de l'abonnement</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Vous perdrez immédiatement l'accès à nos pronostics.
+                    Ce compte perdra immédiatement l'accès aux pronostics.
                     <br />
                     Confirmer ?
                 </Modal.Body>

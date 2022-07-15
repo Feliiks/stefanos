@@ -18,7 +18,7 @@ const Header = () => {
 
     const logoutUser = async () => {
         try {
-            await api.post("http://localhost:5000/users/logout", {
+            await api.post("/users/logout", {
                 user_id: user.user._id
             })
 

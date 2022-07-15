@@ -50,9 +50,7 @@ subscriptionsController.getAll = async (req, res) => {
 
 subscriptionsController.get = async (req, res) => {
     try {
-        let user = await User.findOne({
-            username: req.params.userName
-        })
+        let user = await User.findById(req.params.userID)
 
         let user_subscriptions = await UserSubscription.find({
             user: user

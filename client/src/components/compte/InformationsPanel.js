@@ -44,6 +44,8 @@ const InformationsPanel = ({ user }) => {
                 await api.put(`/users/username/${user.user._id}`, {
                     new_username: email
                 })
+
+                window.location.reload(false)
             } else {
                 if (!validator.isStrongPassword(currentPassword) || !validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
 
@@ -51,6 +53,8 @@ const InformationsPanel = ({ user }) => {
                     current_password: currentPassword,
                     new_password: newPassword
                 })
+
+                window.location.reload(false)
             }
         } catch (err) {
             if (selectedOption === "1") {
@@ -93,7 +97,7 @@ const InformationsPanel = ({ user }) => {
                 </Row>
 
                 <Row>
-                    <Form.Select className="form mt-4 mx-auto" aria-label="Default select example" onChange={e => setSelectedOption(e.target.value)}>
+                    <Form.Select className="form mt-4 mx-auto" value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
                         <option value="1"> Que voulez-vous modifier ? </option>
                         <option value="1"> Adresse mail </option>
                         <option value="2"> Mot de passe </option>

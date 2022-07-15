@@ -9,7 +9,7 @@ subscriptionsRouter.post("/", subscriptionsController.new)
 
 subscriptionsRouter.get("/", subscriptionsController.getAll)
 subscriptionsRouter.get("/types", subscriptionsController.getTypes)
-subscriptionsRouter.get("/:userName", subscriptionsController.get)
+subscriptionsRouter.get("/:userID", subscriptionsController.get)
 
 subscriptionsRouter.delete("/", subscriptionsController.deleteAll)
 subscriptionsRouter.delete("/:userSubscriptionId", subscriptionsController.delete)

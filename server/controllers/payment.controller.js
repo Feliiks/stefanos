@@ -13,6 +13,7 @@ paymentController.createCheckoutSession = async (req, res) => {
                     quantity: 1,
                 },
             ],
+            allow_promotion_codes: true,
             metadata: {
               subscription_id: req.body.subscription_id
             },

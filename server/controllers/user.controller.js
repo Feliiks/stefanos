@@ -187,6 +187,24 @@ userController.updatePassword = async (req, res) => {
     }
 }
 
+userController.updateAdminStatus = async (req, res) => {
+    try {
+        let user = await User.findById(req.params.userID)
+
+        if (!user) throw new Error("No user found.")
+
+        await User.findByIdAndUpdate(req.params.userID, {
+            admin: !user.admin
+        })
+
+        res.status(200)
+        res.send({ success: true, message: "User admin status updated." })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
 
 // DELETE _____________________________________________________________________
 userController.deleteAll = async (req, res) => {
@@ -202,18 +220,19 @@ userController.deleteAll = async (req, res) => {
 
 userController.delete = async (req, res) => {
     try {
-        let deletedUser = await User.findOneAndDelete({
-            username: req.params.userName
-        })
+        let deletedUser = await User.findByIdAndDelete(req.params.userID)
 
         let deletedSubscription = await UserSubscription.findOneAndDelete({
             user: deletedUser
         })
 
-        await stripe.subscriptions.del(deletedSubscription.stripeSubId)
+        if (deletedSubscription) {
+            await stripe.subscriptions.del(deletedSubscription.stripeSubId)
+        }
 
         res.sendStatus(200)
     } catch (err) {
+        console.log(err.message)
         res.sendStatus(400)
     }
 }

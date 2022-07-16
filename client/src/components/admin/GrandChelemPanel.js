@@ -34,7 +34,7 @@ const GrandChelemPanel = () => {
                 priceId: false
             })
         }
-    }, [setErrors, submitted, tournament, start, end])
+    }, [setErrors, submitted, tournament, start, end, priceId])
 
     const resetForm = () => {
         setSubmitted(false)
@@ -64,7 +64,10 @@ const GrandChelemPanel = () => {
             resetForm()
             setExistingEvent(res.data.event)
         } catch (err) {
-            console.log(err)
+            setErrors({
+                date: false,
+                priceId: true
+            })
         }
     }
 

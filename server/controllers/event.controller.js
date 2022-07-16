@@ -16,8 +16,6 @@ eventController.new = async (req, res) => {
 
         const price = await stripe.prices.retrieve(req.body.stripe_price_id);
 
-        if (!price) throw new Error("aaaa")
-
         let event = await Event.create({
             type: "Grand Chelem",
             tournament: req.body.tournament,
@@ -37,7 +35,6 @@ eventController.new = async (req, res) => {
         res.status(201)
         res.send({ success: true, message: "Event created.", event })
     } catch (err) {
-        console.log(err.message)
         res.status(400)
         res.send({ success: false, message: err.message })
     }

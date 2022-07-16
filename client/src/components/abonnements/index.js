@@ -40,7 +40,7 @@ const Abonnements = () => {
         }
     }
 
-    const subscriptionsList = subscriptionTypes ? subscriptionTypes.filter(el => el.isActive).map(el => (
+    const subscriptionsList = subscriptionTypes ? subscriptionTypes.map(el => (
         <Row className="abonnement_detail pt-5 pb-5" key={el._id}>
             <Col className="d-flex align-items-center">
                 <Container>
@@ -52,7 +52,7 @@ const Abonnements = () => {
                             <h3 className="text-center text-lg-start"> ABONNEMENT {el.name} - {el.price ? el.price / 100 : ""}€ </h3>
                             {
                                 el.event ?
-                                    <span> {el.event.tournament} • {new Date(el.event.starts).toLocaleDateString("fr-Fr")} - {new Date(el.event.ends).toLocaleDateString("fr-Fr")} </span>
+                                    <span> Temporaire • {new Date(el.event.starts).toLocaleDateString("fr-Fr")} - {new Date(el.event.ends).toLocaleDateString("fr-Fr")} </span>
                                 :
                                     <span> Abonnement mensuel </span>
                             }

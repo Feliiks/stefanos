@@ -1,9 +1,6 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const Subscription = require("./Subscription").schema
-const User = require("./User").schema
-
 const UserSubscriptionSchema = new Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -19,7 +16,11 @@ const UserSubscriptionSchema = new Schema({
     },
     stripeSubId: {
         type: String,
-        default: ""
+        default: null
+    },
+    stripePaymentIntent: {
+        type: String,
+        default: null
     }
 })
 

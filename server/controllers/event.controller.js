@@ -1,5 +1,7 @@
 const Event = require('../models/Event')
 const Subscription = require('../models/Subscription')
+const UserSubscription = require('../models/UserSubscription')
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 const eventController = () => {};
 
@@ -12,6 +14,10 @@ eventController.new = async (req, res) => {
 
         if (existingEvent) throw new Error()
 
+        const price = await stripe.prices.retrieve(req.body.stripe_price_id);
+
+        if (!price) throw new Error("aaaa")
+
         let event = await Event.create({
             type: "Grand Chelem",
             tournament: req.body.tournament,
@@ -19,14 +25,19 @@ eventController.new = async (req, res) => {
             ends: req.body.ends
         })
 
-        await Subscription.findByIdAndUpdate("62cd228f443f1ea6f019d96d", {
-            isActive: true,
+        await Subscription.create({
+            name: event.tournament,
+            description: "Cet abonnement à durée limitée vous fera profiter de nos pronostics pour le tournoi en cours.",
+            price: price.unit_amount,
+            stripePriceId: req.body.stripe_price_id,
+            mode: "payment",
             event: event
         })
 
         res.status(201)
         res.send({ success: true, message: "Event created.", event })
     } catch (err) {
+        console.log(err.message)
         res.status(400)
         res.send({ success: false, message: err.message })
     }
@@ -52,17 +63,14 @@ eventController.getAll = async (req, res) => {
 // DELETE _____________________________________________________________
 eventController.delete = async (req, res) => {
     try {
-        await Event.findByIdAndDelete(req.params.eventID)
-        await Subscription.findByIdAndUpdate("62cd228f443f1ea6f019d96d", {
-            isActive: false,
-            event: null
+        let doc = await Event.findOne({
+            _id: req.params.eventID
         })
 
-        // Delete sur UserSubscription
-        // Delete Stripe
+        await doc.deleteOne()
 
         res.status(200)
-        res.send({ success: true, message: "Events deleted." })
+        res.send({ success: true, message: "Event deleted." })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: "No event found." })

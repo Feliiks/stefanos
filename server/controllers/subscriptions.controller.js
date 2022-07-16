@@ -24,7 +24,8 @@ subscriptionsController.new = async (req, res) => {
         await UserSubscription.create({
             user: user,
             subscription: subscription,
-            stripeSubId: req.body.stripe_subscription_id
+            stripeSubId: req.body.stripe_subscription_id,
+            stripePaymentIntent: req.body.stripe_payment_intent
         })
 
         res.sendStatus(201)

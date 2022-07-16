@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
+const UserSubscription = require('./UserSubscription')
+
 const SubscriptionSchema = new Schema({
     name: {
         type: String,
@@ -15,18 +17,6 @@ const SubscriptionSchema = new Schema({
         type: Number,
         required: true
     },
-    isActive: {
-        type: Boolean,
-        default: true
-    },
-    typeId: {
-        type: String,
-        default: "0"
-    },
-    facturationType: {
-        type: String,
-        default: ""
-    },
     stripePriceId: {
         type: String,
         default: ""
@@ -39,6 +29,18 @@ const SubscriptionSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Event",
         default: null
+    }
+})
+
+SubscriptionSchema.post('deleteOne', { document: true, query: false }, async function() {
+    let subscription = this
+
+    try {
+        await UserSubscription.deleteMany({
+            subscription: subscription._id
+        })
+    } catch (err) {
+        console.log(err)
     }
 })
 

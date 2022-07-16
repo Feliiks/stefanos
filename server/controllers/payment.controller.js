@@ -41,7 +41,8 @@ paymentController.getCheckoutSession = async (req, res) => {
         await axios.post("http://localhost:5000/v1/subscriptions", {
             username: session.customer_email,
             subscription_id: session.metadata.subscription_id,
-            stripe_subscription_id: session.subscription
+            stripe_subscription_id: session.subscription,
+            stripe_payment_intent: session.payment_intent
         })
 
         res.status(200)

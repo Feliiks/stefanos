@@ -79,7 +79,7 @@ const ManageSubPanel = () => {
             name={el.subscription.name}
             description={el.subscription.description}
             created_at={el.created_at}
-            facturationType={el.subscription.facturationType}
+            facturationType={el.subscription.mode}
             deleteSub={deleteSub}
             show={show}
             setShow={setShow}

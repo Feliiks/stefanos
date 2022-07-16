@@ -5,12 +5,14 @@ import api from '../../utils/api'
 
 const GrandChelemPanel = () => {
     const [existingEvent, setExistingEvent] = useState(null)
-    const [tournament, setTournament] = useState("default")
+    const [tournament, setTournament] = useState("Open d'Australie")
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")
+    const [priceId, setPriceId] = useState("")
     const [submitted, setSubmitted] = useState(false)
     const [errors, setErrors] = useState({
-        date: false
+        date: false,
+        priceId: false
     })
     const [show, setShow] = useState(false)
 
@@ -28,7 +30,8 @@ const GrandChelemPanel = () => {
         if (submitted) {
             setErrors({
                 tournament: tournament === "0",
-                date: start > end || validator.isEmpty(start) || validator.isEmpty(end)
+                date: start > end || validator.isEmpty(start) || validator.isEmpty(end),
+                priceId: false
             })
         }
     }, [setErrors, submitted, tournament, start, end])
@@ -39,7 +42,8 @@ const GrandChelemPanel = () => {
         setStart("")
         setEnd("")
         setErrors({
-            date: false
+            date: false,
+            priceId: false
         })
     }
 
@@ -48,12 +52,13 @@ const GrandChelemPanel = () => {
         setSubmitted(true)
 
         try {
-            if (start > end || validator.isEmpty(start) || validator.isEmpty(end) || tournament === "default") throw new Error()
+            if (start > end || validator.isEmpty(priceId) || validator.isEmpty(start) || validator.isEmpty(end) || tournament === "default") throw new Error()
 
             let res = await api.post("/events", {
                 tournament: tournament,
                 starts: start,
-                ends: end
+                ends: end,
+                stripe_price_id: priceId
             })
 
             resetForm()
@@ -69,6 +74,8 @@ const GrandChelemPanel = () => {
             await api.delete(`/events/${existingEvent._id}`)
 
             setExistingEvent(null)
+
+            window.location.reload(false)
 
         } catch (err) {
             console.log(err)
@@ -88,13 +95,13 @@ const GrandChelemPanel = () => {
                         <Row>
                             <Form className="form mt-4 mb-4 mx-auto">
                                 <Form.Group className="mb-3" controlId="formBasicFrom">
+                                    <Form.Label>Tournoi</Form.Label>
                                     <Form.Select
                                         aria-label="0"
                                         value={tournament}
                                         className={ errors.tournament ? "error" : "" }
                                         onChange={e => setTournament(e.target.value)}
                                     >
-                                        <option value="default"> Sélectionnez un tournoi </option>
                                         <option value="Open d'Australie"> Open d'Australie </option>
                                         <option value="Roland Garros"> Roland Garros </option>
                                         <option value="Tournoi de Wimbledon"> Tournoi de Wimbledon </option>
@@ -106,11 +113,27 @@ const GrandChelemPanel = () => {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicFrom">
+                                    <Form.Label>Id du produit stripe</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        onChange={(e) => setPriceId(e.target.value)}
+                                        value={priceId}
+                                        className={ errors.priceId ? "error" : "" }
+                                        placeholder="price_"
+                                    />
+                                    <Form.Text className="text-danger">
+                                        { errors.priceId ? "Id de produit Stripe incorrect." : "" }
+                                    </Form.Text>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formBasicFrom">
+                                    <Form.Label>Date de début</Form.Label>
                                     <Form.Control
                                         type="date"
                                         className={ errors.date ? "error" : "" }
                                         onChange={(e) => setStart(e.target.value)}
                                         value={start}
+                                        placeholder="test"
                                     />
                                     <Form.Text className="text-danger">
                                         { errors.date ? "Date de début supérieure à la date de fin." : "" }
@@ -118,6 +141,7 @@ const GrandChelemPanel = () => {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicTo">
+                                    <Form.Label>Date de fin</Form.Label>
                                     <Form.Control
                                         type="date"
                                         className={ errors.date ? "error" : "" }
@@ -136,6 +160,7 @@ const GrandChelemPanel = () => {
                         <Row>
                             <Form className="form mt-4 mb-4 mx-auto">
                                 <Form.Group className="mb-3" controlId="formBasicFrom">
+                                    <Form.Label>Tournoi</Form.Label>
                                     <Form.Select
                                         aria-label="0"
                                         value={existingEvent.tournament}
@@ -150,6 +175,7 @@ const GrandChelemPanel = () => {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicFrom">
+                                    <Form.Label>Date de début</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className={ errors.date ? "error" : "" }
@@ -163,6 +189,7 @@ const GrandChelemPanel = () => {
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicTo">
+                                    <Form.Label>Date de fin</Form.Label>
                                     <Form.Control
                                         type="text"
                                         className={ errors.date ? "error" : "" }

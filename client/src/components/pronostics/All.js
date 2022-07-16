@@ -15,10 +15,10 @@ const All = () => {
                 <Col className="d-flex align-items-center">
                     <Container className="p-0 mt-5">
                         <span>
-                            ESPACE MEMBRES
+                            PRONOSTICS
                         </span>
                         <h2>
-                            NOS PRONOSTICS
+                            TOUS NOS PRONOSTICS
                         </h2>
                         <p>
                             SUIVEZ LA PUBLICATION DE NOS PRONOSTICS ET COMMENCEZ A PARIER GAGNANT !

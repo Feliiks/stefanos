@@ -34,6 +34,11 @@ const SubscriptionSchema = new Schema({
     mode: {
         type: String,
         default: ""
+    },
+    event: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+        default: null
     }
 })
 

@@ -12,16 +12,12 @@ const Abonnements = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const getAllSubs = () => {
-            api.get("/subscriptions/types").then(res => {
-                setSubscriptionTypes(res.data.subscriptionTypes)
-            }).catch(err => {
-                console.log(err.message)
-            })
-        }
-
-        getAllSubs()
-    })
+        api.get("/subscriptions/types").then(res => {
+            setSubscriptionTypes(res.data.subscriptionTypes)
+        }).catch(err => {
+            console.log(err.message)
+        })
+    }, [])
 
     const createCheckoutSession = async (priceId, subscriptionId, mode) => {
         try {
@@ -44,7 +40,7 @@ const Abonnements = () => {
         }
     }
 
-    const subscriptionsList = subscriptionTypes ? subscriptionTypes.map(el => (
+    const subscriptionsList = subscriptionTypes ? subscriptionTypes.filter(el => el.isActive).map(el => (
         <Row className="abonnement_detail pt-5 pb-5" key={el._id}>
             <Col className="d-flex align-items-center">
                 <Container>
@@ -54,6 +50,12 @@ const Abonnements = () => {
                         </Col>
                         <Col lg={5} className="mx-auto d-flex flex-column justify-content-center align-items-center align-items-lg-start pt-4 pt-lg-0">
                             <h3 className="text-center text-lg-start"> ABONNEMENT {el.name} - {el.price ? el.price / 100 : ""}€ </h3>
+                            {
+                                el.event ?
+                                    <span> {el.event.tournament} • {new Date(el.event.starts).toLocaleDateString("fr-Fr")} - {new Date(el.event.ends).toLocaleDateString("fr-Fr")} </span>
+                                :
+                                    <span> Abonnement mensuel </span>
+                            }
                             <p className="text-center text-lg-start">
                                 { el.description }
                             </p>

@@ -67,7 +67,7 @@ subscriptionsController.get = async (req, res) => {
 
 subscriptionsController.getTypes = async (req, res) => {
     try {
-        let subscriptionTypes = await Subscription.find()
+        let subscriptionTypes = await Subscription.find().populate("event")
 
         res.status(200)
         res.send({ success: true, subscriptionTypes })

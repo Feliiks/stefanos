@@ -27,7 +27,7 @@ const Subscriber = ({ children }) => {
 const SubscriberGC = ({ children }) => {
     let user = useSelector((state) => state.user.value)
 
-    return user && (user.user_subscriptions.some(el => el.subscription.typeId === "2") > 0 || user.user.admin) ? children : <Navigate to="/" />
+    return user && (user.user_subscriptions.some(el => el.subscription.event && new Date(el.subscription.event.starts) <= new Date(Date.now())) > 0 || user.user.admin) ? children : <Navigate to="/" />
 }
 
 const IsAdmin = ({ children }) => {

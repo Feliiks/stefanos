@@ -20,7 +20,7 @@ const NavBar = ({ user }) => {
                 : null
             }
             {
-                user && (user.user_subscriptions.some(el => el.subscription.name === "Grand Chelem") > 0 || user.user.admin) ?
+                user && (user.user_subscriptions.some(el => el.subscription.event && new Date(el.subscription.event.starts) <= new Date(Date.now())) > 0 || user.user.admin) ?
                     <Nav.Link
                         as={Link}
                         to="/pronostics/grand-chelem"

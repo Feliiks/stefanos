@@ -25,7 +25,7 @@ const Payment = () => {
                     <img src={Logo} height={100} alt="logo" />
                     <h3 className="text-center fw-bold"> Merci pour votre achat ! </h3>
                     <p className="text-center">
-                        Un email va être envoyé à <b>{session ? session.customer_email : ""}</b> avec l'ensemble des informations relatives à votre commande.
+                        Un email va vous être envoyé avec l'ensemble des informations relatives à votre commande.
                         <br />
                         <br />
                         Vous pouvez désormais accéder à l'ensemble de nos pronostics.

@@ -19,8 +19,9 @@ eventController.new = async (req, res) => {
         let event = await Event.create({
             type: "Grand Chelem",
             tournament: req.body.tournament,
-            starts: req.body.starts,
-            ends: req.body.ends
+            starts: new Date(req.body.starts),
+            ends: new Date(req.body.ends),
+            expireAt: new Date(req.body.ends)
         })
 
         await Subscription.create({

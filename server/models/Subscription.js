@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const UserSubscription = require('./UserSubscription')
 
-const SubscriptionSchema = new Schema({
+const Subscription = mongoose.model("Subscription", new Schema({
     name: {
         type: String,
         required: true
@@ -30,18 +30,27 @@ const SubscriptionSchema = new Schema({
         ref: "Event",
         default: null
     }
-})
+}), "subscriptions")
 
-SubscriptionSchema.post('deleteOne', { document: true, query: false }, async function() {
-    let subscription = this
 
+// STREAMS _________________________________________________________________
+Subscription.watch().on("change", async data => {
     try {
-        await UserSubscription.deleteMany({
-            subscription: subscription._id
-        })
+        if (data.operationType === "delete") {
+            await UserSubscription.deleteMany({
+                subscription: data.documentKey
+            })
+        }
     } catch (err) {
         console.log(err)
     }
 })
 
-module.exports = mongoose.model("Subscription", SubscriptionSchema, "subscriptions")
+
+// MIDDLEWARES ___________________________________________________________
+Subscription.schema.pre("find", function() {
+    this.populate("event")
+})
+
+
+module.exports = Subscription

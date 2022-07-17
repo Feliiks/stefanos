@@ -2,14 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Pronostic from './Pronostic'
 import api from '../../utils/api'
+import {Route, useNavigate} from 'react-router-dom';
 
 const GrandChelem = () => {
     const [event, setEvent] = useState(null)
+    const navigate = useNavigate();
 
     useEffect(() => {
         api.get("/events")
         .then(res => {
             setEvent(res.data.events_list[0])
+
+            if (new Date(res.data.events_list[0].starts) >= new Date(Date.now())) {
+                return navigate('/')
+            }
         })
         .catch(err => {
             setEvent(null)

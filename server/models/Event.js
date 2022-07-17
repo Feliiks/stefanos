@@ -3,37 +3,37 @@ const Schema = mongoose.Schema
 
 const Subscription = require("./Subscription")
 
-const EventSchema = new Schema({
+const Event = mongoose.model("Event", new Schema({
     type: {
-        type: String,
-        default: ""
+        type: String
     },
     tournament: {
-        type: String,
-        default: ""
+        type: String
     },
     starts: {
-        type: Date,
-        default: ""
+        type: Date
     },
     ends: {
+        type: Date
+    },
+    expireAt: {
         type: Date,
-        default: ""
+        expires: 60
     }
-})
+}), "events")
 
-EventSchema.pre('deleteOne', { document: true, query: false }, async function() {
-    let event = this
 
+// STREAMS __________________________________________________________
+Event.watch().on("change", async data => {
     try {
-        let subscription = await Subscription.findOne({
-            event: event._id
-        })
-
-        await subscription.deleteOne()
+        if (data.operationType === "delete") {
+            await Subscription.deleteMany({
+                event: data.documentKey
+            })
+        }
     } catch (err) {
         console.log(err)
     }
 })
 
-module.exports = mongoose.model("Event", EventSchema, "events")
+module.exports = Event

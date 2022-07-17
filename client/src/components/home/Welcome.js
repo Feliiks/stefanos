@@ -12,9 +12,6 @@ const Welcome = () => {
                 <h2>
                     LE MEILLEUR SITE DE PRONOSTICS POUR LE PARIS SPORTIF
                 </h2>
-                <Button className="mx-auto login-btn">
-                    CONNEXION
-                </Button>
             </Col>
         </Row>
     )

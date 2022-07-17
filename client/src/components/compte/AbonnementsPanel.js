@@ -18,7 +18,6 @@ const AbonnementsPanel = ({ subscriptions }) => {
             key={el._id}
             id={el._id}
             name={el.subscription.name}
-            description={el.subscription.description}
             created_at={el.created_at}
             facturationType={el.subscription.mode}
             deleteSub={deleteSub}

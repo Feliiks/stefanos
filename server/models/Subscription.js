@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const UserSubscription = require('./UserSubscription')
 
+
 const Subscription = mongoose.model("Subscription", new Schema({
     name: {
         type: String,
@@ -10,8 +11,10 @@ const Subscription = mongoose.model("Subscription", new Schema({
     },
     description: {
         type: String,
-        required: true,
-        default: ""
+        default: null
+    },
+    image: {
+        type: String
     },
     price: {
         type: Number,

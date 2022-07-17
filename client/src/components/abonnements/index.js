@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Row } from 'react-bootstrap'
+import { Button, Card, Col, Container, ListGroup, Row } from 'react-bootstrap'
 
 import { useSelector } from 'react-redux'
 import api from '../../utils/api'
@@ -41,32 +41,32 @@ const Abonnements = () => {
     }
 
     const subscriptionsList = subscriptionTypes ? subscriptionTypes.map(el => (
-        <Row className="abonnement_detail pt-5 pb-5" key={el._id}>
-            <Col className="d-flex align-items-center">
-                <Container>
-                    <Row>
-                        <Col lg={5} className="mx-auto d-flex flex-column justify-content-center align-items-center align-items-lg-end">
-                            <img src={AboIlu} alt="illustration abonnement" />
-                        </Col>
-                        <Col lg={5} className="mx-auto d-flex flex-column justify-content-center align-items-center align-items-lg-start pt-4 pt-lg-0">
-                            <h3 className="text-center text-lg-start"> ABONNEMENT {el.name} - {el.price ? el.price / 100 : ""}€ </h3>
-                            {
-                                el.event ?
-                                    <span> Temporaire • {new Date(el.event.starts).toLocaleDateString("fr-Fr")} - {new Date(el.event.ends).toLocaleDateString("fr-Fr")} </span>
-                                :
-                                    <span> Abonnement mensuel </span>
-                            }
-                            <p className="text-center text-lg-start">
-                                { el.description }
-                            </p>
-                            <Button className="login-btn" onClick={() => createCheckoutSession(el.stripePriceId, el._id, el.mode)}>
-                                J'EN PROFITE
-                            </Button>
-                        </Col>
-                    </Row>
-                </Container>
-            </Col>
-        </Row>
+        <Col lg={6} className="d-flex align-items-center justify-content-center" key={el._id}>
+            <Card className="mx-auto" style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={el.image} />
+                <Card.Body>
+                    <Card.Title>{el.name}</Card.Title>
+                    <Card.Text style={{height: "150px"}}>
+                        {el.description}
+                    </Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    {
+                        el.event ?
+                            <ListGroup.Item>{new Date(el.event.starts).toLocaleDateString("fr-Fr")} - {new Date(el.event.ends).toLocaleDateString("fr-Fr")}</ListGroup.Item>
+                            :
+                            <ListGroup.Item>Abonnement mensuel</ListGroup.Item>
+                    }
+
+                    <ListGroup.Item>{el.price ? el.price / 100 : ""}€</ListGroup.Item>
+                </ListGroup>
+                <Card.Body>
+                    <Button className="login-btn" onClick={() => createCheckoutSession(el.stripePriceId, el._id, el.mode)}>
+                        J'EN PROFITE
+                    </Button>
+                </Card.Body>
+            </Card>
+        </Col>
     )) : null
 
     return (
@@ -88,7 +88,11 @@ const Abonnements = () => {
                 </Col>
             </Row>
 
-            { subscriptionsList }
+            <Container className="p-5">
+                <Row>
+                    { subscriptionsList }
+                </Row>
+            </Container>
 
         </Container>
     )

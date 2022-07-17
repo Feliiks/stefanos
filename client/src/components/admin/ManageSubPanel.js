@@ -12,9 +12,23 @@ const ManageSubPanel = () => {
     const [errors, setErrors] = useState({
         email: false
     })
+
     const [targetUser, setTargetUser] = useState({})
+
     const [userSubscriptions, setUserSubscriptions] = useState([])
+    const [selectedUserSubscription, setSelectedUserSubscription] = useState({})
+    const [selectedSubscriptionId, setSelectedSubscriptionId] = useState("")
+    const [subscriptionTypes, setSubscriptionTypes] = useState([])
+
     const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        api.get("/subscriptions/types").then(res => {
+            setSubscriptionTypes(res.data.subscriptionTypes)
+        }).catch(err => {
+            console.log(err.message)
+        })
+    }, [])
 
     const getUser = async (e) => {
         e.preventDefault()
@@ -38,6 +52,22 @@ const ManageSubPanel = () => {
             setErrors({
                 email: true
             })
+        }
+    }
+
+    const createNewSub = async () => {
+        try {
+            if (selectedUserSubscription === "default") throw new Error()
+
+            await api.post("/subscriptions", {
+                username: targetUser.username,
+                subscription_id: selectedUserSubscription._id,
+                stripe_subscription_id: selectedSubscriptionId
+            })
+
+            window.location.reload(false)
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -77,14 +107,13 @@ const ManageSubPanel = () => {
             key={el._id}
             id={el._id}
             name={el.subscription.name}
-            description={el.subscription.description}
             created_at={el.created_at}
             facturationType={el.subscription.mode}
             deleteSub={deleteSub}
             show={show}
             setShow={setShow}
         />
-    )) : <p> Utilisateur non abonné. </p>
+    )) : <p className="text-center"> Utilisateur non abonné. </p>
 
     return (
     <>
@@ -124,6 +153,13 @@ const ManageSubPanel = () => {
                                 deleteUser={deleteUser}
                                 makeUserAdmin={makeUserAdmin}
                                 targetUser={targetUser}
+                                selectedUserSubscription={selectedUserSubscription}
+                                setSelectedUserSubscription={setSelectedUserSubscription}
+                                subscriptionTypes={subscriptionTypes}
+                                userSubscriptions={userSubscriptions}
+                                createNewSub={createNewSub}
+                                selectedSubscriptionId={selectedSubscriptionId}
+                                setSelectedSubscriptionId={setSelectedSubscriptionId}
                             />
                             : null
                     }

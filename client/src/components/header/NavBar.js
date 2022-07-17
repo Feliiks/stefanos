@@ -13,7 +13,7 @@ const NavBar = ({ user }) => {
                 ABONNEMENTS
             </Nav.Link>
             {
-                user && (user.user_subscriptions.some(el => el.subscription.name === "V.I.P") > 0 || user.user.admin) ?
+                user && (user.user_subscriptions.some(el => el.subscription.mode === "subscription") > 0 || user.user.admin) ?
                     <Nav.Link as={Link} to="/pronostics/all">
                         PRONOSTICS
                     </Nav.Link>

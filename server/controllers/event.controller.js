@@ -15,6 +15,9 @@ eventController.new = async (req, res) => {
         if (existingEvent) throw new Error()
 
         const price = await stripe.prices.retrieve(req.body.stripe_price_id);
+        const product = await stripe.products.retrieve(price.product)
+
+        console.log(product)
 
         let event = await Event.create({
             type: "Grand Chelem",
@@ -25,8 +28,9 @@ eventController.new = async (req, res) => {
         })
 
         await Subscription.create({
-            name: event.tournament,
-            description: "Cet abonnement à durée limitée vous fera profiter de nos pronostics pour le tournoi en cours.",
+            name: product.name,
+            description: product.description,
+            image: product.images[0],
             price: price.unit_amount,
             stripePriceId: req.body.stripe_price_id,
             mode: "payment",

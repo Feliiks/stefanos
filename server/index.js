@@ -42,6 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./strategies/localStrategy");
+require("./strategies/googleStrategy");
 
 // ROUTES ___________________________________________________________
 

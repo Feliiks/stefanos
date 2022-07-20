@@ -9,27 +9,8 @@ import { AiFillTwitterCircle } from 'react-icons/ai'
 const Footer = () => {
     return (
         <MDBFooter className='text-center text-lg-start text-muted' style={{ background: "#00503C"}}>
+                <section style={{ background: "#FAFAFA", height: "20px"}} />
             <Container>
-                <section className='d-flex justify-content-center justify-content-lg-between p-4 border-bottom text-light'>
-                    <div className='me-5 d-none d-lg-block'>
-                        <span>Restez connecté avec nous via nos réseaux sociaux :</span>
-                    </div>
-                    <div>
-                        <a href='/' className='me-4 text-reset'>
-                            <AiFillTwitterCircle size={30} />
-                        </a>
-                        <a href='/' className='me-4 text-reset'>
-                            <AiFillTwitterCircle size={30} />
-                        </a>
-                        <a href='/' className='me-4 text-reset'>
-                            <AiFillTwitterCircle size={30} />
-                        </a>
-                        <a href='/' className='me-4 text-reset'>
-                            <AiFillTwitterCircle size={30} />
-                        </a>
-                    </div>
-                </section>
-
                 <section className="text-light">
                     <div className='container text-center text-md-start mt-5'>
                         <div className='row mt-3'>

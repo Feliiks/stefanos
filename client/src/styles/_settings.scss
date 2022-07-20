@@ -110,3 +110,14 @@ a, .nav-link {
         border: 1px solid red;
     }
 }
+
+
+.filter {
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+
+    background-color: #000;
+    opacity: 50%;
+}

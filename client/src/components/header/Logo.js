@@ -8,7 +8,7 @@ const Logo = () => {
     return (
         <Link to="/" className="text-decoration-none">
             <Navbar.Brand className="d-flex align-items-center">
-                <img src={ImgLogo} alt="logo" />
+                {/*<img src={ImgLogo} alt="logo"/>*/}
                 <span className="ms-2 fs-6 fw-bold" style={{ color: "#c85a19" }}>
                     STEFANOS
                 </span>

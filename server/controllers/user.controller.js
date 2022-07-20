@@ -72,6 +72,46 @@ userController.register = async (req, res) => {
     }
 };
 
+userController.registerWithGoogle = async (req, res) => {
+    const { username, googleId } = req.body;
+
+    try {
+        let existingUser = await User.findOne({
+            $or: [
+                { username: username },
+                { googleId: googleId}
+            ]
+        })
+
+        if (!username || !googleId || existingUser) throw new Error("Informations manquantes ou utilisateur existant.")
+
+        let user = new User({
+            username: username,
+            googleId: googleId
+        })
+
+        let token = getToken({_id: user._id})
+
+        user.token = token
+
+        await user.save()
+
+        let user_subscriptions = []
+
+        let result = {
+            user,
+            user_subscriptions
+        }
+
+        res.status(201)
+        res.send({ success: true, result, token })
+    } catch (err) {
+        console.log(err.message)
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+};
+
 userController.login = async (req, res) => {
     let token = getToken({_id: req.user._id})
 
@@ -80,6 +120,36 @@ userController.login = async (req, res) => {
         let user_subscriptions = await UserSubscription.find({
             user: user
         }).populate("subscription")
+
+        user.token = token
+
+        await user.save()
+
+        let result = {
+            user,
+            user_subscriptions
+        }
+
+        res.status(200)
+        res.send({ success: true, result, token })
+    } catch (err) {
+        console.log(err.message)
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
+userController.loginWithGoogle = async (req, res) => {
+    try {
+        let user = await User.findOne({
+            googleId: req.body.googleId
+        })
+
+        let user_subscriptions = await UserSubscription.find({
+            user: user
+        }).populate("subscription")
+
+        let token = getToken({_id: user._id})
 
         user.token = token
 

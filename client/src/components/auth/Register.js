@@ -6,6 +6,7 @@ import BtnGoogle from '../../assets/btn_google_signin.png'
 import api from '../../utils/api'
 import { login } from '../../reducers/user.reducer'
 import { useDispatch } from 'react-redux'
+import { GoogleLogin } from 'react-google-login'
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -57,11 +58,42 @@ const Register = () => {
             })
         }
     }
+
+    const signUpWithGoogle = async (googleProfile) => {
+        console.log(googleProfile)
+        try {
+            let res = await api.post("/users/google", {
+                username: googleProfile.email,
+                googleId: googleProfile.googleId
+            })
+
+            if (res.status !== 201) throw new Error()
+
+            dispatch(login({
+                user: res.data.result,
+                token: res.data.token
+            }))
+
+        } catch (err) {
+            setErrors({
+                ...errors,
+                credentials: true
+            })
+        }
+    }
+
+
     return (
         <Row className="mt-4">
             <Col lg={4} className="auth-panel mx-auto p-4">
                 <h3 className="mb-3" style={{ color: "#555555" }}> JE N'AI PAS DE COMPTE </h3>
-                <img className="mb-2 google-btn" src={BtnGoogle} alt="btn_google" />
+                <GoogleLogin
+                    className="mb-2"
+                    clientId="714637265219-g5leq30s9fjgbkqrhadth8p64csc2k0k.apps.googleusercontent.com"
+                    onSuccess={(res) => signUpWithGoogle(res.profileObj)}
+                    onFailure={() => alert("Google Error.")}
+                    cookiePolicy={"single_host_origin"}
+                />
                 <span className="mb-2"> OU </span>
                 <Form className="form">
                     <Form.Group className="mb-3" controlId="formBasicEmail">

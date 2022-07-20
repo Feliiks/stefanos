@@ -2,15 +2,18 @@
 
 .pronostics {
     .title {
-        min-height: 300px;
+        min-height: 200px;
 
         display: flex;
         flex-direction: column;
         justify-content: center;
+        position: relative;
+        margin-top: 75px;
 
         background-image: url("../../../assets/website-bg.jpg");
         color: #fff;
         text-transform: uppercase;
+        overflow: hidden;
 
         span {
             font-size: 25px;

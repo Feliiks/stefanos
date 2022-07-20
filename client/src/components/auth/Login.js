@@ -9,6 +9,8 @@ import BtnGoogle from "../../assets/btn_google_signin.png"
 import validator from 'validator'
 
 import { Navigate } from 'react-router'
+import { gapi } from 'gapi-script';
+import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -19,6 +21,7 @@ const Login = () => {
         password: false,
         credentials: false
     })
+    const [googleTokenId, setGoogleTokenId] = useState("")
 
     const dispatch = useDispatch()
 
@@ -31,6 +34,17 @@ const Login = () => {
             })
         }
     }, [setErrors, submitted, email, password])
+
+    useEffect(() => {
+        function start() {
+            gapi.client.init({
+                clientId: "714637265219-g5leq30s9fjgbkqrhadth8p64csc2k0k.apps.googleusercontent.com",
+                scope: 'email',
+            });
+        }
+
+        gapi.load('client:auth2', start);
+    }, []);
 
     const signIn = async (e) => {
         e.preventDefault()
@@ -57,11 +71,36 @@ const Login = () => {
         }
     }
 
+    const loginWithGoogle = async (googleId) => {
+        try {
+            let res = await api.post("/users/login/google", {
+                googleId: googleId
+            })
+
+            dispatch(login({
+                user: res.data.result,
+                token: res.data.token
+            }))
+
+        } catch (err) {
+            setErrors({
+                ...errors,
+                credentials: true
+            })
+        }
+    }
+
     return (
         <Row>
             <Col lg={4} className="auth-panel mx-auto p-4">
                 <h3 className="mb-3"> J'AI DEJA UN COMPTE </h3>
-                <img className="mb-2 google-btn" src={BtnGoogle} alt="btn_google" />
+                <GoogleLogin
+                    className="mb-2"
+                    clientId="714637265219-g5leq30s9fjgbkqrhadth8p64csc2k0k.apps.googleusercontent.com"
+                    onSuccess={(res) => loginWithGoogle(res.googleId)}
+                    onFailure={() => alert("Google Error.")}
+                    cookiePolicy={"single_host_origin"}
+                />
                 <span className="mb-2"> OU </span>
                 <Form className="form mx-auto">
                     <Form.Group className="mb-3" controlId="formBasicEmail">

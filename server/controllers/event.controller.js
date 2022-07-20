@@ -17,8 +17,6 @@ eventController.new = async (req, res) => {
         const price = await stripe.prices.retrieve(req.body.stripe_price_id);
         const product = await stripe.products.retrieve(price.product)
 
-        console.log(product)
-
         let event = await Event.create({
             type: "Grand Chelem",
             tournament: req.body.tournament,

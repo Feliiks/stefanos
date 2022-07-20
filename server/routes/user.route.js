@@ -8,7 +8,9 @@ userRouter.get("/", userController.getAll)
 userRouter.get("/:userName", userController.get)
 
 userRouter.post("/", userController.register)
+userRouter.post("/google", userController.registerWithGoogle)
 userRouter.post("/login", passport.authenticate("local"), userController.login)
+userRouter.post("/login/google", userController.loginWithGoogle)
 userRouter.post("/getsession", userController.getNewSession)
 userRouter.post("/logout", userController.logout)
 

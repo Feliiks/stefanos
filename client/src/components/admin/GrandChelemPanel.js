@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import validator from 'validator'
 import api from '../../utils/api'
+import { Alert } from '@mui/material'
 
-const GrandChelemPanel = () => {
+const GrandChelemPanel = ({ setAlert }) => {
     const [existingEvent, setExistingEvent] = useState(null)
     const [tournament, setTournament] = useState("Open d'Australie")
     const [start, setStart] = useState("")
@@ -63,6 +64,11 @@ const GrandChelemPanel = () => {
 
             resetForm()
             setExistingEvent(res.data.event)
+
+            setAlert({
+                severity: 'success',
+                message: "L'événement a été créé"
+            })
         } catch (err) {
             setErrors({
                 date: false,

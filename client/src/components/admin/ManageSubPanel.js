@@ -6,7 +6,7 @@ import validator from 'validator'
 import api from '../../utils/api'
 import AbonnementDetail from '../compte/AbonnementDetail'
 
-const ManageSubPanel = () => {
+const ManageSubPanel = ({ setAlert }) => {
     const [email, setEmail] = useState("")
     const [submitted, setSubmitted] = useState(false)
     const [errors, setErrors] = useState({
@@ -30,8 +30,7 @@ const ManageSubPanel = () => {
         })
     }, [])
 
-    const getUser = async (e) => {
-        e.preventDefault()
+    const getUser = async () => {
         setSubmitted(true)
         setTargetUser({})
         setUserSubscriptions([])
@@ -49,6 +48,11 @@ const ManageSubPanel = () => {
                 email: false
             })
         } catch (err) {
+            console.log(err)
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
             setErrors({
                 email: true
             })
@@ -65,17 +69,39 @@ const ManageSubPanel = () => {
                 stripe_subscription_id: selectedSubscriptionId
             })
 
-            window.location.reload(false)
+            setSelectedSubscriptionId("")
+            await getUser()
+            setAlert({
+                severity: "success",
+                message: "Nouvel abonnement créé."
+            })
         } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
             console.log(err)
         }
     }
 
     const deleteSub = async (id) => {
-        await api.delete(`/subscriptions/${id}`)
+        console.log(id)
 
-        setShow(false)
-        window.location.reload(false)
+        try {
+            await api.delete(`/subscriptions/${id}`)
+
+            setShow(false)
+            await getUser()
+            setAlert({
+                severity: "success",
+                message: "L'abonnement a été supprimé."
+            })
+        } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
+        }
     }
 
     const deleteUser = async () => {
@@ -84,8 +110,15 @@ const ManageSubPanel = () => {
 
             await api.delete(`/users/${targetUser._id}`)
 
-            window.location.reload(false)
+            setAlert({
+                severity: "success",
+                message: "L'utilisateur a été supprimé."
+            })
         } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
             console.log(err)
         }
     }
@@ -96,8 +129,15 @@ const ManageSubPanel = () => {
 
             await api.put(`/users/admin/${targetUser._id}`)
 
-            window.location.reload(false)
+            setAlert({
+                severity: "success",
+                message: "L'utilisateur est désormais administrateur."
+            })
         } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
             console.log(err)
         }
     }
@@ -105,7 +145,7 @@ const ManageSubPanel = () => {
     let subscriptionsList = userSubscriptions[0] ? userSubscriptions.map(el => (
         <AbonnementDetail
             key={el._id}
-            id={el._id}
+            subId={el._id}
             name={el.subscription.name}
             created_at={el.created_at}
             facturationType={el.subscription.mode}
@@ -141,7 +181,7 @@ const ManageSubPanel = () => {
                             </Form.Group>
 
                             <div className="d-flex justify-content-center">
-                                <Button className="mx-auto" variant="success" onClick={(e) => getUser(e)}> VALIDER </Button>
+                                <Button className="mx-auto" variant="success" onClick={() => getUser()}> VALIDER </Button>
                             </div>
                         </Form>
                         <hr />

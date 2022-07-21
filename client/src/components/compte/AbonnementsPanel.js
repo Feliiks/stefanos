@@ -7,6 +7,7 @@ const AbonnementsPanel = ({ subscriptions }) => {
     const [show, setShow] = useState(false);
 
     const deleteSub = async (id) => {
+        console.log(id)
         await api.delete(`/subscriptions/${id}`)
 
         setShow(false)

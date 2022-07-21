@@ -24,7 +24,7 @@ subscriptionsController.new = async (req, res) => {
         await UserSubscription.create({
             user: user,
             subscription: subscription,
-            stripeSubId: req.body.stripe_subscription_id,
+            stripeSubId: req.body.stripe_subscription_id === "" ? null : req.body.stripe_subscription_id,
             stripePaymentIntent: req.body.stripe_payment_intent
         })
 
@@ -108,6 +108,8 @@ subscriptionsController.delete = async (req, res) => {
             _id: req.params.userSubscriptionId
         })
 
+        console.log(deletedSubscription)
+
         if (!deletedSubscription) throw new Error
 
         if (deletedSubscription.stripeSubId !== null) {
@@ -116,6 +118,7 @@ subscriptionsController.delete = async (req, res) => {
 
         res.sendStatus(200)
     } catch (err) {
+        console.log(err.message)
         res.sendStatus(400)
     }
 }

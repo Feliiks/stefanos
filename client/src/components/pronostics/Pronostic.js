@@ -21,8 +21,8 @@ import siteBg from "../../assets/website-bg.jpg"
 
 const Pronostic = ({ title, image, content, created_at }) => {
     return (
-        <Col lg={4} className="mb-5">
-            <Card className="mx-auto" sx={{ maxWidth: 345 }}>
+        <Col lg={6} className="mb-5">
+            <Card className="mx-auto" sx={{ maxWidth: 500 }}>
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

@@ -4,6 +4,7 @@ import Pronostic from './Pronostic'
 import api from '../../utils/api'
 import {Route, useNavigate} from 'react-router-dom';
 import ReactLoading from 'react-loading'
+import { Button } from '@mui/material'
 
 const GrandChelem = () => {
     const [event, setEvent] = useState(null)
@@ -39,22 +40,29 @@ const GrandChelem = () => {
         return (
             <Container fluid className="pronostics">
                 <Row className="title">
-                    <div className="filter" />
-                    <Col className="d-flex align-items-center" style={{zIndex: "1"}}>
+                    <div className="filter position-absolute" />
+                    <Col className="d-flex align-items-center pt-3 pb-3" style={{zIndex: "1"}}>
                         <Container className="p-0">
-                        <span>
+                            <Row>
+                                <Col lg={6}>
+                                <span>
                             PRONOSTICS
                         </span>
-                            <h2>
-                                { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
-                            </h2>
-                            {
-                                event ?
-                                    <p>
-                                        DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
-                                    </p>
-                                    : null
-                            }
+                                    <h2>
+                                        { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
+                                    </h2>
+                                    {
+                                        event ?
+                                            <p>
+                                                DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
+                                            </p>
+                                            : null
+                                    }
+                                </Col>
+                                <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
+                                    <Button variant="contained" style={{ background: "#f05a02" }}> Suivre la publication <br/>des nouveaux pronostics </Button>
+                                </Col>
+                            </Row>
                         </Container>
                     </Col>
                 </Row>
@@ -85,22 +93,29 @@ const GrandChelem = () => {
         return (
             <Container fluid className="pronostics">
                 <Row className="title">
-                    <div className="filter" />
-                    <Col className="d-flex align-items-center" style={{zIndex: "1"}}>
+                    <div className="filter position-absolute" />
+                    <Col className="d-flex align-items-center pt-3 pb-3" style={{zIndex: "1"}}>
                         <Container className="p-0">
-                        <span>
+                            <Row>
+                                <Col lg={6}>
+                                <span>
                             PRONOSTICS
                         </span>
-                            <h2>
-                                { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
-                            </h2>
-                            {
-                                event ?
-                                    <p>
-                                        DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
-                                    </p>
-                                    : null
-                            }
+                                    <h2>
+                                        { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
+                                    </h2>
+                                    {
+                                        event ?
+                                            <p>
+                                                DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
+                                            </p>
+                                            : null
+                                    }
+                                </Col>
+                                <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
+                                    <Button variant="contained" style={{ background: "#f05a02" }}> Suivre la publication <br/>des nouveaux pronostics </Button>
+                                </Col>
+                            </Row>
                         </Container>
                     </Col>
                 </Row>

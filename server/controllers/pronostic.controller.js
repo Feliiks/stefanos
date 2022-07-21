@@ -11,8 +11,6 @@ pronosticController.getAll = async (req, res) => {
             database_id: databaseId
         });
 
-        console.log(pronostics)
-
         let finalResults = []
 
         await Promise.all(pronostics.results.map(async pronostic => {

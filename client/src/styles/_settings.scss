@@ -127,4 +127,19 @@ a, .nav-link {
     position: fixed;
     bottom: 15px;
     left: 30px;
+
+    animation: slidein both 0.25s ease-in-out;
+    opacity: 0;
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }

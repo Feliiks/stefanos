@@ -36,7 +36,7 @@ eventController.new = async (req, res) => {
         })
 
         res.status(201)
-        res.send({ success: true, message: "Event created.", event })
+        res.send({ success: true, message: "L'événement a été créé.", event })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })
@@ -70,10 +70,10 @@ eventController.delete = async (req, res) => {
         await doc.deleteOne()
 
         res.status(200)
-        res.send({ success: true, message: "Event deleted." })
+        res.send({ success: true, message: "L'événement a été supprimé." })
     } catch (err) {
         res.status(400)
-        res.send({ success: false, message: "No event found." })
+        res.send({ success: false, message: "Aucun événement trouvé." })
     }
 }
 

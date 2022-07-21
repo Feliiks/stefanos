@@ -206,7 +206,7 @@ userController.logout = async (req, res) => {
         user.save()
 
         res.status(200)
-        res.send({ success: true })
+        res.send({ success: true, message: "Déconnecté." })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })
@@ -223,7 +223,7 @@ userController.updateUsername = async (req, res) => {
             username: new_username
         })
 
-        if (existingUser) throw new Error("Username unavailable.")
+        if (existingUser) throw new Error("Nom d'utilisateur indisponible.")
 
         let user = await User.findByIdAndUpdate(req.params.userID, {
             username: new_username
@@ -232,7 +232,7 @@ userController.updateUsername = async (req, res) => {
         if (!user) throw new Error
 
         res.status(200)
-        res.send({ success: true, message: "User username updated." })
+        res.send({ success: true, message: "Le nom d'utilisateur a été modifié." })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })
@@ -250,7 +250,7 @@ userController.updatePassword = async (req, res) => {
         user.save()
 
         res.status(200)
-        res.send({ success: true, message: "User password updated." })
+        res.send({ success: true, message: "Le mot de passe a été modifié." })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })
@@ -268,7 +268,7 @@ userController.updateAdminStatus = async (req, res) => {
         })
 
         res.status(200)
-        res.send({ success: true, message: "User admin status updated." })
+        res.send({ success: true, message: "L'utilisateur est désormais administrateur." })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })
@@ -282,7 +282,8 @@ userController.deleteAll = async (req, res) => {
         await User.deleteMany()
         await UserSubscription.deleteMany()
 
-        res.sendStatus(200)
+        res.status(200)
+        res.send({ success: true, message: "Tous les utilisateurs ont été supprimés." })
     } catch (err) {
         res.sendStatus(400)
     }
@@ -292,15 +293,19 @@ userController.delete = async (req, res) => {
     try {
         let deletedUser = await User.findByIdAndDelete(req.params.userID)
 
-        let deletedSubscription = await UserSubscription.findOneAndDelete({
+        let subscriptions = await UserSubscription.find({
             user: deletedUser
         })
 
-        if (deletedSubscription) {
-            await stripe.subscriptions.del(deletedSubscription.stripeSubId)
-        }
+        subscriptions.map(async sub => {
+            if (sub.stripeSubId !== null) {
+                await stripe.subscriptions.del(sub.stripeSubId)
+            }
+            await UserSubscription.deleteOne({ _id: sub._id })
+        })
 
-        res.sendStatus(200)
+        res.status(200)
+        res.send({ success: true, message: "L'utilisateur a été supprimé." })
     } catch (err) {
         console.log(err.message)
         res.sendStatus(400)

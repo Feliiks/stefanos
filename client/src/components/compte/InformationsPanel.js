@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
 import api from '../../utils/api'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const InformationsPanel = ({ user }) => {
+const InformationsPanel = ({ user, setAlert }) => {
     const [email, setEmail] = useState("")
     const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
@@ -45,22 +44,35 @@ const InformationsPanel = ({ user }) => {
             if (selectedOption === "1") {
                 if (!validator.isEmail(email)) throw new Error()
 
-                await api.put(`/users/username/${user.user._id}`, {
+                let res = await api.put(`/users/username/${user.user._id}`, {
                     new_username: email
                 })
 
-                window.location.reload(false)
+                resetForm()
+                setAlert({
+                    severity: "success",
+                    message: res.data.message
+                })
             } else {
                 if (!validator.isStrongPassword(currentPassword) || !validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
 
-                await api.put(`/users/password/${user.user._id}`, {
+                let res = await api.put(`/users/password/${user.user._id}`, {
                     current_password: currentPassword,
                     new_password: newPassword
                 })
 
-                window.location.reload(false)
+                resetForm()
+                setAlert({
+                    severity: "success",
+                    message: res.data.message
+                })
             }
         } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
+
             if (selectedOption === "1") {
                 setErrors({
                     ...errors,

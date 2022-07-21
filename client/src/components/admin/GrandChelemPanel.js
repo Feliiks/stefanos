@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import validator from 'validator'
 import api from '../../utils/api'
-import { Alert } from '@mui/material'
 
 const GrandChelemPanel = ({ setAlert }) => {
     const [existingEvent, setExistingEvent] = useState(null)
@@ -66,8 +65,8 @@ const GrandChelemPanel = ({ setAlert }) => {
             setExistingEvent(res.data.event)
 
             setAlert({
-                severity: 'success',
-                message: "L'événement a été créé"
+                severity: "success",
+                message: res.data.message
             })
         } catch (err) {
             setErrors({
@@ -80,12 +79,15 @@ const GrandChelemPanel = ({ setAlert }) => {
     const closeGrandChelem = async (e) => {
         e.preventDefault()
         try {
-            await api.delete(`/events/${existingEvent._id}`)
+            let res = await api.delete(`/events/${existingEvent._id}`)
 
             setExistingEvent(null)
 
-            window.location.reload(false)
-
+            setShow(false)
+            setAlert({
+                severity: "success",
+                message: res.data.message
+            })
         } catch (err) {
             console.log(err)
         }

@@ -28,7 +28,8 @@ subscriptionsController.new = async (req, res) => {
             stripePaymentIntent: req.body.stripe_payment_intent
         })
 
-        res.sendStatus(201)
+        res.status(201)
+        res.send({ success: true, message: "Nouvel abonnement créé." })
     } catch (err) {
         res.status(400)
         res.send(err.message)
@@ -95,7 +96,8 @@ subscriptionsController.deleteAll = async (req, res) => {
             })
         }
 
-        res.sendStatus(200)
+        res.status(200)
+        res.send({ success: true, message: "Tous les abonnements ont été résiliés." })
     } catch (err) {
         console.log(err.message)
         res.sendStatus(400)
@@ -116,7 +118,8 @@ subscriptionsController.delete = async (req, res) => {
             await stripe.subscriptions.del(deletedSubscription.stripeSubId);
         }
 
-        res.sendStatus(200)
+        res.status(200)
+        res.send({ success: true, message: "L'abonnement a été résilié." })
     } catch (err) {
         console.log(err.message)
         res.sendStatus(400)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
+import { Button, Col, Form, Row } from 'react-bootstrap'
 
 import UserManagement from './UserManagement'
 import validator from 'validator'
@@ -19,8 +19,6 @@ const ManageSubPanel = ({ setAlert }) => {
     const [selectedUserSubscription, setSelectedUserSubscription] = useState({})
     const [selectedSubscriptionId, setSelectedSubscriptionId] = useState("")
     const [subscriptionTypes, setSubscriptionTypes] = useState([])
-
-    const [show, setShow] = useState(false);
 
     useEffect(() => {
         api.get("/subscriptions/types").then(res => {
@@ -48,7 +46,6 @@ const ManageSubPanel = ({ setAlert }) => {
                 email: false
             })
         } catch (err) {
-            console.log(err)
             setAlert({
                 severity: "error",
                 message: "Une erreur est survenue."
@@ -63,7 +60,7 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (selectedUserSubscription === "default") throw new Error()
 
-            await api.post("/subscriptions", {
+            let res = await api.post("/subscriptions", {
                 username: targetUser.username,
                 subscription_id: selectedUserSubscription._id,
                 stripe_subscription_id: selectedSubscriptionId
@@ -73,7 +70,7 @@ const ManageSubPanel = ({ setAlert }) => {
             await getUser()
             setAlert({
                 severity: "success",
-                message: "Nouvel abonnement créé."
+                message: res.data.message
             })
         } catch (err) {
             setAlert({
@@ -85,16 +82,13 @@ const ManageSubPanel = ({ setAlert }) => {
     }
 
     const deleteSub = async (id) => {
-        console.log(id)
-
         try {
-            await api.delete(`/subscriptions/${id}`)
+            let res = await api.delete(`/subscriptions/${id}`)
 
-            setShow(false)
             await getUser()
             setAlert({
                 severity: "success",
-                message: "L'abonnement a été supprimé."
+                message: res.data.message
             })
         } catch (err) {
             setAlert({
@@ -108,11 +102,12 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (validator.isEmpty(email)) throw new Error()
 
-            await api.delete(`/users/${targetUser._id}`)
+            let res = await api.delete(`/users/${targetUser._id}`)
 
+            setTargetUser({})
             setAlert({
                 severity: "success",
-                message: "L'utilisateur a été supprimé."
+                message: res.data.message
             })
         } catch (err) {
             setAlert({
@@ -127,11 +122,12 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (validator.isEmpty(email)) throw new Error()
 
-            await api.put(`/users/admin/${targetUser._id}`)
+            let res = await api.put(`/users/admin/${targetUser._id}`)
 
+            await getUser()
             setAlert({
                 severity: "success",
-                message: "L'utilisateur est désormais administrateur."
+                message: res.data.message
             })
         } catch (err) {
             setAlert({
@@ -150,8 +146,6 @@ const ManageSubPanel = ({ setAlert }) => {
             created_at={el.created_at}
             facturationType={el.subscription.mode}
             deleteSub={deleteSub}
-            show={show}
-            setShow={setShow}
         />
     )) : <p className="text-center"> Utilisateur non abonné. </p>
 

@@ -1,29 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import AbonnementDetail from './AbonnementDetail'
 import api from '../../utils/api'
 
-const AbonnementsPanel = ({ subscriptions }) => {
-    const [show, setShow] = useState(false);
-
+const AbonnementsPanel = ({ subscriptions, setAlert }) => {
     const deleteSub = async (id) => {
-        console.log(id)
-        await api.delete(`/subscriptions/${id}`)
+        try {
+            let res = await api.delete(`/subscriptions/${id}`)
 
-        setShow(false)
-        window.location.reload(false);
+            setAlert({
+                severity: "success",
+                message: res.data.message
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     let subscriptionsList = subscriptions.map(el => (
         <AbonnementDetail
             key={el._id}
-            id={el._id}
+            subId={el._id}
             name={el.subscription.name}
             created_at={el.created_at}
             facturationType={el.subscription.mode}
             deleteSub={deleteSub}
-            show={show}
-            setShow={setShow}
         />
     ))
 
@@ -37,7 +38,7 @@ const AbonnementsPanel = ({ subscriptions }) => {
                 </Row>
                 <Row>
                     <Col lg={10} className="mx-auto mt-4 mb-4">
-                        { subscriptionsList.length !== 0 ? subscriptionsList : "Aucun abonnement trouvé." }
+                        { subscriptionsList[0] ? subscriptionsList : "Aucun abonnement trouvé." }
                     </Col>
                 </Row>
             </Col>

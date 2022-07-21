@@ -4,6 +4,7 @@ import Pronostic from "./Pronostic"
 import api from '../../utils/api'
 import ReactLoading from 'react-loading';
 import { Button } from '@mui/material'
+import TelegramIcon from '@mui/icons-material/Telegram';
 
 
 const All = () => {
@@ -40,7 +41,9 @@ const All = () => {
                                     </p>
                                 </Col>
                                 <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
-                                    <Button variant="contained" style={{ background: "#f05a02" }}> Suivre la publication <br/>des nouveaux pronostics </Button>
+                                    <Button variant="contained" style={{ background: "#f05a02" }}>
+                                            Suivre la publication <br/>des nouveaux pronostics
+                                    </Button>
                                 </Col>
                             </Row>
                         </Container>

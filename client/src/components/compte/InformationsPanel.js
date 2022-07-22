@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
 import api from '../../utils/api'
+import { Button } from '@mui/material'
+import MenuItem from '@mui/material/MenuItem'
 
 const InformationsPanel = ({ user, setAlert }) => {
     const [email, setEmail] = useState("")
@@ -139,8 +141,9 @@ const InformationsPanel = ({ user, setAlert }) => {
                                             </Form.Text>
                                         </Form.Group>
                                         <div className="d-flex justify-content-center">
-                                            <Button variant="secondary" onClick={resetForm}> ANNULER </Button>
-                                            <Button variant="success" onClick={update}> CHANGER </Button>
+                                            <Button variant="outlined" onClick={resetForm}>Annuler</Button>
+                                            <Button variant="contained" onClick={update}>Modifier</Button>
+
                                         </div>
                                     </Form>
                                     :

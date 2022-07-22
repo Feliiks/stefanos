@@ -5,26 +5,26 @@ import { Link } from "react-router-dom"
 const NavBar = ({ user }) => {
     return (
         <Nav
-            className="mx-auto my-2 my-lg-0 text-dark text-uppercase"
-            style={{ maxHeight: '100px', fontFamily: "Francois One" }}
+            className="mx-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px', fontWeight: "700", color: "#fff" }}
             navbarScroll
         >
             <Nav.Link as={Link} to="/">
-                A PROPOS
+                A propos
             </Nav.Link>
             <Nav.Link as={Link} to="/">
-                ABONNEMENTS
+                Abonnements
             </Nav.Link>
             <Nav.Link as={Link} to="/">
-                RESULTATS
+                Résultats
             </Nav.Link>
             <Nav.Link as={Link} to="/">
-                CONTACT
+                Contact
             </Nav.Link>
             {
                 user && (user.user_subscriptions.some(el => el.subscription.mode === "subscription") > 0 || user.user.admin) ?
                     <Nav.Link as={Link} to="/pronostics/all">
-                        PRONOSTICS
+                        Pronostics
                     </Nav.Link>
                 : null
             }
@@ -35,7 +35,7 @@ const NavBar = ({ user }) => {
                         to="/pronostics/grand-chelem"
                         className="nav-link-grand-chelem"
                     >
-                        GRAND CHELEM
+                        Grand Chelem
                     </Nav.Link>
                 : null
             }

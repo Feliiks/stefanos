@@ -9,8 +9,9 @@
 }
 
 body, html {
-    background: #FAFAFA;
+    background: #ffffff;
     font-family: "Open Sans", sans-serif;
+    color: #000000;
 
     &::-webkit-scrollbar {
         display: none;
@@ -25,10 +26,6 @@ a, .nav-link {
     &:hover {
         color: #C85A19 !important;
     }
-}
-
-.nav-link-grand-chelem {
-    color: #00503C !important;
 }
 
 
@@ -87,22 +84,6 @@ a, .nav-link {
     cursor: pointer;
 }
 
-.sub-btn {
-    width: 100%;
-
-    background: #C85A19;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    border-radius: 0;
-    font-weight: 700;
-    font-size: 20px;
-
-    &:hover {
-        background: #ce6c2e;
-    }
-}
-
 
 // FORM ____________________________________________________________
 .form {
@@ -116,14 +97,18 @@ a, .nav-link {
     input {
         height: 35px;
 
-        border-radius: 2px;
-        border: 1px solid #CCCCCC;
+        border-radius: 3px;
+        border: 2px solid #66B2FF;
         font-size: 14px;
         font-weight: 600;
+        background: none;
+        color: #fff;
 
         &:focus {
             box-shadow: none;
-            border: 1px solid #555;
+            background: none;
+            border: 2px solid #66B2FF;
+            color: #fff;
         }
     }
 

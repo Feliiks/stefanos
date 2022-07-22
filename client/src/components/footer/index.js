@@ -8,8 +8,8 @@ import { AiFillTwitterCircle } from 'react-icons/ai'
 
 const Footer = () => {
     return (
-        <MDBFooter className='text-center text-lg-start text-muted' style={{ background: "#00503C"}}>
-                <section style={{ background: "#FAFAFA", height: "20px"}} />
+        <MDBFooter className='text-center text-lg-start text-muted' style={{ background: "#212121" }}>
+                <section style={{ background: "#fff", height: "20px"}} />
             <Container>
                 <section className="text-light">
                     <div className='container text-center text-md-start mt-5'>
@@ -58,7 +58,7 @@ const Footer = () => {
                     </div>
                 </section>
             </Container>
-                <div className='text-center p-2 text-light' style={{ background: '#003326' }}>
+                <div className='text-center p-2 text-light' style={{ background: "#212121" }}>
                     © 2022 Copyright Stefanos - Développé par Ludovic Sbr
                 </div>
         </MDBFooter>

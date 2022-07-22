@@ -24,21 +24,23 @@ const Compte = () => {
     })
 
     return (
-        <Container className="account">
-            <Row className="title mb-5 d-flex justify-content-center justify-content-lg-start">
-                <h2 className="text-center text-lg-start"> MON COMPTE </h2>
-            </Row>
-            {
-                alert.message !== "" ? <Alert severity={alert.severity} onClose={() => setAlert({severity: '', message: ''})} className="alert"> {alert.message} </Alert> : null
-            }
-            <InformationsPanel
-                setAlert={setAlert}
-                user={user}
-            />
-            <AbonnementsPanel
-                setAlert={setAlert}
-                subscriptions={user.user_subscriptions}
-            />
+        <Container fluid style={{background: "#212121", color: "#fff"}}>
+            <Container className="account">
+                <Row className="title mb-5 d-flex justify-content-center justify-content-lg-start">
+                    <h2 className="text-center text-lg-start"> MON COMPTE </h2>
+                </Row>
+                {
+                    alert.message !== "" ? <Alert severity={alert.severity} onClose={() => setAlert({severity: '', message: ''})} className="alert"> {alert.message} </Alert> : null
+                }
+                <InformationsPanel
+                    setAlert={setAlert}
+                    user={user}
+                />
+                <AbonnementsPanel
+                    setAlert={setAlert}
+                    subscriptions={user.user_subscriptions}
+                />
+            </Container>
         </Container>
     )
 }

@@ -49,7 +49,7 @@ const All = () => {
                         </Container>
                     </Col>
                 </Row>
-                <Row style={{ background: "rgb(238,238,238)" }} className="pt-5 pb-5">
+                <Row style={{ background: "#212121" }} className="pt-5 pb-5">
                     <Col>
                         <Container>
                             <Row>

@@ -27,9 +27,9 @@ const Home = () => {
         try {
             if (!user) {
                 navigate("/auth")
-            } else if (user && !user.user_subscriptions.some(el => el.subscription._id === subscription.id) > 0) {
+            } else if (user && !user.user_subscriptions.some(el => el.subscription._id === subscription._id) > 0) {
                 let session = await api.post("/payments/checkout-session", {
-                    price_id: subscription.price,
+                    price_id: subscription.stripePriceId,
                     subscription_id: subscription._id,
                     mode: subscription.mode,
                     username: user.user.username

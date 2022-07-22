@@ -191,7 +191,6 @@ userController.getNewSession = async (req, res) => {
         res.status(200)
         res.send({ success: true, result })
     } catch (err) {
-        console.log(err.message)
         res.status(401)
         res.send({ success: false, message: err.message })
     }

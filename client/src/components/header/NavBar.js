@@ -9,8 +9,17 @@ const NavBar = ({ user }) => {
             style={{ maxHeight: '100px', fontFamily: "Francois One" }}
             navbarScroll
         >
-            <Nav.Link as={Link} to="/abonnements">
+            <Nav.Link as={Link} to="/">
+                A PROPOS
+            </Nav.Link>
+            <Nav.Link as={Link} to="/">
                 ABONNEMENTS
+            </Nav.Link>
+            <Nav.Link as={Link} to="/">
+                RESULTATS
+            </Nav.Link>
+            <Nav.Link as={Link} to="/">
+                CONTACT
             </Nav.Link>
             {
                 user && (user.user_subscriptions.some(el => el.subscription.mode === "subscription") > 0 || user.user.admin) ?

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
+import { Button } from "@mui/material"
 
 import UserManagement from './UserManagement'
 import validator from 'validator'
@@ -175,7 +176,7 @@ const ManageSubPanel = ({ setAlert }) => {
                             </Form.Group>
 
                             <div className="d-flex justify-content-center">
-                                <Button className="mx-auto" variant="success" onClick={() => getUser()}> VALIDER </Button>
+                                <Button variant="contained" onClick={() => getUser()}>Valider</Button>
                             </div>
                         </Form>
                         <hr />

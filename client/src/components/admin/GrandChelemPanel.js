@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
+import { Col, Form, Modal, Row } from 'react-bootstrap'
+import { Button } from "@mui/material"
 import validator from 'validator'
 import api from '../../utils/api'
 
@@ -162,8 +163,8 @@ const GrandChelemPanel = ({ setAlert }) => {
                                 </Form.Group>
 
                                 <div className="d-flex justify-content-center">
-                                    <Button variant="secondary" onClick={(e) => resetForm()}> ANNULER </Button>
-                                    <Button variant="success" onClick={(e) => startGrandChelem(e)}> VALIDER </Button>
+                                    <Button variant="outlined" onClick={resetForm}>Annuler</Button>
+                                    <Button variant="contained" onClick={(e) => startGrandChelem(e)}>Valider</Button>
                                 </div>
                             </Form>
                         </Row>
@@ -211,26 +212,24 @@ const GrandChelemPanel = ({ setAlert }) => {
                                 </Form.Group>
 
                                 <div className="d-flex justify-content-center">
-                                    <Button variant="danger" onClick={() => setShow(true)}> TERMINER </Button>
+                                    <Button variant="contained" color="error" onClick={() => setShow(true)}> Terminer </Button>
                                 </div>
                             </Form>
                         </Row>
                 }
-                <Modal show={show} onHide={() => setShow(false)}>
+                <Modal show={show} onHide={() => setShow(false)} style={{ color: "#000" }}>
                     <Modal.Header closeButton>
                         <Modal.Title>Terminer l'événement</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         L'événement prendra fin et tous les utilisateurs perdront leur abonnement.
-                        <br />
-                        Confirmer ?
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShow(false)}>
+                        <Button className="me-3" variant="outlined" onClick={() => setShow(false)}>
                             Annuler
                         </Button>
-                        <Button variant="danger" onClick={closeGrandChelem}>
-                            TERMINER
+                        <Button variant="contained" color="error" onClick={closeGrandChelem}>
+                            Terminer
                         </Button>
                     </Modal.Footer>
                 </Modal>

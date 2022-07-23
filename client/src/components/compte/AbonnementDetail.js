@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Col, Modal, Row } from 'react-bootstrap'
+import { Col, Modal, Row } from 'react-bootstrap'
+import { Button } from "@mui/material"
 
 const AbonnementDetail = ({ subId, name, created_at, facturationType, deleteSub }) => {
     const [show, setShow] = useState(false);
@@ -25,10 +26,10 @@ const AbonnementDetail = ({ subId, name, created_at, facturationType, deleteSub 
                     </p>
                 </Col>
                 <Col lg={3} className="d-flex flex-column align-items-center">
-                    <Button variant="danger" onClick={() => setShow(true)}> RESILIER </Button>
+                    <Button variant="contained" color="error" onClick={() => setShow(true)}> Résilier </Button>
                 </Col>
             </Row>
-            <Modal show={show} onHide={() => setShow(false)}>
+            <Modal show={show} onHide={() => setShow(false)} style={{ color: "#000" }}>
                 <Modal.Header closeButton>
                     <Modal.Title>Résilier l'abonnement</Modal.Title>
                 </Modal.Header>
@@ -36,10 +37,10 @@ const AbonnementDetail = ({ subId, name, created_at, facturationType, deleteSub 
                     Ce compte perdra immédiatement tous les avantages liés à cet abonnement.
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShow(false)}>
+                    <Button className="me-3" variant="outlined" onClick={() => setShow(false)}>
                         Annuler
                     </Button>
-                    <Button variant="danger" onClick={handleClose}>
+                    <Button variant="contained" color="error" onClick={handleClose}>
                         Résilier
                     </Button>
                 </Modal.Footer>

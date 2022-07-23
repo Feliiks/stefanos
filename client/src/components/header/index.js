@@ -30,8 +30,12 @@ const Header = () => {
     }
 
     return (
-        <Navbar expand="lg" fixed="top" className="p-0" style={{ background: "#fff"}}>
-            <Container style={{minHeight: "75px" }}>
+        <Navbar
+            expand="lg"
+            fixed="top"
+            className="p-0"
+            style={{ background: "rgba(10, 25, 41, 0.72)", boxShadow: "rgb(19 47 76) 0px -1px 1px inset", backdropFilter: "blur(20px)" }}>
+            <Container style={{minHeight: "60px" }}>
                 <Logo />
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">

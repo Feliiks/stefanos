@@ -7,14 +7,19 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
     return (
-        <Row style={{ background: "#212121", color: "#fff" }}>
+        <Row style={{ background: "rgb(0, 30, 60)" }}>
             <Col>
                 <Container>
                     <Row className="section subscriptions d-flex justify-content-center">
-                        <h2 className="section-title mx-auto text-center"> DEVENIR UN GAGNANT </h2>
+                        <Col className="d-flex flex-column justify-content-center" lg={4}>
+                            <span className="fw-bold" style={{ color: "rgb(51, 153, 255)" }}>Abonnements</span>
+                            <h2 className="section-title mx-auto">
+                                Tous ce dont vous avez besoin <span style={{ color: "rgb(51, 153, 255)" }}>en un seul clic</span>
+                            </h2>
+                        </Col>
                         {
                             subscriptionTypes ? subscriptionTypes.map(el => (
-                                <Col lg={4}>
+                                <Col lg={4} key={el._id} className="mb-3">
                                     <Card className="sub-card shadow mx-auto overflow-hidden p-4" style={{ width: '18rem' }}>
                                         <Card.Body className="d-flex align-items-center justify-content-center" style={{ height: "75px"}}>
                                             <Card.Title className="text-uppercase fw-bold text-center m-0 p-0"> { el.name } </Card.Title>

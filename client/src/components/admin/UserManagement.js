@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
+import { Button } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const UserManagement = ({ targetUser,
     subscriptionsList,
@@ -69,7 +71,7 @@ const UserManagement = ({ targetUser,
                                     : null
                             }
                             <div className="d-flex justify-content-center">
-                                <Button className="mx-auto" variant="success" onClick={createNewSub}> AJOUTER </Button>
+                                <Button className="mx-auto" variant="contained" color="success" onClick={createNewSub}> Ajouter </Button>
                             </div>
                         </Form>
                         <hr />
@@ -78,8 +80,10 @@ const UserManagement = ({ targetUser,
             }
 
             <Col lg={10} className="mx-auto mb-4 d-flex justify-content-center">
-                <Button variant="danger" onClick={deleteUser}> SUPPRIMER </Button>
-                <Button variant="secondary" onClick={makeUserAdmin}> {targetUser.admin ? "RETIRER ADMIN" : "METTRE ADMIN"} </Button>
+                <Button variant="outlined" color="error" onClick={deleteUser} startIcon={<DeleteIcon />}>
+                    Supprimer
+                </Button>
+                <Button variant="outlined" onClick={makeUserAdmin}> {targetUser.admin ? "Retirer admin" : "Mettre admin"} </Button>
             </Col>
         </>
     )

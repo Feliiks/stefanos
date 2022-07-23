@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
+import { Button } from "@mui/material"
 import validator from "validator"
 
 import BtnGoogle from '../../assets/btn_google_signin.png'
@@ -93,6 +94,7 @@ const Register = () => {
                     onSuccess={(res) => signUpWithGoogle(res.profileObj)}
                     onFailure={() => alert("Google Error.")}
                     cookiePolicy={"single_host_origin"}
+                    buttonText="Sign up with Google"
                 />
                 <span className="mb-2"> OU </span>
                 <Form className="form">
@@ -135,10 +137,11 @@ const Register = () => {
                             value={repeatPassword}
                         />
                     </Form.Group>
-
-                    <Button className="mx-auto" variant="primary" type="submit" onClick={(e) => signUp(e)}>
-                        INSCRIPTION
-                    </Button>
+                    <div className="d-flex justify-content-center">
+                        <Button variant="contained" type="submit" onClick={(e) => signUp(e)}>
+                            Inscription
+                        </Button>
+                    </div>
                 </Form>
             </Col>
         </Row>

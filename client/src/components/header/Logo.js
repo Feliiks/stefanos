@@ -9,7 +9,7 @@ const Logo = () => {
         <Link to="/" className="text-decoration-none">
             <Navbar.Brand className="d-flex align-items-center">
                 {/*<img src={ImgLogo} alt="logo"/>*/}
-                <span className="ms-2 fs-6 fw-bold" style={{ color: "#c85a19" }}>
+                <span className="ms-2 fs-6 fw-bold" style={{ color: "rgb(51, 153, 255)" }}>
                     STEFANOS
                 </span>
             </Navbar.Brand>

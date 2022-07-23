@@ -23,21 +23,22 @@ const Admin = () => {
     })
 
     return (
-        <Container fluid style={{background: "#212121", color: "#fff"}}>
-            <Container className="account">
-                <Row className="title mb-5 d-flex justify-content-center justify-content-lg-start">
-                    <h2 className="text-center text-lg-start"> ADMINISTRATION </h2>
-                </Row>
-                {
-                    alert.message !== "" ? <Alert severity={alert.severity} onClose={() => setAlert({severity: '', message: ''})} className="alert"> {alert.message} </Alert> : null
-                }
-                <GrandChelemPanel
-                    setAlert={setAlert}
-                />
-                <ManageSubPanel
-                    setAlert={setAlert}
-                />
-            </Container>
+        <Container className="account">
+            <Row className="title mb-3">
+                <Col className="d-flex flex-column align-items-center align-items-md-start">
+                    <h2 className="text-center text-lg-start"> Administration </h2>
+                    <p> Gestion des événements et des utilisateurs. </p>
+                </Col>
+            </Row>
+            {
+                alert.message !== "" ? <Alert severity={alert.severity} onClose={() => setAlert({severity: '', message: ''})} className="alert"> {alert.message} </Alert> : null
+            }
+            <GrandChelemPanel
+                setAlert={setAlert}
+            />
+            <ManageSubPanel
+                setAlert={setAlert}
+            />
         </Container>
     )
 }

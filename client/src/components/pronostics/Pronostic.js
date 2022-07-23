@@ -18,6 +18,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
 import siteBg from "../../assets/website-bg.jpg"
+import { Telegram } from '@mui/icons-material'
 
 const Pronostic = ({ title, image, content, created_at }) => {
     return (
@@ -28,11 +29,6 @@ const Pronostic = ({ title, image, content, created_at }) => {
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                             S
                         </Avatar>
-                    }
-                    action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
                     }
                     title={title}
                     subheader={new Date(created_at).toLocaleString()}
@@ -46,7 +42,7 @@ const Pronostic = ({ title, image, content, created_at }) => {
                     />
                 </a>
                 <CardContent>
-                    <Typography variant="body2" color="text.dark" className="fw-bold">
+                    <Typography variant="body2" style={{ color: "#000"}}>
                         { content }
                     </Typography>
                 </CardContent>
@@ -55,7 +51,7 @@ const Pronostic = ({ title, image, content, created_at }) => {
                         <TwitterIcon />
                     </IconButton>
                     <IconButton aria-label="share">
-                        <ShareIcon />
+                        <Telegram />
                     </IconButton>
                 </CardActions>
             </Card>

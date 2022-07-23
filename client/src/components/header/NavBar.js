@@ -1,6 +1,7 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { Link } from "react-router-dom"
+import { Button } from '@mui/material'
 
 const NavBar = ({ user }) => {
     return (
@@ -10,21 +11,36 @@ const NavBar = ({ user }) => {
             navbarScroll
         >
             <Nav.Link as={Link} to="/">
-                A propos
+                <Button
+                    variant="text"
+                    style={{ color: "#fff" }}
+                >A propos</Button>
             </Nav.Link>
             <Nav.Link as={Link} to="/">
-                Abonnements
+                <Button
+                    variant="text"
+                    style={{ color: "#fff" }}
+                >Abonnements</Button>
             </Nav.Link>
             <Nav.Link as={Link} to="/">
-                Résultats
+                <Button
+                    variant="text"
+                    style={{ color: "#fff" }}
+                >Résultats</Button>
             </Nav.Link>
             <Nav.Link as={Link} to="/">
-                Contact
+                <Button
+                    variant="text"
+                    style={{ color: "#fff" }}
+                >Contact</Button>
             </Nav.Link>
             {
                 user && (user.user_subscriptions.some(el => el.subscription.mode === "subscription") > 0 || user.user.admin) ?
                     <Nav.Link as={Link} to="/pronostics/all">
-                        Pronostics
+                        <Button
+                            variant="text"
+                            style={{ color: "#fff" }}
+                        >Pronostics</Button>
                     </Nav.Link>
                 : null
             }
@@ -35,7 +51,12 @@ const NavBar = ({ user }) => {
                         to="/pronostics/grand-chelem"
                         className="nav-link-grand-chelem"
                     >
-                        Grand Chelem
+                        <Button
+                            variant="text"
+                            style={{ color: "#fff" }}
+                        >
+                            Grand Chelem
+                        </Button>
                     </Nav.Link>
                 : null
             }

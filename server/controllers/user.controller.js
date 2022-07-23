@@ -181,7 +181,12 @@ userController.getNewSession = async (req, res) => {
 
         let user_subscriptions = await UserSubscription.find({
             user: user
-        }).populate("subscription")
+        }).populate({
+            path: "subscription",
+            populate: {
+                path: "event"
+            }
+        })
 
         let result = {
             user,
@@ -267,7 +272,7 @@ userController.updateAdminStatus = async (req, res) => {
         })
 
         res.status(200)
-        res.send({ success: true, message: "L'utilisateur est désormais administrateur." })
+        res.send({ success: true, message: "Le compte a été mis à jour." })
     } catch (err) {
         res.status(400)
         res.send({ success: false, message: err.message })

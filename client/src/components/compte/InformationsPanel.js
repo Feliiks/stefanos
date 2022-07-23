@@ -190,8 +190,8 @@ const InformationsPanel = ({ user, setAlert }) => {
                                             />
                                         </Form.Group>
                                         <div className="d-flex justify-content-center">
-                                            <Button variant="secondary" onClick={resetForm}> ANNULER </Button>
-                                            <Button variant="success" onClick={update}> CHANGER </Button>
+                                            <Button variant="outlined" onClick={resetForm}>Annuler</Button>
+                                            <Button variant="contained" onClick={update}>Modifier</Button>
                                         </div>
                                     </Form>
                             }

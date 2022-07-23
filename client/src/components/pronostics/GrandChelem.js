@@ -5,6 +5,7 @@ import api from '../../utils/api'
 import {Route, useNavigate} from 'react-router-dom';
 import ReactLoading from 'react-loading'
 import { Button } from '@mui/material'
+import TelegramIcon from '@mui/icons-material/Telegram'
 
 const GrandChelem = () => {
     const [event, setEvent] = useState(null)
@@ -36,96 +37,64 @@ const GrandChelem = () => {
         })
     }, [])
 
-    if (!loading) {
-        return (
-            <Container fluid className="pronostics">
-                <Row className="title">
-                    <div className="filter position-absolute" />
-                    <Col className="d-flex align-items-center pt-3 pb-3" style={{zIndex: "1"}}>
-                        <Container className="p-0">
-                            <Row>
-                                <Col lg={6}>
-                                <span>
-                            PRONOSTICS
-                        </span>
-                                    <h2>
-                                        { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
-                                    </h2>
-                                    {
-                                        event ?
-                                            <p>
-                                                DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
-                                            </p>
-                                            : null
-                                    }
-                                </Col>
-                                <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
-                                    <Button variant="contained" style={{ background: "#f05a02" }}> Suivre la publication <br/>des nouveaux pronostics </Button>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-
-                <Container>
-                    <Row className="pt-5 pb-5">
-                        {
-                            pronostics[0] ?
-                                pronostics
-                                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-                                .map(el => (
-                                    <Pronostic
-                                        key={el.title}
-                                        title={el.title}
-                                        image={el.image}
-                                        content={el.content}
-                                        created_at={el.created_at}
-                                    />
-                                ))
-                                : <p> Aucun pronostic trouvé. </p>
-                        }
-                    </Row>
-                </Container>
-
-            </Container>
-        )
-    }  else {
-        return (
-            <Container fluid className="pronostics">
-                <Row className="title">
-                    <div className="filter position-absolute" />
-                    <Col className="d-flex align-items-center pt-3 pb-3" style={{zIndex: "1"}}>
-                        <Container className="p-0">
-                            <Row>
-                                <Col lg={6}>
-                                <span>
-                            PRONOSTICS
-                        </span>
-                                    <h2>
-                                        { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
-                                    </h2>
-                                    {
-                                        event ?
-                                            <p>
-                                                DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
-                                            </p>
-                                            : null
-                                    }
-                                </Col>
-                                <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
-                                    <Button variant="contained" style={{ background: "#f05a02" }}> Suivre la publication <br/>des nouveaux pronostics </Button>
-                                </Col>
-                            </Row>
-                        </Container>
-                    </Col>
-                </Row>
-                <Container className="d-flex flex-column align-items-center justify-content-center" style={{height: "500px"}}>
-                    <ReactLoading className="mx-auto" type="bars" color="black" height={50} width={50} />
-                    <p className="mx-auto text-center"> Chargement en cours... </p>
-                </Container>
-            </Container>
-        )
-    }
+    return (
+        <Container fluid className="pronostics">
+            <Row className="title">
+                <div className="filter position-absolute" />
+                <Col className="d-flex align-items-center pt-4 pb-4" style={{zIndex: "1"}}>
+                    <Container className="p-0">
+                        <Row>
+                            <Col lg={6}>
+                                <span>PRONOSTICS</span>
+                                <h2>
+                                    { event ? event.tournament : "AUCUN TOURNOI EN COURS" }
+                                </h2>
+                                {
+                                    event ?
+                                        <p>
+                                            DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
+                                        </p>
+                                        : null
+                                }
+                            </Col>
+                            <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
+                                <Button variant="contained" startIcon={<TelegramIcon />}>
+                                    Suivre
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Col>
+            </Row>
+            {
+                !loading ?
+                    <Container>
+                        <Row className="pt-5 pb-5">
+                            {
+                                pronostics[0] ?
+                                    pronostics
+                                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                                    .map(el => (
+                                        <Pronostic
+                                            key={el.title}
+                                            title={el.title}
+                                            image={el.image}
+                                            content={el.content}
+                                            created_at={el.created_at}
+                                        />
+                                    ))
+                                    : <p> Aucun pronostic trouvé. </p>
+                            }
+                        </Row>
+                    </Container>
+                    :
+                    <Container className="d-flex flex-column align-items-center justify-content-center" style={{height: "500px"}}>
+                        <ReactLoading className="mx-auto" type="bars" color="black" height={50} width={50} />
+                        <p className="mx-auto text-center"> Chargement en cours... </p>
+                    </Container>
+            }
+        </Container>
+    )
 }
 
 export default GrandChelem

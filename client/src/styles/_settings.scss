@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Francois+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&display=swap');
 
 // GENERAL _________________________________________________
 * {
@@ -9,27 +9,45 @@
 }
 
 body, html {
-    background: #ffffff;
-    font-family: "Open Sans", sans-serif;
-    color: #000000;
+    background: #0A1929;
+    font-family: "Inter", sans-serif;
+    color: #fff;
 
     &::-webkit-scrollbar {
         display: none;
     }
 }
 
+p {
+    margin: 0; padding: 0;
+
+    color: rgb(178, 186, 194);
+}
+
 // LINKS ___________________________________________________
 a, .nav-link {
-    color: #000 !important;
+    color: #fff !important;
     text-decoration: none;
-
-    &:hover {
-        color: #C85A19 !important;
-    }
 }
 
 
 // BUTTONS ____________________________________________________
+button {
+    margin: 5px;
+
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+}
+
+.user-btn {
+    height: 35px !important;
+    width: 30px !important;
+    min-width: 35px !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+}
+
 .login-btn {
     height: 50px;
     width: 185px;
@@ -86,6 +104,30 @@ a, .nav-link {
 
 
 // FORM ____________________________________________________________
+.form-select {
+    height: 35px;
+
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    font-weight: 400;
+    background: none;
+    color: #fff;
+
+    &:focus {
+        box-shadow: none;
+        background: none;
+    }
+
+    &:disabled {
+        background: #0c1f32;
+    }
+
+    option {
+        color: #000;
+    }
+}
+
 .form {
     width: 90%;
 
@@ -98,25 +140,32 @@ a, .nav-link {
         height: 35px;
 
         border-radius: 3px;
-        border: 2px solid #66B2FF;
+        border: 1px solid rgba(255, 255, 255, 0.1);
         font-size: 14px;
-        font-weight: 600;
+        font-weight: 400;
         background: none;
         color: #fff;
 
         &:focus {
             box-shadow: none;
             background: none;
-            border: 2px solid #66B2FF;
+            border: 1px solid #66B2FF;
             color: #fff;
+        }
+
+        &:disabled {
+            background: #0c1f32;
         }
     }
 
     .error {
-        border: 1px solid red;
+        border: 1px solid #950000;
+    }
+
+    .text-danger {
+        color: #950000 !important;
     }
 }
-
 
 .filter {
     height: 100%;

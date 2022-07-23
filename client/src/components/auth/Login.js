@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
+import { Button } from "@mui/material"
 import api from "../../utils/api"
 
 import { useDispatch } from 'react-redux'
@@ -133,10 +134,11 @@ const Login = () => {
                     </Form.Group>
 
                     <span className="password mb-3"> Mot de passe oublié ? </span>
-
-                    <Button className="mx-auto" variant="primary" type="submit" onClick={(e) => signIn(e)}>
-                        CONNEXION
-                    </Button>
+                    <div className="d-flex justify-content-center">
+                        <Button variant="contained" type="submit" onClick={(e) => signIn(e)}>
+                            Connexion
+                        </Button>
+                    </div>
                 </Form>
             </Col>
         </Row>

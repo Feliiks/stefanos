@@ -1,18 +1,19 @@
 @import 'welcome';
 @import "subscriptions";
+@import "results";
 
 .home {
     min-height: 100vh;
 
     .section {
-        padding-top: 75px;
+        padding-top: 65px;
         padding-bottom: 75px;
     }
 
     .section-title {
-        margin-bottom: 50px;
-
-        font-family: "Francois One";
-        font-weight: 700;
+        margin-bottom: 30px;
+        font-family: 'Plus Jakarta Sans';
+        font-size: 35px;
+        font-weight: 800;
     }
 }

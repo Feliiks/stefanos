@@ -5,7 +5,7 @@ import { Button } from '@mui/material'
 
 const Contact = () => {
     return (
-        <Row className="section" style={{ background: "#212121", color: "#fff" }}>
+        <Row className="section" style={{ background: "rgb(0, 30, 60)" }}>
             <Col>
                 <Container>
                     a

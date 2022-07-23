@@ -56,7 +56,12 @@ subscriptionsController.get = async (req, res) => {
 
         let user_subscriptions = await UserSubscription.find({
             user: user
-        }).populate("subscription")
+        }).populate({
+            path: "subscription",
+            populate: {
+                path: "event"
+            }
+        })
 
         res.status(200)
         res.send({ success: true, user_subscriptions})

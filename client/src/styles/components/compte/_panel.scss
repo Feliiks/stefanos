@@ -1,6 +1,7 @@
 .panel {
     border-radius: 10px;
-    background-color: #242424;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
 
     .title {
         height: 70px;
@@ -9,7 +10,7 @@
         position: relative;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #525252;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
         h3 {
             width: auto;
@@ -30,7 +31,7 @@
     }
 
     .abonnement-detail {
-        border-bottom: 1px solid #BFBFBF;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
         h4 {
             margin: 0; padding: 0;

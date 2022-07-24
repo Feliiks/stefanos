@@ -1,23 +1,17 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
-import siteBg from "../../assets/website-bg.jpg"
 import { Telegram } from '@mui/icons-material'
 
 const Pronostic = ({ title, image, content, created_at }) => {

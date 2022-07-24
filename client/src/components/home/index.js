@@ -9,11 +9,27 @@ import Contact from './Contact'
 import api from '../../utils/api'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { Alert } from '@mui/material'
 
 const Home = () => {
     const user = useSelector((state) => state.user.value)
     const [subscriptionTypes, setSubscriptionTypes] = useState([])
     const navigate = useNavigate();
+    const [alert, setAlert] = useState({
+        severity: '',
+        message: ''
+    })
+
+    useEffect(() => {
+        if (alert.message) {
+            setTimeout(() => {
+                setAlert({
+                    severity: "",
+                    message: ""
+                })
+            }, 5000)
+        }
+    })
 
     useEffect(() => {
         api.get("/subscriptions/types").then(res => {
@@ -46,6 +62,9 @@ const Home = () => {
 
     return (
         <Container fluid className="home">
+            {
+                alert.message !== "" ? <Alert severity={alert.severity} onClose={() => setAlert({severity: '', message: ''})} className="alert"> {alert.message} </Alert> : null
+            }
             <Welcome />
             <About />
             <Subscriptions
@@ -53,7 +72,7 @@ const Home = () => {
                 createCheckoutSession={createCheckoutSession}
             />
             <Results />
-            <Contact />
+            <Contact setAlert={setAlert} />
         </Container>
     )
 }

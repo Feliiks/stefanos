@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Francois+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;800&display=swap');
 
 // GENERAL _________________________________________________
 * {
@@ -21,6 +21,9 @@ body, html {
 p {
     margin: 0; padding: 0;
 
+    font-family: 'Plus Jakarta Sans';
+    font-weight: 400;
+    letter-spacing: 0.5px;
     color: rgb(178, 186, 194);
 }
 
@@ -105,18 +108,22 @@ button {
 
 // FORM ____________________________________________________________
 .form-select {
-    height: 35px;
+    height: 40px;
 
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgb(38, 93, 151);
     font-size: 14px;
+    background-color: rgb(19, 47, 76);
+    font-family: 'Plus Jakarta Sans';
     font-weight: 400;
-    background: none;
-    color: #fff;
+    letter-spacing: 0.5px;
+    color: rgb(178, 186, 194);
 
-    &:focus {
+    &:focus, &:hover {
         box-shadow: none;
-        background: none;
+        border-color: rgb(51, 153, 255);
+        background-color: rgb(23, 58, 94);
+        color: rgb(178, 186, 194);
     }
 
     &:disabled {
@@ -124,7 +131,7 @@ button {
     }
 
     option {
-        color: #000;
+        color: rgb(178, 186, 194);
     }
 }
 
@@ -136,26 +143,37 @@ button {
     font-size: 14px;
     font-weight: 600;
 
-    input {
-        height: 35px;
+    input, textarea {
+        height: 40px;
 
-        border-radius: 3px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        border: 1px solid rgb(38, 93, 151);
         font-size: 14px;
+        background-color: rgb(19, 47, 76);
+        font-family: 'Plus Jakarta Sans';
         font-weight: 400;
-        background: none;
-        color: #fff;
+        letter-spacing: 0.5px;
+        color: rgb(178, 186, 194);
 
-        &:focus {
+        &:focus, &:hover {
             box-shadow: none;
-            background: none;
-            border: 1px solid #66B2FF;
-            color: #fff;
+            border-color: rgb(51, 153, 255);
+            background-color: rgb(23, 58, 94);
+            color: rgb(178, 186, 194);
         }
 
         &:disabled {
-            background: #0c1f32;
+            background-color: rgb(45, 74, 104);
+            border: 1px solid rgb(57, 92, 128);
+
+            &:hover {
+                background-color: rgb(45, 74, 104);
+            }
         }
+    }
+
+    textarea {
+        height: 70px !important;
     }
 
     .error {
@@ -185,6 +203,7 @@ button {
 
     animation: slidein both 0.25s ease-in-out;
     opacity: 0;
+    z-index: 999;
 }
 
 @keyframes slidein {

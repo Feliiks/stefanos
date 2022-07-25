@@ -75,7 +75,7 @@ const All = () => {
                     </Row>
                 :
                     <Container className="d-flex flex-column align-items-center justify-content-center" style={{height: "500px"}}>
-                        <ReactLoading className="mx-auto" type="bars" color="black" height={50} width={50} />
+                        <ReactLoading className="mx-auto" type="bars" color="white" height={50} width={50} />
                         <p className="mx-auto text-center"> Chargement en cours... </p>
                     </Container>
             }

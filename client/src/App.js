@@ -12,6 +12,8 @@ import PronosticsAll from './components/pronostics/All'
 import PronosticsGrandChelem from './components/pronostics/GrandChelem'
 
 import Auth from './components/auth'
+import Request from './components/auth/password-recovery/Request'
+import Update from './components/auth/password-recovery/Update'
 
 import Compte from "./components/compte"
 import Admin from './components/admin'
@@ -73,6 +75,18 @@ const App = () => {
                                <Auth />
                            </PrivateRoutes.LoggedOut>
                        }
+                />
+
+                <Route
+                    path="/auth/password-recovery"
+                    element={<Request />}
+
+                />
+
+                <Route
+                    path="/auth/password-recovery/update/:token"
+                    element={<Update />}
+
                 />
 
                 <Route path="/mon-compte"

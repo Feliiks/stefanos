@@ -115,8 +115,6 @@ subscriptionsController.delete = async (req, res) => {
             _id: req.params.userSubscriptionId
         })
 
-        console.log(deletedSubscription)
-
         if (!deletedSubscription) throw new Error
 
         if (deletedSubscription.stripeSubId !== null) {

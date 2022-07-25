@@ -7,7 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
     return (
-        <Row style={{ background: "rgb(0, 30, 60)" }}>
+        <Row style={{ background: "rgb(0, 30, 60)" }} id="subscriptions">
             <Col>
                 <Container>
                     <Row className="section subscriptions d-flex justify-content-center">
@@ -26,7 +26,7 @@ const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
                                         </Card.Body>
                                         <Card.Body className="d-flex align-items-center justify-content-center">
                                             <span style={{ fontWeight: "bold", fontSize: "20px", marginRight: "5px"}}> {el.price ? el.price / 100 : ""}€</span>
-                                            <span style={{ color: "#d9d9d9", fontSize: "16px", fontStyle: "italic"}}> par mois </span>
+                                            <span style={{ color: "#d9d9d9", fontSize: "16px", fontStyle: "italic"}}> {el.mode === "payment" ? "" : "par mois"} </span>
                                         </Card.Body>
                                         <ListGroup className="list-group-flush mb-3" style={{ border: "none"}}>
                                             <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> Un super avantage </ListGroup.Item>

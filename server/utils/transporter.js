@@ -25,10 +25,12 @@ const sendMail = async (from, to, subject, message) => {
         return transporter.sendMail({
             from: from,
             to: to,
-            subject: `Stefanos contact - ${subject} (${from})`,
+            subject: `${subject}`,
             html: `
                 <p> 
                     ${message} 
+                    <br />
+                    Utilisateur : ${from}
                 </p>
             `
         })

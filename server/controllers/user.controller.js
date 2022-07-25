@@ -4,6 +4,7 @@ const { getToken } = require('../authenticate')
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const { sendMail } = require("../utils/transporter")
 
 const userController = () => {};
 
@@ -217,6 +218,31 @@ userController.logout = async (req, res) => {
     }
 }
 
+userController.passwordRecovery = async (req, res) => {
+    try {
+        let user = await User.findOne({
+            username: req.body.email
+        })
+
+        if (!user) throw new Error()
+
+        let token = await getToken({ _id: user._id })
+
+        await sendMail(
+            "sobrero.ludovic@gmail.com",
+            user.username,
+            "Stefanos - Récupération de votre mot de passe",
+            `Afin de récupérer votre mot de passe, merci de cliquer <a href='http://localhost:3000/auth/password-recovery/update/${token}'>ici</a>`
+        )
+
+        res.status(200)
+        res.send({ success: true, message: "Lien de récupération envoyé.", token })
+    } catch (err) {
+        res.status(400)
+        res.send({ success: false, message: err.message })
+    }
+}
+
 
 // PUT ______________________________________________________________________
 userController.updateUsername = async (req, res) => {
@@ -249,7 +275,7 @@ userController.updatePassword = async (req, res) => {
 
         if (!user) throw new Error
 
-        await user.changePassword(req.body.current_password, req.body.new_password)
+        await user.setPassword(req.body.new_password)
 
         user.save()
 

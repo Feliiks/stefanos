@@ -2,6 +2,7 @@ import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { Link } from "react-router-dom"
 import { Button } from '@mui/material'
+import { HashLink } from "react-router-hash-link"
 
 const NavBar = ({ user }) => {
     return (
@@ -10,25 +11,25 @@ const NavBar = ({ user }) => {
             style={{ maxHeight: '100px', fontWeight: "700", color: "#fff" }}
             navbarScroll
         >
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={HashLink} to="/#about">
                 <Button
                     variant="text"
                     style={{ color: "#fff" }}
                 >A propos</Button>
             </Nav.Link>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={HashLink} to="/#subscriptions">
                 <Button
                     variant="text"
                     style={{ color: "#fff" }}
                 >Abonnements</Button>
             </Nav.Link>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={HashLink} to="/#results">
                 <Button
                     variant="text"
                     style={{ color: "#fff" }}
                 >Résultats</Button>
             </Nav.Link>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={HashLink} to="/#contact">
                 <Button
                     variant="text"
                     style={{ color: "#fff" }}

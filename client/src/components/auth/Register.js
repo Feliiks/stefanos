@@ -89,7 +89,7 @@ const Register = () => {
             <Col lg={4} className="auth-panel mx-auto p-4">
                 <h3 className="mb-3" style={{ color: "#555555" }}> JE N'AI PAS DE COMPTE </h3>
                 <GoogleLogin
-                    className="mb-2"
+                    className="mb-2 google-btn"
                     clientId="714637265219-g5leq30s9fjgbkqrhadth8p64csc2k0k.apps.googleusercontent.com"
                     onSuccess={(res) => signUpWithGoogle(res.profileObj)}
                     onFailure={() => alert("Google Error.")}

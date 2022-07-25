@@ -1,7 +1,9 @@
 import React from 'react'
 import { MDBFooter } from "mdbreact";
 import { Container } from 'react-bootstrap'
-import { AiFillTwitterCircle } from 'react-icons/ai'
+import TwitterIcon from '@mui/icons-material/Twitter';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import { Telegram } from '@mui/icons-material'
 
 
 
@@ -42,15 +44,15 @@ const Footer = () => {
                             </div>
 
                             <div className='col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
-                                <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
+                                <h6 className='text-uppercase fw-bold mb-4'>Nos réseaux</h6>
                                 <p>
-                                     Renseigner ici adresse
+                                     <TwitterIcon />
                                 </p>
                                 <p>
-                                    Renseigner ici email
+                                    <TelegramIcon />
                                 </p>
                                 <p>
-                                    Renseigner ici téléphone
+                                    <TelegramIcon />
                                 </p>
                             </div>
                         </div>

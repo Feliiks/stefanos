@@ -13,6 +13,7 @@ userRouter.post("/login", passport.authenticate("local"), userController.login)
 userRouter.post("/login/google", userController.loginWithGoogle)
 userRouter.post("/getsession", userController.getNewSession)
 userRouter.post("/logout", userController.logout)
+userRouter.post("/recovery/password", userController.passwordRecovery)
 
 userRouter.put("/username/:userID", userController.updateUsername)
 userRouter.put("/password/:userID", userController.updatePassword)

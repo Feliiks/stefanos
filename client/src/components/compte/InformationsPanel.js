@@ -3,17 +3,14 @@ import { Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
 import api from '../../utils/api'
 import { Button } from '@mui/material'
-import MenuItem from '@mui/material/MenuItem'
 
 const InformationsPanel = ({ user, setAlert }) => {
     const [email, setEmail] = useState("")
-    const [currentPassword, setCurrentPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [repeatNewPassword, setRepeatNewPassword] = useState("")
     const [submitted, setSubmitted] = useState(false)
     const [errors, setErrors] = useState({
         email: false,
-        currentPassword: false,
         newPassword: false,
         repeatNewPassword: false,
         existing: false,
@@ -26,14 +23,13 @@ const InformationsPanel = ({ user, setAlert }) => {
         if (submitted) {
             setErrors({
                 email: !validator.isEmail(email),
-                currentPassword: !validator.isStrongPassword(currentPassword),
                 newPassword: !validator.isStrongPassword(newPassword),
                 repeatNewPassword: newPassword !== repeatNewPassword,
                 existing: false,
                 badPassword: false
             })
         }
-    }, [setErrors, submitted, email, currentPassword, newPassword, repeatNewPassword])
+    }, [setErrors, submitted, email, newPassword, repeatNewPassword])
 
     const update = async (e) => {
         e.preventDefault()
@@ -56,10 +52,9 @@ const InformationsPanel = ({ user, setAlert }) => {
                     message: res.data.message
                 })
             } else {
-                if (!validator.isStrongPassword(currentPassword) || !validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
+                if (!validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
 
                 let res = await api.put(`/users/password/${user.user._id}`, {
-                    current_password: currentPassword,
                     new_password: newPassword
                 })
 
@@ -91,7 +86,6 @@ const InformationsPanel = ({ user, setAlert }) => {
 
     const resetForm = () => {
         setEmail("")
-        setCurrentPassword("")
         setNewPassword("")
         setRepeatNewPassword("")
         setSubmitted(false)
@@ -148,19 +142,6 @@ const InformationsPanel = ({ user, setAlert }) => {
                                     </Form>
                                     :
                                     <Form className="form mt-3 mb-4 mx-auto" ref={form}>
-                                        <Form.Group className="mb-3" controlId="formBasicCurrentPassword">
-                                            <Form.Control
-                                                type="password"
-                                                className={ errors.badPassword || errors.currentPassword ? "error" : "" }
-                                                placeholder="Mot de passe actuel"
-                                                autoComplete="new-password"
-                                                onChange={(e) => setCurrentPassword(e.target.value)}
-                                                value={currentPassword}
-                                            />
-                                            <Form.Text className="text-danger d-block">
-                                                { errors.badPassword || errors.currentPassword ? "Mot de passe incorrect." : "" }
-                                            </Form.Text>
-                                        </Form.Group>
 
                                         <Form.Group className="mb-3" controlId="formBasicPassword">
                                             <Form.Control

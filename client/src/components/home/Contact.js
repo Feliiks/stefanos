@@ -61,13 +61,13 @@ const Contact = ({ setAlert }) => {
             setSubmitted(false)
             setAlert({
                 severity: "error",
-                message: err.message
+                message: "Une erreur est survenue."
             })
         }
     }
 
     return (
-        <Row style={{ background: "rgb(0, 30, 60)" }}>
+        <Row style={{ background: "rgb(0, 30, 60)" }} id="contact">
             <Col>
                 <Container>
                     <Row className="section d-flex justify-content-center align-items-center">

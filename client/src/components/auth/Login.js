@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 import { Button } from "@mui/material"
 import api from "../../utils/api"
+import { Link } from "react-router-dom"
 
 import { useDispatch } from 'react-redux'
 import { login } from '../../reducers/user.reducer'
@@ -96,7 +97,7 @@ const Login = () => {
             <Col lg={4} className="auth-panel mx-auto p-4">
                 <h3 className="mb-3"> J'AI DEJA UN COMPTE </h3>
                 <GoogleLogin
-                    className="mb-2"
+                    className="mb-2 google-btn"
                     clientId="714637265219-g5leq30s9fjgbkqrhadth8p64csc2k0k.apps.googleusercontent.com"
                     onSuccess={(res) => loginWithGoogle(res.googleId)}
                     onFailure={() => alert("Google Error.")}
@@ -133,7 +134,9 @@ const Login = () => {
                         </Form.Text>
                     </Form.Group>
 
-                    <span className="password mb-3"> Mot de passe oublié ? </span>
+                    <Link to="/auth/password-recovery">
+                        <span className="password mb-3"> Mot de passe oublié ? </span>
+                    </Link>
                     <div className="d-flex justify-content-center">
                         <Button variant="contained" type="submit" onClick={(e) => signIn(e)}>
                             Connexion

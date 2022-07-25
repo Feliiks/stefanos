@@ -5,7 +5,7 @@ import { Chip } from '@mui/material'
 
 const Results = () => {
     return (
-        <Row className="section subscriptions d-flex justify-content-center">
+        <Row className="section subscriptions d-flex justify-content-center" id="results">
             <Col>
                 <Container>
                     <Row>

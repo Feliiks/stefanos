@@ -74,10 +74,10 @@ const Contact = ({ setAlert }) => {
                         <Col className="d-flex flex-column justify-content-center mx-auto" lg={4}>
                             <span className="fw-bold" style={{ color: "rgb(51, 153, 255)" }}>Contact</span>
                             <h2 className="section-title mx-auto mb-1">
-                                Nous sommes là pour <span style={{ color: "rgb(51, 153, 255)" }}>vous</span>
+                                Nous sommes là pour <span style={{ color: "rgb(51, 153, 255)" }}>toi</span>
                             </h2>
                             <p className="mb-3 mb-lg-0">
-                                Si vous avez une quelconque question, n'hésitez pas
+                                Si tu as une quelconque question, n'hésite pas
                                 à nous contacter via le formulaire ci-contre.
                             </p>
                         </Col>

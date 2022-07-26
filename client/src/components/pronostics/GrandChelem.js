@@ -6,6 +6,7 @@ import {Route, useNavigate} from 'react-router-dom';
 import ReactLoading from 'react-loading'
 import { Button } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
+import moment from 'moment'
 
 const GrandChelem = () => {
     const [event, setEvent] = useState(null)
@@ -52,7 +53,7 @@ const GrandChelem = () => {
                                 {
                                     event ?
                                         <p>
-                                            DU { new Date(event.starts).toLocaleDateString("fr-Fr") } AU { new Date(event.ends).toLocaleDateString("fr-Fr") }
+                                            DU { moment(new Date(event.starts)).format('DD/MM/YYYY') } AU { moment(new Date(event.ends)).format('DD/MM/YYYY') }
                                         </p>
                                         : null
                                 }

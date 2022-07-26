@@ -12,14 +12,14 @@ const Results = ({ results }) => {
                         <Col className="d-flex flex-column" lg={5}>
                             <span className="fw-bold" style={{ color: "rgb(51, 153, 255)" }}>Résultats</span>
                             <h2 className="section-title">
-                                Nous <span style={{ color: "rgb(51, 153, 255)" }}>boostons</span> vos résultats
+                                Nous <span style={{ color: "rgb(51, 153, 255)" }}>boostons</span> tes résultats
                             </h2>
                         </Col>
                     </Row>
                     <Row>
                         {
                             results ? results.map(el => (
-                                <Col lg={3} md={6} className="mb-3">
+                                <Col lg={3} md={6} className="mb-3" key={el.name}>
                                     <div className="results-card">
                                         <div>
                                             <h3> { el.name } </h3>
@@ -27,7 +27,7 @@ const Results = ({ results }) => {
                                         <p>
                                             { el.description }
                                         </p>
-                                        <Chip label={el.value} color="secondary" />
+                                        <Chip label={el.value} color="primary" />
                                     </div>
                                 </Col>
                             )) : <p> Oups! Une erreur est survenue. </p>

@@ -25,12 +25,12 @@ const Payment = () => {
                      className="panel mx-auto d-flex align-items-center flex-column p-3"
                 >
                     <img src={Logo} height={100} alt="logo" />
-                    <h3 className="text-center fw-bold"> Merci pour votre achat ! </h3>
+                    <h3 className="text-center fw-bold"> Merci pour ton achat ! </h3>
                     <p className="text-center">
-                        Un email va vous être envoyé avec l'ensemble des informations relatives à votre commande.
+                        Nous allons t'envoyer un mail avec toutes les informations relatives à ta commande.
                         <br />
                         <br />
-                        Vous pouvez désormais accéder à l'ensemble de nos pronostics.
+                        Tu peux désormais accéder à l'ensemble de nos pronostics.
                     </p>
                 </Col>
             </Container>
@@ -40,8 +40,8 @@ const Payment = () => {
             <Container style={{ paddingTop: "150px", paddingBottom: "100px"}}>
                 <Col lg={5} className="panel mx-auto d-flex align-items-center flex-column p-3">
                     <img src={Logo} height={100} alt="logo" />
-                    <h3 className="text-center fw-bold"> Votre achat n'a pas abouti ! </h3>
-                    <p className="text-center"> La transaction n'a pas pu être complétée. <br /> Essayez de nouveau ou contactez l'administrateur. </p>
+                    <h3 className="text-center fw-bold"> Ton achat n'a pas abouti ! </h3>
+                    <p className="text-center"> La transaction n'a pas pu être complétée. <br /> Essaye de nouveau ou contacte l'administrateur. </p>
                 </Col>
             </Container>
         )

@@ -41,15 +41,11 @@ const Footer = () => {
 
                             <div className='col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 d-flex flex-column align-items-center align-items-lg-end'>
                                 <h6 className='text-uppercase fw-bold mb-2'>Nos réseaux</h6>
-                                <p>
-                                     <TwitterIcon />
-                                </p>
-                                <p>
-                                    <TelegramIcon />
-                                </p>
-                                <p>
-                                    <TelegramIcon />
-                                </p>
+                                <a href="https://twitter.com/StefanosBetting" target="_blank" rel="noreferrer">
+                                    <TwitterIcon />
+                                </a>
+                                <TwitterIcon />
+                                <TwitterIcon />
                             </div>
                         </div>
                     </div>

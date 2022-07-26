@@ -14,7 +14,7 @@ const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
                         <Col className="d-flex flex-column justify-content-center" lg={4}>
                             <span className="fw-bold" style={{ color: "rgb(51, 153, 255)" }}>Abonnements</span>
                             <h2 className="section-title mx-auto">
-                                Tous ce dont vous avez besoin <span style={{ color: "rgb(51, 153, 255)" }}>en un seul clic</span>
+                                Tous ce dont tu as besoin <span style={{ color: "rgb(51, 153, 255)" }}>en un seul clic</span>
                             </h2>
                         </Col>
                         {

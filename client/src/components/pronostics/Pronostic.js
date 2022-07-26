@@ -13,8 +13,12 @@ import { red } from '@mui/material/colors';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
 import { Telegram } from '@mui/icons-material'
+import moment from 'moment'
 
 const Pronostic = ({ title, image, content, created_at }) => {
+
+    let created_at_format = moment(new Date(created_at))
+
     return (
         <Col lg={6} className="mb-5">
             <Card className="mx-auto" sx={{ maxWidth: 500 }}>
@@ -25,7 +29,7 @@ const Pronostic = ({ title, image, content, created_at }) => {
                         </Avatar>
                     }
                     title={title}
-                    subheader={new Date(created_at).getDate() + "/" + (new Date(created_at).getMonth() + 1) + "/" + new Date(created_at).getFullYear() +  " à " + new Date(created_at).getHours() + ":" + new Date(created_at).getMinutes()}
+                    subheader={created_at_format.format('DD/MM/YYYY') + " à " + created_at_format.format('HH:mm')}
                 />
                 <a href={image.url} target="_blank" rel="noreferrer">
                     <CardMedia
@@ -41,9 +45,12 @@ const Pronostic = ({ title, image, content, created_at }) => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <TwitterIcon />
-                    </IconButton>
+                    <a href="https://twitter.com/StefanosBetting" target="_blank" rel="noreferrer">
+                        <IconButton aria-label="add to favorites">
+                            <TwitterIcon />
+                        </IconButton>
+                    </a>
+
                     <IconButton aria-label="share">
                         <Telegram />
                     </IconButton>

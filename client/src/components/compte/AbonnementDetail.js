@@ -23,7 +23,7 @@ const AbonnementDetail = ({ subId, name, created_at, facturationType, paymentInt
                     <p className="p-0 m-0" style={{ fontSize: "12px" }}> { paymentIntent ? paymentIntent : "Admin" } </p>
                 </Col>
                 <Col lg={3} className="d-flex flex-lg-column align-items-center align-items-lg-start justify-content-center mb-2 mb-lg-0">
-                    <p className="p-0 m-0" style={{ fontSize: "12px" }}>Expire : { created_at_format.add(30, 'days').format('D/MM/YYYY') }</p>
+                    <p className="p-0 m-0" style={{ fontSize: "12px" }}>Expire : { created_at_format.add(30, 'days').format('DD/MM/YYYY') }</p>
                     <p className="p-0 ms-3 m-lg-0" style={{ fontSize: "12px" }}>Type : {facturationType}</p>
                 </Col>
                 <Col lg={3} className="d-flex flex-column align-items-center">

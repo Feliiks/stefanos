@@ -36,7 +36,7 @@ const All = () => {
                                     TOUS NOS PRONOSTICS
                                 </h2>
                                 <p>
-                                    SUIVEZ LA PUBLICATION DE NOS PRONOSTICS ET COMMENCEZ A PARIER GAGNANT !
+                                    SUIS LA PUBLICATION DE NOS PRONOSTICS ET COMMENCE A PARIER GAGNANT !
                                 </p>
                             </Col>
                             <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">

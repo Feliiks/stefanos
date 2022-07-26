@@ -20,13 +20,13 @@ const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
                         {
                             subscriptionTypes ? subscriptionTypes.map(el => (
                                 <Col lg={4} key={el._id} className="mb-3">
-                                    <Card className="sub-card shadow mx-auto overflow-hidden p-4" style={{ width: '18rem' }}>
+                                    <Card className="sub-card shadow mx-auto overflow-hidden p-3" style={{ width: '17rem' }}>
                                         <Card.Body className="d-flex align-items-center justify-content-center" style={{ height: "75px"}}>
                                             <Card.Title className="text-uppercase fw-bold text-center m-0 p-0"> { el.name } </Card.Title>
                                         </Card.Body>
                                         <Card.Body className="d-flex align-items-center justify-content-center">
-                                            <span style={{ fontWeight: "bold", fontSize: "20px", marginRight: "5px"}}> {el.price ? el.price / 100 : ""}€</span>
-                                            <span style={{ color: "#d9d9d9", fontSize: "16px", fontStyle: "italic"}}> {el.mode === "payment" ? "" : "par mois"} </span>
+                                            <span style={{ fontWeight: "bold", fontSize: "20px", marginRight: "5px"}}> {el.price ? el.price / 100 : ".."}€</span>
+                                            <span style={{ color: "#d9d9d9", fontSize: "16px", fontStyle: "italic"}}> {el.event ? " / tournoi" : " / mois"} </span>
                                         </Card.Body>
                                         <ListGroup className="list-group-flush mb-3" style={{ border: "none"}}>
                                             <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> {el.advantages[0]} </ListGroup.Item>

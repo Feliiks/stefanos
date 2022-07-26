@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap'
 import TwitterIcon from '@mui/icons-material/Twitter';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { Telegram } from '@mui/icons-material'
+import ImgLogo from '../../assets/Stefanos_logo_full_white_yellow-1.png'
 
 
 
@@ -15,17 +16,12 @@ const Footer = () => {
                 <section className="text-light">
                     <div className='container text-center text-md-start mt-5'>
                         <div className='row mt-3'>
-                            <div className='col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 border-end'>
-                                <h6 className='text-uppercase fw-bold mb-4'>
-                                    STEFANOS
-                                </h6>
-                                <p>
-                                    Logo
-                                </p>
+                            <div className='col-md-4 col-lg-4 col-xl-4 mx-auto mb-4 border-end d-flex align-items-center justify-content-center justify-content-lg-start'>
+                                <img src={ImgLogo} alt="logo" style={{ maxHeight: "25px" }} />
                             </div>
 
-                            <div className='col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 border-end'>
-                                <h6 className='text-uppercase fw-bold mb-4'>Liens utiles</h6>
+                            <div className='col-md-4 col-lg-3 col-xl-3 mx-auto mb-4 border-end'>
+                                <h6 className='text-uppercase fw-bold mb-2'>Liens utiles</h6>
                                 <p>
                                     <a href='/' className='text-reset'>
                                         Mentions légales
@@ -43,8 +39,8 @@ const Footer = () => {
                                 </p>
                             </div>
 
-                            <div className='col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
-                                <h6 className='text-uppercase fw-bold mb-4'>Nos réseaux</h6>
+                            <div className='col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 d-flex flex-column align-items-center align-items-lg-end'>
+                                <h6 className='text-uppercase fw-bold mb-2'>Nos réseaux</h6>
                                 <p>
                                      <TwitterIcon />
                                 </p>

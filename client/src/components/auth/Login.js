@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 import { Button } from "@mui/material"
 import api from "../../utils/api"
@@ -7,10 +7,8 @@ import { Link } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { login } from '../../reducers/user.reducer'
 
-import BtnGoogle from "../../assets/btn_google_signin.png"
 import validator from 'validator'
 
-import { Navigate } from 'react-router'
 import { gapi } from 'gapi-script';
 import { GoogleLogin } from 'react-google-login';
 
@@ -23,7 +21,6 @@ const Login = () => {
         password: false,
         credentials: false
     })
-    const [googleTokenId, setGoogleTokenId] = useState("")
 
     const dispatch = useDispatch()
 

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Col, Container, Form, ListGroup, Row } from 'react-bootstrap'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import { Button, Chip } from '@mui/material'
-import TelegramIcon from '@mui/icons-material/Telegram'
+import { Col, Container, Form, Row } from 'react-bootstrap'
+import { Button } from '@mui/material'
 import api from '../../utils/api'
 import validator from 'validator'
 

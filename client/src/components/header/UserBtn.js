@@ -2,20 +2,14 @@ import React from 'react'
 import { Button } from "@mui/material"
 import { Link } from "react-router-dom";
 
-import { RiUser3Line } from 'react-icons/ri'
 import Box from '@mui/material/Box'
 import PersonIcon from '@mui/icons-material/Person';
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete';
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Divider from '@mui/material/Divider'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import Settings from '@mui/icons-material/Settings'
 import Logout from '@mui/icons-material/Logout'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import { ButtonBase } from '@mui/material';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 
 const UserBtn = ({ user, logoutUser }) => {

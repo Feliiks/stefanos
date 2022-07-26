@@ -1,6 +1,5 @@
 import React from 'react'
 import { Col, Row, Container } from 'react-bootstrap'
-import TelegramIcon from '@mui/icons-material/Telegram';
 import { Chip } from '@mui/material'
 
 const Results = ({ results }) => {

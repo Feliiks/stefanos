@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Pronostic from './Pronostic'
 import api from '../../utils/api'
-import {Route, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import ReactLoading from 'react-loading'
 import { Button } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
@@ -26,7 +26,7 @@ const GrandChelem = () => {
         .catch(err => {
             setEvent(null)
         })
-    }, [])
+    }, [navigate])
 
     useEffect( () => {
         setLoading(true)

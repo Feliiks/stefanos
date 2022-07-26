@@ -32,7 +32,12 @@ eventController.new = async (req, res) => {
             price: price.unit_amount,
             stripePriceId: req.body.stripe_price_id,
             mode: "payment",
-            event: event
+            event: event,
+            advantages: [
+                "Avantage 1",
+                "Avantage 2",
+                "Avantage 3"
+            ]
         })
 
         res.status(201)

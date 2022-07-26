@@ -2,8 +2,6 @@ import React from 'react'
 import { MDBFooter } from "mdbreact";
 import { Container } from 'react-bootstrap'
 import TwitterIcon from '@mui/icons-material/Twitter';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import { Telegram } from '@mui/icons-material'
 import ImgLogo from '../../assets/Stefanos_logo_full_white_yellow-1.png'
 
 
@@ -55,7 +53,7 @@ const Footer = () => {
                 Jouer comporte des risques : Endettement, isolement, dépendance. Pour être aidé, appelez le 09-74-75-13-13 (Appel non surtaxé)
             </div>
             <div className='text-center p-2 text-light' style={{color: "#fff", borderTop: "1px solid rgba(255, 255, 255, 0.1)"}}>
-                © 2022 Copyright Stefanos - Développé par Ludovic Sbr
+                © 2022 Copyright Stefanos - Développé par <a href="https://www.fiverr.com/ludovic_sbr" target="_blank" rel="noreferrer">Ludovic Sbr</a>
             </div>
         </MDBFooter>
     )

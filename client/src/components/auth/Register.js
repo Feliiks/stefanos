@@ -3,7 +3,6 @@ import { Col, Form, Row } from 'react-bootstrap'
 import { Button } from "@mui/material"
 import validator from "validator"
 
-import BtnGoogle from '../../assets/btn_google_signin.png'
 import api from '../../utils/api'
 import { login } from '../../reducers/user.reducer'
 import { useDispatch } from 'react-redux'

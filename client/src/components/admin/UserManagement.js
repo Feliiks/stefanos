@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Form, Row } from 'react-bootstrap'
+import { Col, Form } from 'react-bootstrap'
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -22,7 +22,7 @@ const UserManagement = ({ targetUser,
         let selectedSub = subscriptionTypes.filter(el => el._id === aa)[0]
 
         setSelectedUserSubscription(selectedSub)
-    }, [aa])
+    }, [aa, setSelectedUserSubscription, subscriptionTypes])
 
     useEffect(() => {
         let res = subscriptionTypes.filter(object1 => {

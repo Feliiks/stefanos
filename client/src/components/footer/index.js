@@ -59,9 +59,12 @@ const Footer = () => {
                     </div>
                 </section>
             </Container>
-                <div className='text-center p-2 text-light' style={{background: "#0A1929", color: "#fff", borderTop: "1px solid rgba(255, 255, 255, 0.1)"}}>
-                    © 2022 Copyright Stefanos - Développé par Ludovic Sbr
-                </div>
+            <div className='text-center p-2 text-danger' style={{color: "#24b387", fontSize: "14px" }}>
+                Jouer comporte des risques : Endettement, isolement, dépendance. Pour être aidé, appelez le 09-74-75-13-13 (Appel non surtaxé)
+            </div>
+            <div className='text-center p-2 text-light' style={{color: "#fff", borderTop: "1px solid rgba(255, 255, 255, 0.1)"}}>
+                © 2022 Copyright Stefanos - Développé par Ludovic Sbr
+            </div>
         </MDBFooter>
     )
 }

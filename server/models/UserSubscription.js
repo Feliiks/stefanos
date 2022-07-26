@@ -13,7 +13,8 @@ const UserSubscription = mongoose.model("UserSubscription", new Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now()
+        default: new Date(),
+        expires: "30d"
     },
     stripeSubId: {
         type: String,

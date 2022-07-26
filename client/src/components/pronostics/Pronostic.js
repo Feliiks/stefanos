@@ -25,7 +25,7 @@ const Pronostic = ({ title, image, content, created_at }) => {
                         </Avatar>
                     }
                     title={title}
-                    subheader={new Date(created_at).toLocaleString()}
+                    subheader={new Date(created_at).getDate() + "/" + (new Date(created_at).getMonth() + 1) + "/" + new Date(created_at).getFullYear() +  " à " + new Date(created_at).getHours() + ":" + new Date(created_at).getMinutes()}
                 />
                 <a href={image.url} target="_blank" rel="noreferrer">
                     <CardMedia

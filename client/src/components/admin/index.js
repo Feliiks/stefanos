@@ -24,7 +24,7 @@ const Admin = () => {
 
     return (
         <Container className="account">
-            <Row className="title mb-3">
+            <Row className="title mb-4">
                 <Col className="d-flex flex-column align-items-center align-items-md-start">
                     <h2 className="text-center text-lg-start"> Administration </h2>
                     <p> Gestion des événements et des utilisateurs. </p>

@@ -24,6 +24,7 @@ const AbonnementsPanel = ({ subscriptions, setAlert }) => {
             name={el.subscription.name}
             created_at={el.created_at}
             facturationType={el.subscription.mode}
+            paymentIntent={el.stripePaymentIntent}
             deleteSub={deleteSub}
         />
     ))

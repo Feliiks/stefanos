@@ -29,9 +29,9 @@ const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
                                             <span style={{ color: "#d9d9d9", fontSize: "16px", fontStyle: "italic"}}> {el.mode === "payment" ? "" : "par mois"} </span>
                                         </Card.Body>
                                         <ListGroup className="list-group-flush mb-3" style={{ border: "none"}}>
-                                            <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> Un super avantage </ListGroup.Item>
-                                            <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> Un super avantage </ListGroup.Item>
-                                            <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> Un super avantage </ListGroup.Item>
+                                            <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> {el.advantages[0]} </ListGroup.Item>
+                                            <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> {el.advantages[1]} </ListGroup.Item>
+                                            <ListGroup.Item style={{ background: "none", color: "#d7d7d7"}}> <CheckCircleIcon fontSize="small" color="info" /> {el.advantages[2]} </ListGroup.Item>
                                         </ListGroup>
                                         <Card.Body className="p-0 d-flex justify-content-center">
                                             <Button variant="contained"
@@ -42,7 +42,7 @@ const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                            )) : null
+                            )) : <p> Oups! Une erreur est survenue. </p>
                         }
                     </Row>
                 </Container>

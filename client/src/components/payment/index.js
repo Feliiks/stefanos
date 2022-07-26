@@ -21,7 +21,9 @@ const Payment = () => {
     if (status === "success") {
         return (
             <Container style={{ paddingTop: "150px", paddingBottom: "100px"}}>
-                <Col lg={5} className="mx-auto d-flex align-items-center flex-column p-3" style={{ border: "2px solid #555", background: '#fff' }}>
+                <Col lg={5}
+                     className="panel mx-auto d-flex align-items-center flex-column p-3"
+                >
                     <img src={Logo} height={100} alt="logo" />
                     <h3 className="text-center fw-bold"> Merci pour votre achat ! </h3>
                     <p className="text-center">
@@ -36,7 +38,7 @@ const Payment = () => {
     } else if (status === "canceled") {
         return (
             <Container style={{ paddingTop: "150px", paddingBottom: "100px"}}>
-                <Col lg={5} className="mx-auto d-flex align-items-center flex-column p-3" style={{ border: "2px solid #555", background: '#fff' }}>
+                <Col lg={5} className="panel mx-auto d-flex align-items-center flex-column p-3">
                     <img src={Logo} height={100} alt="logo" />
                     <h3 className="text-center fw-bold"> Votre achat n'a pas abouti ! </h3>
                     <p className="text-center"> La transaction n'a pas pu être complétée. <br /> Essayez de nouveau ou contactez l'administrateur. </p>

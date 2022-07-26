@@ -14,6 +14,7 @@ import { Alert } from '@mui/material'
 const Home = () => {
     const user = useSelector((state) => state.user.value)
     const [subscriptionTypes, setSubscriptionTypes] = useState([])
+    const [results, setResults] = useState([])
     const navigate = useNavigate();
     const [alert, setAlert] = useState({
         severity: '',
@@ -30,6 +31,14 @@ const Home = () => {
             }, 5000)
         }
     })
+
+    useEffect(() => {
+        api.get("/results/all").then(res => {
+            setResults(res.data.results)
+        }).catch(err => {
+            console.log(err.message)
+        })
+    }, [])
 
     useEffect(() => {
         api.get("/subscriptions/types").then(res => {
@@ -71,7 +80,7 @@ const Home = () => {
                 subscriptionTypes={subscriptionTypes}
                 createCheckoutSession={createCheckoutSession}
             />
-            <Results />
+            <Results results={results} />
             <Contact setAlert={setAlert} />
         </Container>
     )

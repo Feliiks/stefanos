@@ -20,6 +20,9 @@ const Subscription = mongoose.model("Subscription", new Schema({
         type: Number,
         required: true
     },
+    advantages: [{
+        type: String
+    }],
     stripePriceId: {
         type: String,
         default: ""

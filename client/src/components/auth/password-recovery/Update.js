@@ -85,7 +85,7 @@ const Update = () => {
                             <Form.Group className="mb-2" controlId="formBasicPassword">
                                 <Form.Control
                                     type="password"
-                                    className={ errors.password || errors.credentials ? "error" : "" }
+                                    className={ errors.password || errors.repeatPassword ? "error" : "" }
                                     placeholder="Mot de passe"
                                     onChange={(e) => setPassword(e.target.value)}
                                     value={password}

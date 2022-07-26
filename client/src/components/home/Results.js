@@ -3,7 +3,7 @@ import { Col, Row, Container } from 'react-bootstrap'
 import TelegramIcon from '@mui/icons-material/Telegram';
 import { Chip } from '@mui/material'
 
-const Results = () => {
+const Results = ({ results }) => {
     return (
         <Row className="section subscriptions d-flex justify-content-center" id="results">
             <Col>
@@ -17,54 +17,21 @@ const Results = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col lg={3} md={6} className="mb-3">
-                            <div className="results-card">
-                                <div>
-                                    <TelegramIcon className="me-2" color="primary" />
-                                    <h3> Retour sur investissement </h3>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <Chip label="Valeur ici" color="secondary" />
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} className="mb-3">
-                            <div className="results-card">
-                                <div>
-                                    <TelegramIcon className="me-2" color="primary" />
-                                    <h3> Ceci est un super titre </h3>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <Chip label="Valeur ici" color="secondary" />
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} className="mb-3">
-                            <div className="results-card">
-                                <div>
-                                    <TelegramIcon className="me-2" color="primary" />
-                                    <h3> Ceci est un super titre </h3>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <Chip label="Valeur ici" color="secondary" />
-                            </div>
-                        </Col>
-                        <Col lg={3} md={6} className="mb-3">
-                            <div className="results-card">
-                                <div>
-                                    <TelegramIcon className="me-2" color="primary" />
-                                    <h3> Ceci est un super titre </h3>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <Chip label="Valeur ici" color="secondary" />
-                            </div>
-                        </Col>
+                        {
+                            results ? results.map(el => (
+                                <Col lg={3} md={6} className="mb-3">
+                                    <div className="results-card">
+                                        <div>
+                                            <h3> { el.name } </h3>
+                                        </div>
+                                        <p>
+                                            { el.description }
+                                        </p>
+                                        <Chip label={el.value} color="secondary" />
+                                    </div>
+                                </Col>
+                            )) : <p> Oups! Une erreur est survenue. </p>
+                        }
                     </Row>
                 </Container>
             </Col>

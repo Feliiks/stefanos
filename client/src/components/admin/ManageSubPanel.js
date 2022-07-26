@@ -146,6 +146,7 @@ const ManageSubPanel = ({ setAlert }) => {
             name={el.subscription.name}
             created_at={el.created_at}
             facturationType={el.subscription.mode}
+            paymentIntent={el.stripePaymentIntent}
             deleteSub={deleteSub}
         />
     )) : <p className="text-center"> Utilisateur non abonné. </p>

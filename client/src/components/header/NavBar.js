@@ -7,7 +7,7 @@ import { HashLink } from "react-router-hash-link"
 const NavBar = ({ user }) => {
     return (
         <Nav
-            className="mx-auto my-2 my-lg-0"
+            className="mx-auto"
             style={{ maxHeight: '100px', fontWeight: "700", color: "#fff" }}
             navbarScroll
         >

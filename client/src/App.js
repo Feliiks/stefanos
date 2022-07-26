@@ -38,7 +38,6 @@ const App = () => {
                 user: res.data.result,
                 token: sessionToken
             }))
-            console.log(res.data.result)
         }).catch(err => {
             console.log(err.message)
         })

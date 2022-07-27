@@ -39,20 +39,6 @@ const Subscription = mongoose.model("Subscription", new Schema({
 }), "subscriptions")
 
 
-// STREAMS _________________________________________________________________
-Subscription.watch().on("change", async data => {
-    try {
-        if (data.operationType === "delete") {
-            await UserSubscription.deleteMany({
-                subscription: data.documentKey
-            })
-        }
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-
 // MIDDLEWARES ___________________________________________________________
 Subscription.schema.pre("find", function() {
     this.populate("event")

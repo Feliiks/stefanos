@@ -68,11 +68,19 @@ eventController.getAll = async (req, res) => {
 // DELETE _____________________________________________________________
 eventController.delete = async (req, res) => {
     try {
-        let doc = await Event.findOne({
+        let event = await Event.findOne({
             _id: req.params.eventID
         })
 
-        await doc.deleteOne()
+        let subscription = await Subscription.findOne({
+            event: event
+        })
+
+        await event.deleteOne()
+        await subscription.deleteOne()
+        await UserSubscription.deleteMany({
+            subscription: subscription
+        })
 
         res.status(200)
         res.send({ success: true, message: "L'événement a été supprimé." })

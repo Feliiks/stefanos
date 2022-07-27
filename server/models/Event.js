@@ -23,17 +23,4 @@ const Event = mongoose.model("Event", new Schema({
 }), "events")
 
 
-// STREAMS __________________________________________________________
-Event.watch().on("change", async data => {
-    try {
-        if (data.operationType === "delete") {
-            await Subscription.deleteMany({
-                event: data.documentKey
-            })
-        }
-    } catch (err) {
-        console.log(err)
-    }
-})
-
 module.exports = Event

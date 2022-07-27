@@ -19,7 +19,7 @@ const LoggedOut = ({ children }) => {
 const Subscriber = ({ children }) => {
     let user = useSelector((state) => state.user.value)
 
-    return user && (user.user_subscriptions.some(el => el.subscription.mode === "subscription") > 0 || user.user.admin) ? children : <Navigate to="/" />
+    return user && (user.user_subscriptions.some(el => !el.subscription.event) > 0 || user.user.admin) ? children : <Navigate to="/" />
 }
 
 const SubscriberGC = ({ children }) => {

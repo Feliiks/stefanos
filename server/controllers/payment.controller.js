@@ -19,8 +19,8 @@ paymentController.createCheckoutSession = async (req, res) => {
             },
             customer_email: req.body.username,
             mode: req.body.mode,
-            success_url: `http://localhost:3000/payment/success/{CHECKOUT_SESSION_ID}`,
-            cancel_url: `http://localhost:3000/payment/canceled/{CHECKOUT_SESSION_ID}`,
+            success_url: `https://stefanospronos.com/payment/success/{CHECKOUT_SESSION_ID}`,
+            cancel_url: `https://stefanospronos.com/payment/canceled/{CHECKOUT_SESSION_ID}`,
         });
 
         res.status(200)

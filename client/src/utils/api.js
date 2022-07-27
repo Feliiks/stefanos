@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 let instance = Axios.create({
-    baseURL: "http://localhost:5000/v1/"
+    baseURL: "http://35.180.198.169:5000/v1"
 });
 
 

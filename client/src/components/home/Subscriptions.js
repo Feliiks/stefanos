@@ -7,7 +7,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Subscriptions = ({ subscriptionTypes, createCheckoutSession }) => {
     return (
-        <Row style={{ background: "rgb(0, 30, 60)" }} id="subscriptions">
+        <Row id="subscriptions">
             <Col>
                 <Container>
                     <Row className="section subscriptions d-flex justify-content-center">

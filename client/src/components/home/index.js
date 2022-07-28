@@ -80,7 +80,7 @@ const Home = () => {
                 subscriptionTypes={subscriptionTypes}
                 createCheckoutSession={createCheckoutSession}
             />
-            <Results results={results} />
+            { /* <Results results={results}/> */ }
             <Contact setAlert={setAlert} />
         </Container>
     )

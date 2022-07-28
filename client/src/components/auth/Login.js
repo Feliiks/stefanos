@@ -37,7 +37,7 @@ const Login = () => {
     useEffect(() => {
         function start() {
             gapi.client.init({
-                clientId: "714637265219-g5leq30s9fjgbkqrhadth8p64csc2k0k.apps.googleusercontent.com",
+                clientId: "660309426656-8jpv86cpnvcvefsq0ijdm3g8a81v2b4f.apps.googleusercontent.com",
                 scope: 'email',
             });
         }

@@ -2,7 +2,9 @@ import React from 'react'
 import { MDBFooter } from "mdbreact";
 import { Container } from 'react-bootstrap'
 import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
 import ImgLogo from '../../assets/Stefanos_logo_full_white_yellow-1.png'
+import { BsSnapchat } from 'react-icons/bs'
 
 
 
@@ -39,11 +41,15 @@ const Footer = () => {
 
                             <div className='col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 d-flex flex-column align-items-center align-items-lg-end'>
                                 <h6 className='text-uppercase fw-bold mb-2'>Nos réseaux</h6>
-                                <a href="https://twitter.com/StefanosBetting" target="_blank" rel="noreferrer">
-                                    <TwitterIcon />
-                                </a>
-                                <TwitterIcon />
-                                <TwitterIcon />
+                                <div className="d-flex">
+                                    <a href="https://twitter.com/StefanosBetting" target="_blank" rel="noreferrer">
+                                        <TwitterIcon />
+                                    </a>
+                                    <a href="https://www.instagram.com/stefanosaces/" target="_blank" rel="noreferrer" className="ms-2 me-2">
+                                        <InstagramIcon />
+                                    </a>
+                                    <BsSnapchat size={20} />
+                                </div>
                             </div>
                         </div>
                     </div>

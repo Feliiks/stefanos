@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.5337e7aa.css",
-    "main.js": "/static/js/main.9b76d4ba.js",
+    "main.js": "/static/js/main.1b5ab6c6.js",
     "static/js/787.c4e7f8f9.chunk.js": "/static/js/787.c4e7f8f9.chunk.js",
     "static/media/website-bg.jpg": "/static/media/website-bg.b67d2777e4911c03b98d.jpg",
     "static/media/Stefanos_logo_full_white_yellow-1.png": "/static/media/Stefanos_logo_full_white_yellow-1.72dcc036c578d73b87ae.png",
     "index.html": "/index.html",
     "main.5337e7aa.css.map": "/static/css/main.5337e7aa.css.map",
-    "main.9b76d4ba.js.map": "/static/js/main.9b76d4ba.js.map",
+    "main.1b5ab6c6.js.map": "/static/js/main.1b5ab6c6.js.map",
     "787.c4e7f8f9.chunk.js.map": "/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5337e7aa.css",
-    "static/js/main.9b76d4ba.js"
+    "static/js/main.1b5ab6c6.js"
   ]
 }

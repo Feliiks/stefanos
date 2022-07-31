@@ -8,7 +8,7 @@ const NavBar = ({ user }) => {
     return (
         <Nav
             className="mx-auto"
-            style={{ maxHeight: '100px', fontWeight: "700", color: "#fff" }}
+            style={{ maxHeight: '125px', fontWeight: "700", color: "#fff" }}
             navbarScroll
         >
             <Nav.Link as={HashLink} to="/#about">

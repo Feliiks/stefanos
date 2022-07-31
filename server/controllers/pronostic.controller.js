@@ -17,17 +17,18 @@ pronosticController.getAll = async (req, res) => {
             let obj = {}
 
             let obj_name = await notion.pages.properties.retrieve({ page_id: pronostic.id, property_id: pronostic.properties.title.id})
-            if (obj_name.results[0].title.text.content !== "undefined") {
+            if (obj_name.results[0] && obj_name.results[0].title.text.content !== "undefined") {
                 obj.title = obj_name.results[0].title.text.content
             }
 
             let obj_content = await notion.pages.properties.retrieve({ page_id: pronostic.id, property_id: pronostic.properties.content.id})
-            if (obj_content.results[0].rich_text.text.content !== "undefined") {
+            if (obj_content.results[0] && obj_content.results[0].rich_text.text.content !== "undefined") {
                 obj.content = obj_content.results[0].rich_text.text.content
             }
 
             let obj_image = await notion.pages.properties.retrieve({ page_id: pronostic.id, property_id: pronostic.properties.image.id})
-            if (obj_image.files[0].file !== "undefined") {
+            console.log(obj_image)
+            if (obj_image.files[0] && obj_image.files[0].file !== "undefined") {
                 obj.image = obj_image.files[0].file
             }
 
@@ -70,7 +71,7 @@ pronosticController.getGC = async (req, res) => {
             }
 
             let obj_image = await notion.pages.properties.retrieve({ page_id: pronostic.id, property_id: pronostic.properties.image.id})
-            if (obj_image.files[0].file !== "undefined") {
+            if (obj_image.files[0].file && obj_image.files[0].file !== "undefined") {
                 obj.image = obj_image.files[0].file
             }
 

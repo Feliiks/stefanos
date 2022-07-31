@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container } from 'react-bootstrap'
 import { Navigate, useParams } from 'react-router-dom'
-import Logo from "../../assets/logo.svg"
+import Logo from "../../assets/Stefanos_logo_full_white_yellow-1.png"
 import api from '../../utils/api'
 
 const Payment = () => {
@@ -24,7 +24,8 @@ const Payment = () => {
                 <Col lg={5}
                      className="panel mx-auto d-flex align-items-center flex-column p-3"
                 >
-                    <img src={Logo} height={100} alt="logo" />
+                    <img src={Logo} height={40} alt="logo" />
+                    <br />
                     <h3 className="text-center fw-bold"> Merci pour ton achat ! </h3>
                     <p className="text-center">
                         Nous allons t'envoyer un mail avec toutes les informations relatives à ta commande.
@@ -39,7 +40,8 @@ const Payment = () => {
         return (
             <Container style={{ paddingTop: "150px", paddingBottom: "100px"}}>
                 <Col lg={5} className="panel mx-auto d-flex align-items-center flex-column p-3">
-                    <img src={Logo} height={100} alt="logo" />
+                    <img src={Logo} height={50} alt="logo" />
+                    <br />
                     <h3 className="text-center fw-bold"> Ton achat n'a pas abouti ! </h3>
                     <p className="text-center"> La transaction n'a pas pu être complétée. <br /> Essaye de nouveau ou contacte l'administrateur. </p>
                 </Col>

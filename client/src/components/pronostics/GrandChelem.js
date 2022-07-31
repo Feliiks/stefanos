@@ -59,9 +59,11 @@ const GrandChelem = () => {
                                 }
                             </Col>
                             <Col lg={6} className="d-flex justify-content-lg-end align-items-center pb-3">
-                                <Button variant="contained" startIcon={<TelegramIcon />}>
-                                    Suivre
-                                </Button>
+                                <a href="https://t.me/+WyoF9Q4ybo9jOGI0" target="_blank" rel="noreferrer">
+                                    <Button variant="contained" startIcon={<TelegramIcon />}>
+                                        Suivre
+                                    </Button>
+                                </a>
                             </Col>
                         </Row>
                     </Container>

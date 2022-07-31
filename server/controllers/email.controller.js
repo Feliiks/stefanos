@@ -9,8 +9,8 @@ emailController.sendContactEmail = async (req, res) => {
     try {
         await sendMail(
             req.body.email,
-            "sobrero.ludovic@gmail.com",
-            req.body.subject,
+            "stefanosprosite@gmail.com",
+            "Stefanos contact - " + req.body.subject,
             req.body.message
         )
 

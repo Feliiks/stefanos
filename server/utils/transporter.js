@@ -11,7 +11,7 @@ const sendMail = async (from, to, subject, message) => {
             service: "gmail",
             auth: {
                 type: "OAuth2",
-                user: "sobrero.ludovic@gmail.com",
+                user: "stefanosprosite@gmail.com",
                 clientId: process.env.MAIL_CLIENT_ID,
                 clientSecret: process.env.MAIL_CLIENT_SECRET,
                 refreshToken: process.env.MAIL_REFRESH_TOKEN,
@@ -29,6 +29,7 @@ const sendMail = async (from, to, subject, message) => {
             html: `
                 <p> 
                     ${message} 
+                    <br />
                     <br />
                     Utilisateur : ${from}
                 </p>

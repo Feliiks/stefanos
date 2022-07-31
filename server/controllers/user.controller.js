@@ -146,6 +146,8 @@ userController.loginWithGoogle = async (req, res) => {
             googleId: req.body.googleId
         })
 
+        if (!user) throw new Error()
+
         let user_subscriptions = await UserSubscription.find({
             user: user
         }).populate("subscription")
@@ -164,7 +166,6 @@ userController.loginWithGoogle = async (req, res) => {
         res.status(200)
         res.send({ success: true, result, token })
     } catch (err) {
-        console.log(err.message)
         res.status(400)
         res.send({ success: false, message: err.message })
     }

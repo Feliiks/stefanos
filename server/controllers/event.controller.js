@@ -34,9 +34,9 @@ eventController.new = async (req, res) => {
             mode: "payment",
             event: event,
             advantages: [
-                "Avantage 1",
-                "Avantage 2",
-                "Avantage 3"
+                "5 pronostics par jours",
+                "Analyses détaillées",
+                "Gestion de Bankroll"
             ]
         })
 

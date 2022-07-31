@@ -14,6 +14,8 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 
 import { Telegram } from '@mui/icons-material'
 import moment from 'moment'
+import { Button } from '@mui/material'
+import TelegramIcon from '@mui/icons-material/Telegram'
 
 const Pronostic = ({ title, image, content, created_at }) => {
 
@@ -45,14 +47,16 @@ const Pronostic = ({ title, image, content, created_at }) => {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <a href="https://twitter.com/StefanosBetting" target="_blank" rel="noreferrer">
+                    <a href="https://twitter.com/StefanosAces" target="_blank" rel="noreferrer">
                         <IconButton aria-label="add to favorites">
                             <TwitterIcon />
                         </IconButton>
                     </a>
 
                     <IconButton aria-label="share">
-                        <Telegram />
+                        <a href="https://t.me/+WyoF9Q4ybo9jOGI0" target="_blank" rel="noreferrer">
+                            <Telegram />
+                        </a>
                     </IconButton>
                 </CardActions>
             </Card>

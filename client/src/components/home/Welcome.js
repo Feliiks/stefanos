@@ -10,7 +10,7 @@ const Welcome = () => {
                     STEFANOS
                 </h1>
                 <h2>
-                    SITE DE PRONOSTICS POUR LE PARIS SPORTIF
+                    SITE DE PRONOSTICS POUR LES PARIS SPORTIFS
                 </h2>
             </Col>
         </Row>

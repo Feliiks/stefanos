@@ -9,13 +9,11 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import TwitterIcon from '@mui/icons-material/Twitter';
 
 import { Telegram } from '@mui/icons-material'
 import moment from 'moment'
-import { Button } from '@mui/material'
-import TelegramIcon from '@mui/icons-material/Telegram'
+import twitterAvatar from "../../assets/B_q1uKVM_400x400.jpg"
 
 const Pronostic = ({ title, image, content, created_at }) => {
 
@@ -26,9 +24,7 @@ const Pronostic = ({ title, image, content, created_at }) => {
             <Card className="mx-auto" sx={{ maxWidth: 500 }}>
                 <CardHeader
                     avatar={
-                        <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            S
-                        </Avatar>
+                        <Avatar sx={{ border: "1px solid black" }} aria-label="recipe" src={twitterAvatar} />
                     }
                     title={title}
                     subheader={created_at_format.format('DD/MM/YYYY') + " à " + created_at_format.format('HH:mm')}

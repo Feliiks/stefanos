@@ -11,11 +11,6 @@ const UserSubscription = mongoose.model("UserSubscription", new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subscription"
     },
-    created_at: {
-        type: Date,
-        default: new Date(),
-        expires: "30d"
-    },
     stripeSubId: {
         type: String,
         default: null
@@ -24,7 +19,15 @@ const UserSubscription = mongoose.model("UserSubscription", new Schema({
         type: String,
         default: null
     }
+},
+{
+        timestamps: {
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
+        }
 }), "usersubscriptions")
+
+UserSubscription.schema.index({ created_at: 1 }, { expireAfterSeconds: 2592000 })
 
 
 module.exports = UserSubscription

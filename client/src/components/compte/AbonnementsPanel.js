@@ -1,12 +1,12 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import AbonnementDetail from './AbonnementDetail'
-import api from '../../utils/api'
+import SubscriptionService from '../../services/subscription.service'
 
 const AbonnementsPanel = ({ subscriptions, setAlert }) => {
     const deleteSub = async (id) => {
         try {
-            let res = await api.delete(`/subscriptions/${id}`)
+            let res = await SubscriptionService.delete(id)
 
             setAlert({
                 severity: "success",

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Form, Row } from 'react-bootstrap'
 import { Button } from '@mui/material'
-import api from '../../utils/api'
 import validator from 'validator'
 
-const Contact = ({ setAlert }) => {
+const Contact = ({ setAlert, sendMessage }) => {
     const [email, setEmail] = useState("")
     const [subject, setSubject] = useState("")
     const [message, setMessage] = useState("")
@@ -36,31 +35,19 @@ const Contact = ({ setAlert }) => {
         }
     }, [setErrors, submitted, email, subject, message])
 
-    const sendMessage = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setSubmitted(true)
 
         try {
             if (!validator.isEmail(email) || validator.isEmpty(subject) || validator.isEmpty(message)) throw new Error()
 
-            let res = await api.post("/emails/contact", {
-                email: email,
-                subject: subject,
-                message: message
-            })
+            await sendMessage(email, subject, message)
 
             resetForm()
             setSubmitted(false)
-            setAlert({
-                severity: "success",
-                message: res.data.message
-            })
         } catch (err) {
             setSubmitted(false)
-            setAlert({
-                severity: "error",
-                message: "Une erreur est survenue."
-            })
         }
     }
 
@@ -124,7 +111,7 @@ const Contact = ({ setAlert }) => {
                                 </Form.Group>
 
                                 <div className="d-flex justify-content-center">
-                                    <Button variant="contained" type="submit" onClick={(e) => sendMessage(e)}>
+                                    <Button variant="contained" type="submit" onClick={(e) => handleSubmit(e)}>
                                         Envoyer
                                     </Button>
                                 </div>

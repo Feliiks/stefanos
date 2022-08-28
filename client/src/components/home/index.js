@@ -4,12 +4,14 @@ import { Container } from 'react-bootstrap'
 import Welcome from './Welcome'
 import About from './About'
 import Subscriptions from './Subscriptions'
-import Results from './Results'
 import Contact from './Contact'
-import api from '../../utils/api'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Alert } from '@mui/material'
+import SubscriptionService from '../../services/subscription.service'
+import ResultService from '../../services/result.service'
+import PaymentService from '../../services/payment.service'
+import EmailService from '../../services/email.service'
 
 const Home = () => {
     const user = useSelector((state) => state.user.value)
@@ -33,7 +35,7 @@ const Home = () => {
     })
 
     useEffect(() => {
-        api.get("/results/all").then(res => {
+        ResultService.getAll().then(res => {
             setResults(res.data.results)
         }).catch(err => {
             console.log(err.message)
@@ -41,7 +43,7 @@ const Home = () => {
     }, [])
 
     useEffect(() => {
-        api.get("/subscriptions/types").then(res => {
+        SubscriptionService.getTypes().then(res => {
             setSubscriptionTypes(res.data.subscriptionTypes)
         }).catch(err => {
             console.log(err.message)
@@ -53,12 +55,12 @@ const Home = () => {
             if (!user) {
                 navigate("/auth")
             } else if (user && !user.user_subscriptions.some(el => el.subscription._id === subscription._id) > 0) {
-                let session = await api.post("/payments/checkout-session", {
-                    price_id: subscription.stripePriceId,
-                    subscription_id: subscription._id,
-                    mode: subscription.mode,
-                    username: user.user.username
-                })
+                const session = await PaymentService.createCheckoutSession(
+                    subscription.stripePriceId,
+                    subscription._id,
+                    subscription.mode,
+                    user.user.username
+                )
 
                 return window.location.href = session.data.url
             } else {
@@ -66,6 +68,22 @@ const Home = () => {
             }
         } catch (err) {
             console.log(err.message)
+        }
+    }
+
+    const sendMessage = async (email, subject, message) => {
+        try {
+            let res = await EmailService.create(email, subject, message)
+
+            setAlert({
+                severity: "success",
+                message: res.data.message
+            })
+        } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
         }
     }
 
@@ -81,7 +99,7 @@ const Home = () => {
                 createCheckoutSession={createCheckoutSession}
             />
             { /* <Results results={results}/> */ }
-            <Contact setAlert={setAlert} />
+            <Contact setAlert={setAlert} sendMessage={sendMessage} />
         </Container>
     )
 }

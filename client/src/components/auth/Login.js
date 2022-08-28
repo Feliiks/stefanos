@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 import { Button } from "@mui/material"
-import api from "../../utils/api"
 import { Link } from "react-router-dom"
 
 import { useDispatch } from 'react-redux'
-import { login } from '../../reducers/user.reducer'
 
 import validator from 'validator'
 
 import { gapi } from 'gapi-script';
 import { GoogleLogin } from 'react-google-login';
+import AuthService from '../../services/auth.service'
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -52,15 +51,7 @@ const Login = () => {
         try {
             if (!validator.isEmail(email) || !validator.isStrongPassword(password)) throw new Error()
 
-            let res = await api.post("/users/login", {
-                username: email,
-                password: password
-            })
-
-            dispatch(login({
-                user: res.data.result,
-                token: res.data.token
-            }))
+            await AuthService.signIn(dispatch, email, password)
 
         } catch (err) {
             setErrors({
@@ -72,14 +63,7 @@ const Login = () => {
 
     const loginWithGoogle = async (googleId) => {
         try {
-            let res = await api.post("/users/login/google", {
-                googleId: googleId
-            })
-
-            dispatch(login({
-                user: res.data.result,
-                token: res.data.token
-            }))
+            await AuthService.signInWithGoogle(dispatch, googleId)
 
         } catch (err) {
             setErrors({

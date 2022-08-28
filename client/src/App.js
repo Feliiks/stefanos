@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import api from './utils/api'
+import api from './lib/api'
 
 import * as PrivateRoutes from "./private/PrivateRoutes"
 

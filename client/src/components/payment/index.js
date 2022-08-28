@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container } from 'react-bootstrap'
 import { Navigate, useParams } from 'react-router-dom'
 import Logo from "../../assets/Stefanos_logo_full_white_yellow-1.png"
-import api from '../../utils/api'
+import PaymentService from '../../services/payment.service'
 
 const Payment = () => {
     let { status, session_id } = useParams()
     let [ session, setSession ] = useState({})
 
     useEffect(() => {
-        api.get(`/payments/checkout-session/${session_id}`)
+        PaymentService.getCheckoutSession(session_id)
             .then(res => {
                 setSession(res.data.session)
                 window.location.reload(false);

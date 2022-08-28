@@ -8,10 +8,9 @@ import Logo from './Logo'
 import NavBar from './NavBar'
 import UserBtn from './UserBtn'
 import { useDispatch, useSelector } from 'react-redux'
-import api from '../../utils/api'
-import { logout } from '../../reducers/user.reducer'
 
 import MenuIcon from '@mui/icons-material/Menu';
+import AuthService from '../../services/auth.service'
 
 const Header = () => {
     let user = useSelector(state => state.user.value)
@@ -19,16 +18,7 @@ const Header = () => {
     const dispatch = useDispatch()
 
     const logoutUser = async () => {
-        try {
-            await api.post("/users/logout", {
-                user_id: user.user._id
-            })
-
-            dispatch(logout())
-        } catch (err) {
-
-        }
-
+        await AuthService.logout(dispatch, user.user._id)
     }
 
     return (

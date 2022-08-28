@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Pronostic from './Pronostic'
-import api from '../../utils/api'
 import {useNavigate} from 'react-router-dom';
 import ReactLoading from 'react-loading'
 import { Button } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import moment from 'moment'
+import EventService from '../../services/event.service'
+import PronosticService from '../../services/pronostic.service'
 
 const GrandChelem = () => {
     const [event, setEvent] = useState(null)
@@ -15,14 +16,14 @@ const GrandChelem = () => {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        api.get("/events")
-        .then(res => {
-            setEvent(res.data.events_list[0])
+        EventService.getAll()
+            .then(res => {
+                setEvent(res.data.events_list[0])
 
-            if (new Date(res.data.events_list[0].starts) >= new Date(Date.now())) {
-                return navigate('/')
-            }
-        })
+                if (new Date(res.data.events_list[0].starts) >= new Date(Date.now())) {
+                    return navigate('/')
+                }
+            })
         .catch(err => {
             setEvent(null)
         })
@@ -30,12 +31,13 @@ const GrandChelem = () => {
 
     useEffect( () => {
         setLoading(true)
-        api.get("/pronostics/gc").then(res => {
-            setPronostics(res.data.finalResults)
-            setLoading(false)
-        }).catch(err => {
-            setLoading(false)
-        })
+        PronosticService.getGrandChelem()
+            .then(res => {
+                setPronostics(res.data.finalResults)
+                setLoading(false)
+            }).catch(err => {
+                setLoading(false)
+            })
     }, [])
 
     return (
@@ -79,7 +81,7 @@ const GrandChelem = () => {
                                     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                     .map(el => (
                                         <Pronostic
-                                            key={el.title}
+                                            key={el.created_at}
                                             title={el.title}
                                             image={el.image}
                                             content={el.content}

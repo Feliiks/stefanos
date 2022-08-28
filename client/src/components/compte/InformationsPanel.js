@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 import validator from 'validator'
-import api from '../../utils/api'
 import { Button } from '@mui/material'
+import UserService from '../../services/user.service'
 
 const InformationsPanel = ({ user, setAlert }) => {
     const [email, setEmail] = useState("")
@@ -31,56 +31,59 @@ const InformationsPanel = ({ user, setAlert }) => {
         }
     }, [setErrors, submitted, email, newPassword, repeatNewPassword])
 
-    const update = async (e) => {
+    const updateEmail = async (e) => {
         e.preventDefault()
         setSubmitted(true)
 
         try {
-            if (user.user.googleId) throw new Error(
+            if (user.user.googleId) throw new Error()
 
-            )
-            if (selectedOption === "1") {
-                if (!validator.isEmail(email)) throw new Error()
+            if (!validator.isEmail(email)) throw new Error()
 
-                let res = await api.put(`/users/username/${user.user._id}`, {
-                    new_username: email
-                })
+            let res = await UserService.updateEmail(user.user._id, email)
 
-                resetForm()
-                setAlert({
-                    severity: "success",
-                    message: res.data.message
-                })
-            } else {
-                if (!validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
-
-                let res = await api.put(`/users/password/${user.user._id}`, {
-                    new_password: newPassword
-                })
-
-                resetForm()
-                setAlert({
-                    severity: "success",
-                    message: res.data.message
-                })
-            }
+            resetForm()
+            setAlert({
+                severity: "success",
+                message: res.data.message
+            })
         } catch (err) {
             setAlert({
                 severity: "error",
                 message: "Une erreur est survenue."
             })
+            setErrors({
+                ...errors,
+                existing: true
+            })
+        }
+    }
 
-            if (selectedOption === "1") {
-                setErrors({
-                    ...errors,
-                    existing: true
-                })
-            } else {
-                setErrors({
-                    ...errors,
-                    badPassword: true
-                })
-            }
+    const updatePassword = async (e) => {
+        e.preventDefault()
+        setSubmitted(true)
+
+        try {
+            if (user.user.googleId) throw new Error()
+
+            if (!validator.isStrongPassword(newPassword) || newPassword !== repeatNewPassword) throw new Error()
+
+            let res = await UserService.updatePassword(user.user._id, newPassword)
+
+            resetForm()
+            setAlert({
+                severity: "success",
+                message: res.data.message
+            })
+        } catch (err) {
+            setAlert({
+                severity: "error",
+                message: "Une erreur est survenue."
+            })
+            setErrors({
+                ...errors,
+                badPassword: true
+            })
         }
     }
 
@@ -136,7 +139,7 @@ const InformationsPanel = ({ user, setAlert }) => {
                                         </Form.Group>
                                         <div className="d-flex justify-content-center">
                                             <Button variant="outlined" onClick={resetForm}>Annuler</Button>
-                                            <Button variant="contained" onClick={update}>Modifier</Button>
+                                            <Button variant="contained" onClick={updateEmail}>Modifier</Button>
 
                                         </div>
                                     </Form>
@@ -172,7 +175,7 @@ const InformationsPanel = ({ user, setAlert }) => {
                                         </Form.Group>
                                         <div className="d-flex justify-content-center">
                                             <Button variant="outlined" onClick={resetForm}>Annuler</Button>
-                                            <Button variant="contained" onClick={update}>Modifier</Button>
+                                            <Button variant="contained" onClick={updatePassword}>Modifier</Button>
                                         </div>
                                     </Form>
                             }

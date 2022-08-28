@@ -4,8 +4,9 @@ import { Button } from "@mui/material"
 
 import UserManagement from './UserManagement'
 import validator from 'validator'
-import api from '../../utils/api'
 import AbonnementDetail from '../compte/AbonnementDetail'
+import SubscriptionService from '../../services/subscription.service'
+import UserService from '../../services/user.service'
 
 const ManageSubPanel = ({ setAlert }) => {
     const [email, setEmail] = useState("")
@@ -22,7 +23,7 @@ const ManageSubPanel = ({ setAlert }) => {
     const [subscriptionTypes, setSubscriptionTypes] = useState([])
 
     useEffect(() => {
-        api.get("/subscriptions/types").then(res => {
+        SubscriptionService.getTypes().then(res => {
             setSubscriptionTypes(res.data.subscriptionTypes)
         }).catch(err => {
             console.log(err.message)
@@ -37,8 +38,8 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (validator.isEmpty(email)) throw new Error()
 
-            let user = await api.get(`/users/${email}`)
-            let userSubscriptions = await api.get(`/subscriptions/${user.data.user._id}`)
+            let user = await UserService.getByEmail(email)
+            let userSubscriptions = await UserService.getSubscriptions(user.data.user._id)
 
             setTargetUser(user.data.user)
             setUserSubscriptions(userSubscriptions.data.user_subscriptions)
@@ -61,11 +62,7 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (selectedUserSubscription === "default") throw new Error()
 
-            let res = await api.post("/subscriptions", {
-                username: targetUser.username,
-                subscription_id: selectedUserSubscription._id,
-                stripe_subscription_id: selectedSubscriptionId
-            })
+            let res = await SubscriptionService.create(targetUser.username, selectedUserSubscription._id, selectedSubscriptionId)
 
             setSelectedSubscriptionId("")
             await getUser()
@@ -84,7 +81,7 @@ const ManageSubPanel = ({ setAlert }) => {
 
     const deleteSub = async (id) => {
         try {
-            let res = await api.delete(`/subscriptions/${id}`)
+            let res = await SubscriptionService.delete(id)
 
             await getUser()
             setAlert({
@@ -103,7 +100,7 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (validator.isEmpty(email)) throw new Error()
 
-            let res = await api.delete(`/users/${targetUser._id}`)
+            let res = await UserService.delete(targetUser._id)
 
             setTargetUser({})
             setAlert({
@@ -123,7 +120,7 @@ const ManageSubPanel = ({ setAlert }) => {
         try {
             if (validator.isEmpty(email)) throw new Error()
 
-            let res = await api.put(`/users/admin/${targetUser._id}`)
+            let res = await UserService.updateAdminStatus(targetUser._id)
 
             await getUser()
             setAlert({

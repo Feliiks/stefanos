@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import validator from 'validator'
-import jwt from "jwt-decode"
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Col, Container, Form, Row } from 'react-bootstrap'
 import { Alert, Button } from '@mui/material'
-import api from '../../../utils/api'
+import UserService from '../../../services/user.service'
 
 const Update = () => {
     const navigate = useNavigate();
@@ -53,13 +52,7 @@ const Update = () => {
 
             if (!storedToken || token !== storedToken) throw new Error()
 
-            let payload = await jwt(token)
-
-            await api.put(`/users/password/${payload._id}`, {
-                new_password: password
-            })
-
-            localStorage.removeItem("passwordToken")
+            await UserService.sendNewPassword(token, password)
 
             return navigate("/auth")
 

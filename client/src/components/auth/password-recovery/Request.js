@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Container, Form, Row } from 'react-bootstrap'
 import { Alert, Button } from '@mui/material'
 import validator from 'validator'
-import api from '../../../utils/api'
+import UserService from '../../../services/user.service'
 
 const Request = () => {
     const [email, setEmail] = useState("")
@@ -44,11 +44,7 @@ const Request = () => {
         try {
             if (!validator.isEmail(email)) throw new Error()
 
-            let res = await api.post("/users/recovery/password", {
-                email: email
-            })
-
-            localStorage.setItem("passwordToken", res.data.token)
+            let res = await UserService.passwordRecovery(email)
 
             setAlert({
                 severity: "success",

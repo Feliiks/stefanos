@@ -23,12 +23,12 @@ const NavBar = ({ user }) => {
                     style={{ color: "#fff" }}
                 >Abonnements</Button>
             </Nav.Link>
-            <Nav.Link as={HashLink} to="/#results">
+            { /* <Nav.Link as={HashLink} to="/#results">
                 <Button
                     variant="text"
                     style={{ color: "#fff" }}
                 >Résultats</Button>
-            </Nav.Link>
+            </Nav.Link> */ }
             <Nav.Link as={HashLink} to="/#contact">
                 <Button
                     variant="text"

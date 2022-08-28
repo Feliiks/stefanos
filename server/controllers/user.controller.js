@@ -230,7 +230,7 @@ userController.passwordRecovery = async (req, res) => {
         let token = await getToken({ _id: user._id })
 
         await sendMail(
-            "sobrero.ludovic@gmail.com",
+            "stefanosprosite@gmail.com",
             user.username,
             "Stefanos - Récupération de votre mot de passe",
             `Afin de récupérer votre mot de passe, merci de cliquer <a href='http://localhost:3000/auth/password-recovery/update/${token}'>ici</a>`

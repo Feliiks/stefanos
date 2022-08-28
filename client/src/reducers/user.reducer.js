@@ -7,11 +7,9 @@ const userSlice = createSlice({
     initialState: {},
     reducers: {
         login: (state, action) => {
-            localStorage.setItem("sessionToken", action.payload.token)
             state.value = action.payload.user
         },
         logout: (state) => {
-            localStorage.removeItem("sessionToken")
             state.value = initialState
         }
     },

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Col, Form, Modal, Row } from 'react-bootstrap'
 import { Button } from "@mui/material"
 import validator from 'validator'
-import api from '../../utils/api'
+import EventService from '../../services/event.service'
 
 const GrandChelemPanel = ({ setAlert }) => {
     const [existingEvent, setExistingEvent] = useState(null)
@@ -18,12 +18,11 @@ const GrandChelemPanel = ({ setAlert }) => {
     const [show, setShow] = useState(false)
 
     useEffect(() => {
-        api.get("/events")
-            .then(res => {
-                setExistingEvent(res.data.events_list[0])
-            })
-            .catch(err => {
-                setExistingEvent(null)
+        EventService.getAll().then(res => {
+            setExistingEvent(res.data.events_list[0])
+        })
+        .catch(err => {
+            setExistingEvent(null)
         })
     }, [])
 
@@ -55,12 +54,7 @@ const GrandChelemPanel = ({ setAlert }) => {
         try {
             if (start > end || validator.isEmpty(priceId) || validator.isEmpty(start) || validator.isEmpty(end) || tournament === "default") throw new Error()
 
-            let res = await api.post("/events", {
-                tournament: tournament,
-                starts: start,
-                ends: end,
-                stripe_price_id: priceId
-            })
+            let res = await EventService.create(tournament, start, end, priceId)
 
             resetForm()
             setExistingEvent(res.data.event)
@@ -80,7 +74,7 @@ const GrandChelemPanel = ({ setAlert }) => {
     const closeGrandChelem = async (e) => {
         e.preventDefault()
         try {
-            let res = await api.delete(`/events/${existingEvent._id}`)
+            let res = await EventService.delete(existingEvent._id)
 
             setExistingEvent(null)
 

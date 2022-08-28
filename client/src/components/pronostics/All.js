@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import Pronostic from "./Pronostic"
-import api from '../../utils/api'
 import ReactLoading from 'react-loading';
 import { Button } from '@mui/material'
 import TelegramIcon from '@mui/icons-material/Telegram';
+import PronosticService from '../../services/pronostic.service'
 
 
 const All = () => {
@@ -13,12 +13,13 @@ const All = () => {
 
     useEffect( () => {
         setLoading(true)
-        api.get("/pronostics/all").then(res => {
-            setPronostics(res.data.finalResults)
-            setLoading(false)
-        }).catch(err => {
-            setLoading(false)
-        })
+        PronosticService.getAll()
+            .then(res => {
+                setPronostics(res.data.finalResults)
+                setLoading(false)
+            }).catch(err => {
+                setLoading(false)
+            })
     }, [])
 
     return (
@@ -62,7 +63,7 @@ const All = () => {
                                             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                                             .map(el => (
                                                 <Pronostic
-                                                    key={el.title}
+                                                    key={el.created_at}
                                                     title={el.title}
                                                     image={el.image}
                                                     content={el.content}

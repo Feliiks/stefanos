@@ -3,10 +3,9 @@ import { Col, Form, Row } from 'react-bootstrap'
 import { Button } from "@mui/material"
 import validator from "validator"
 
-import api from '../../utils/api'
-import { login } from '../../reducers/user.reducer'
 import { useDispatch } from 'react-redux'
 import { GoogleLogin } from 'react-google-login'
+import AuthService from '../../services/auth.service'
 
 const Register = () => {
     const [email, setEmail] = useState("")
@@ -39,17 +38,7 @@ const Register = () => {
         try {
             if (!validator.isEmail(email) || !validator.isStrongPassword(password) || password !== repeatPassword) throw new Error()
 
-            let res = await api.post("/users", {
-                username: email,
-                password: password
-            })
-
-            if (res.status !== 201) throw new Error()
-
-            dispatch(login({
-                user: res.data.result,
-                token: res.data.token
-            }))
+            await AuthService.signUp(dispatch, email, password)
 
         } catch (err) {
             setErrors({
@@ -60,20 +49,8 @@ const Register = () => {
     }
 
     const signUpWithGoogle = async (googleProfile) => {
-        console.log(googleProfile)
         try {
-            let res = await api.post("/users/google", {
-                username: googleProfile.email,
-                googleId: googleProfile.googleId
-            })
-
-            if (res.status !== 201) throw new Error()
-
-            dispatch(login({
-                user: res.data.result,
-                token: res.data.token
-            }))
-
+            await AuthService.signUpWithGoogle(dispatch, googleProfile)
         } catch (err) {
             setErrors({
                 ...errors,

@@ -23,6 +23,7 @@ import NotFound from './components/others/NotFound'
 
 import { useDispatch } from 'react-redux'
 import { login } from './reducers/user.reducer'
+import AuthService from './services/auth.service'
 
 
 const App = () => {
@@ -31,16 +32,9 @@ const App = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        api.post("/users/getsession", {
-            token: sessionToken
-        }).then(res => {
-            dispatch(login({
-                user: res.data.result,
-                token: sessionToken
-            }))
-        }).catch(err => {
-            console.log(err.message)
-        })
+        AuthService.getSession(dispatch, sessionToken)
+            .then(() => console.log("Connecté !"))
+            .catch((err) => console.log("Erreur lors de la connexion."))
     }, [dispatch, sessionToken])
 
     return (

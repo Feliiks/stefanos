@@ -4,6 +4,14 @@ import { login, logout } from '../reducers/user.reducer'
 
 const AuthService = () => {};
 
+AuthService.getSession = async (dispatch, sessionToken) => {
+    let res = await api.post("/users/getsession", { token: sessionToken })
+
+    dispatch(login({
+        user: res.data.result
+    }))
+}
+
 AuthService.signIn = async (dispatch, email, password) => {
     let res = await api.post("/users/login", {
         username: email,

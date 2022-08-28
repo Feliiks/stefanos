@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import api from './lib/api'
 
 import * as PrivateRoutes from "./private/PrivateRoutes"
 
@@ -22,7 +21,6 @@ import Payment from './components/payment'
 import NotFound from './components/others/NotFound'
 
 import { useDispatch } from 'react-redux'
-import { login } from './reducers/user.reducer'
 import AuthService from './services/auth.service'
 
 
